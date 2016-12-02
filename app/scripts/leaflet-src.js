@@ -4,7 +4,7 @@
 */
 (function (window, document, undefined) {
 var L = {
-	version: "1.0.2"
+	version: '1.0.2'
 };
 
 function expose() {
