@@ -12,62 +12,56 @@ $icon-font-path: '../fonts/';
 }
 
 /* Space out content a bit */
-body {
+html, body {
+  height: 100%;
   padding: 0px;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.super-conteiner{
+  padding: 0;
+  min-height: 100%;
+  height:auto !important; /* cross-browser */
+  height: 100%; /* cross-browser */
+  position: relative;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
+.fill-height {
+  padding: 0;
+  min-height: 100%;
+  height:auto !important; /* cross-browser */
+  height: 100%; /* cross-browser */
+  position: absolute;
+  z-index: 0;
+}
 
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
+.navbar {
+  z-index: 1;
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  z-index: 10;
 }
 
 /* Custom page footer */
 .footer {
-  padding-top: 19px;
+  z-index: 1;
+  position: absolute;
   color: #777;
-  border-top: 1px solid #e5e5e5;
+  bottom: 0px;
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
-}
-
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
-}
-
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-  p + h4 {
-    margin-top: 28px;
-  }
+p {
+    font-size: small;
+    margin: 3px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+  p {
+      font-size: smaller;
+      margin: 3px;
+  }
+
   .container {
     max-width: 730px;
   }
