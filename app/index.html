@@ -16,6 +16,8 @@
 
     <!-- build:css styles/main.css -->
     <link rel="stylesheet" href="styles/simple-sidebar.css">
+    <link rel="stylesheet" href="styles/leaflet.css">
+    <link rel="stylesheet" href="styles/map.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
@@ -51,7 +53,7 @@
         <div class="container">
           <div class="header">
             <ul class="nav nav-pills pull-right">
-              <li class="active"><a href="#">Home</a></li>
+              <li class="active"><a href="#menu-toggle" id="menu-toggle">Home</a></li>
               <li><a href="#">About</a></li>
               <li><a href="#">Contact</a></li>
             </ul>
@@ -59,9 +61,7 @@
           </div>
 
           <div class="jumbotron">
-            <h1>'Allo, 'Allo!</h1>
-            <p class="lead">Always a pleasure scaffolding your apps.</p>
-            <p><a class="btn btn-lg btn-success" href="#menu-toggle" id="menu-toggle">Splendid!</a></p>
+            <div id='map'></div>
           </div>
 
           <div class="row marketing">
@@ -117,6 +117,8 @@
     <!-- endbuild -->
 
     <!-- build:js scripts/main.js -->
+    <script src="scripts/us-states.js"></script>
+    <script src="scripts/leaflet-src.js"></script>
     <script src="scripts/main.js"></script>
     <!-- endbuild -->
   </body>
