@@ -10,7 +10,8 @@ $(document).ready(function(){
 // init map
 function init_map () {
   map = L.map('map',{
-    zoomControl: false
+    zoomControl: false,
+    attributionControl: false,
   }).setView([6.2691, -75.5956], 12);
 }
 
