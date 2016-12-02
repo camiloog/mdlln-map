@@ -13,8 +13,8 @@ Set development environment
 
 2. Clone the repository and change directory to it
 ```{r, engine='bash', count_lines}
-  git clone git@gitlab.com:camiloog/mdlln-map-prj.git
-  cd mdlln-map-prj
+  git clone https://github.com/camiloog/mdlln-map.git
+  cd mdlln-map
 ```
 
 3. Install dependencies
@@ -22,7 +22,8 @@ Set development environment
   npm install
   bower Install
 ```
-4. Inject front end dependencies
+4. Build the project and run
 ```{r, engine='bash', count_lines}
-  gulp wiredep
+  gulp
+  gulp serve
 ```
