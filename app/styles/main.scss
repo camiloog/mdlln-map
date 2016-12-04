@@ -27,7 +27,7 @@ flex its inner content*/
   min-height: 100%;
   height:auto !important; /* cross-browser */
   height: 100%; /* cross-browser */
-  border: 5px solid red;
+  // border: 5px solid red;
 }
 
 /* navigation bar */
@@ -35,7 +35,7 @@ flex its inner content*/
   margin-bottom: 0;
   border-radius: 0;
   flex: 0 1 auto;
-  border: 5px solid blue;
+  // border: 5px solid blue;
 }
 
 /* Define a container and set it
@@ -44,7 +44,7 @@ to position its content relative to */
   flex: 1 1 auto; // flex its height to fill
   display: flex;  // allow flex its inner content
   position: relative;
-  border: 5px solid green;
+  // border: 5px solid green;
 }
 
 /* map styles */
@@ -52,7 +52,7 @@ to position its content relative to */
 	width: 100%;
   flex: 1 1 auto; // fill the remaining height
   z-index: 0;
-  border: 5px solid yellow;
+  // border: 5px solid yellow;
 }
 
 /* Small footer */
