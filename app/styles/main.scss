@@ -11,40 +11,51 @@ $icon-font-path: '../fonts/';
   padding: 0.2em 0;
 }
 
-/* Space out content a bit */
 html, body {
   height: 100%;
   padding: 0px;
 }
 
-.super-conteiner{
-  position: relative;
-}
-
-.fill-height {
-  padding: 0;
+/* Define a container that fill its height
+and width to match the browser space and
+flex its inner content*/
+#super-conteiner{
+  display: flex;
+  flex-flow: column;
+  padding: 0px;
+  margin: 0px;
   min-height: 100%;
   height:auto !important; /* cross-browser */
   height: 100%; /* cross-browser */
+  border: 5px solid red;
 }
 
+/* navigation bar */
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  z-index: 1;
+  flex: 0 1 auto;
+  border: 5px solid blue;
+}
+
+/* Define a container and set it
+to position its content relative to */
+.flex-conteiner {
+  flex: 1 1 auto; // flex its height to fill
+  display: flex;  // allow flex its inner content
+  position: relative;
+  border: 5px solid green;
 }
 
 /* map styles */
 #map {
 	width: 100%;
-  position: absolute;
+  flex: 1 1 auto; // fill the remaining height
   z-index: 0;
+  border: 5px solid yellow;
 }
 
-/* Custom page footer */
+/* Small footer */
 .footer {
   z-index: 1;
   position: absolute;
