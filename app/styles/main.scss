@@ -83,14 +83,20 @@ to position its content relative to */
   margin-bottom: 8px;
 }
 
+/**
+ * Map styles
+ */
 
-/* map styles */
-#map {
+ #map {
 	width: 100%;
   flex: 1 1 auto; // fill the remaining height
   z-index: 0;
   // border: 5px solid yellow;
 }
+
+/**
+ * RESPONSIVE SETUP
+ */
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
