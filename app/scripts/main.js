@@ -14,7 +14,7 @@ var i_res = {
   FAUNA_DOM:{color:'#f0ad4e'},
   SOCIOCULT:{color:'#d9534f'},
   REC_FLORA:{color:'#b658b2'},
-  NONE:{color:'#ffffff'}
+  NONE:{color:'#f8f8f8'}
 };
 var res = i_res.NONE;
 

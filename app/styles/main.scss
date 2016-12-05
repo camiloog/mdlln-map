@@ -9,8 +9,11 @@ $icon-font-path: '../fonts/';
  */
 
 // base colors
-$bg-color : #eee;
-$nb-bg-color : #ddd;
+$bg-color : #353535; // background
+$nb-bg-color : #f8f8f8; // navbar backgroudn
+$nb-br-color : #e7e7e7; // navbar border
+$nb-tx-color : $bg-color; // navbar text
+$bt-bg-color : $bg-color; // button baground
 
 .browserupgrade {
   margin: 0.2em 0;
@@ -64,12 +67,20 @@ to position its content relative to */
  * NAVIGATION BAR
  */
 
+ .navbar-default {
+     background-color: $nb-bg-color;
+     border-color: $nb-br-color;
+ }
+
 .navbar {
-  background: $nb-bg-color;
   margin-bottom: 0;
   border-radius: 0;
   flex: 0 1 auto;
   // border: 5px solid blue;
+}
+
+.navbar a {
+    color: $nb-tx-color !important;
 }
 
 // space the buttons when collapse
@@ -91,7 +102,7 @@ to position its content relative to */
 /**
  * Color Scheme
  */
-$scolor: $bg-color; //$navbar-bg-color; // support color
+$scolor: $bt-bg-color; //$navbar-bg-color; // support color
 
 // ! match this colors with the ones in the
 // var i_res from main js
