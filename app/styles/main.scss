@@ -15,6 +15,15 @@ $nb-br-color : #e7e7e7; // navbar border
 $nb-tx-color : $bg-color; // navbar text
 $bt-bg-color : $bg-color; // button baground
 
+// ! match this colors with the ones in the
+// var i_res from main js
+$dblue : lighten(#337ab7,5%);
+$lgreen : #5cb85c;
+$lblue : #5bc0de;
+$lyellow : #f0ad4e;
+$lred : lighten(#d9534f,5%);
+$dpurple : lighten(#b658b2,5%);
+
 .browserupgrade {
   margin: 0.2em 0;
   color: #000;
@@ -100,19 +109,9 @@ to position its content relative to */
 }
 
 /**
- * Color Scheme
+ * Button colors
  */
 $scolor: $bt-bg-color; //$navbar-bg-color; // support color
-
-// ! match this colors with the ones in the
-// var i_res from main js
-$dblue : lighten(#337ab7,5%);
-$lgreen : #5cb85c;
-$lblue : #5bc0de;
-$lyellow : #f0ad4e;
-$lred : lighten(#d9534f,5%);
-$dpurple : lighten(#b658b2,5%);
-
 
 $colorn : dblue, lgreen, lblue, lyellow, lred, dpurple;
 $colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;

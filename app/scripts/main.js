@@ -51,8 +51,9 @@ function style (feature){
   return {
     fillColor: getColor(feature.properties[res]),
     fillOpacity: 1,
-    weight: 2,
-    color: '#373a3c',
+    weight: 1.5,
+    dashArray: '3',
+    color: '#222',
     opacity: 1
   };
 }
@@ -74,8 +75,9 @@ function onEachFeature (feature, layer) {
 function highlightFeature (e) {
   var layer = e.target;
   layer.setStyle({
-    weight: 2,
-    color: '#ff0000',
+    weight: 2.5,
+    dashArray: null,
+    color: '#000',
     opacity: 1
   });
   if ( !L.Browser.ie
