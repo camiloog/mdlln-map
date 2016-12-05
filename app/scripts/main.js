@@ -5,6 +5,8 @@
 
 var map, gsn_comcorr;
 var i_res = {
+// ! match this colors with the ones in the
+// color sheme from main css
   REC_AGUA :{color:'#337ab7'},
   REC_SUELO:{color:'#5cb85c'},
   REC_AIRE:{color:'#5bc0de'},
