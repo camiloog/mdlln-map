@@ -4,45 +4,62 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+/**
+ * BASIC LAYOUT
+ */
+
+// base colors
+$bg-color : #353535; // background
+$nb-bg-color : #f8f8f8; // navbar backgroudn
+$nb-br-color : #e7e7e7; // navbar border
+$nb-tx-color : $bg-color; // navbar text
+$bt-bg-color : $bg-color; // button baground
+
+// ! match this colors with the ones in the
+// var i_res from main js
+$dblue : lighten(#337ab7,5%);
+$lgreen : #5cb85c;
+$lblue : #5bc0de;
+$lyellow : #f0ad4e;
+$lred : lighten(#d9534f,5%);
+$dpurple : lighten(#b658b2,5%);
+
 .browserupgrade {
   margin: 0.2em 0;
-  background: #ccc;
   color: #000;
   padding: 0.2em 0;
 }
 
-/* Space out content a bit */
 html, body {
   height: 100%;
   padding: 0px;
 }
 
-.super-conteiner{
-  position: relative;
-}
-
-.fill-height {
-  padding: 0;
+/* Define a container that fill its height
+and width to match the browser space and
+flex its inner content*/
+#super-conteiner{
+  background: $bg-color;
+  display: flex;
+  flex-flow: column;
+  padding: 0px;
+  margin: 0px;
   min-height: 100%;
   height:auto !important; /* cross-browser */
   height: 100%; /* cross-browser */
+  // border: 5px solid red;
 }
 
-.navbar {
-  width: 100%;
-  position: absolute;
-  top: 0px;
-  z-index: 1;
+/* Define a container and set it
+to position its content relative to */
+.flex-conteiner {
+  flex: 1 1 auto; // flex its height to fill
+  display: flex;  // allow flex its inner content
+  position: relative;
+  // border: 5px solid green;
 }
 
-/* map styles */
-#map {
-	width: 100%;
-  position: absolute;
-  z-index: 0;
-}
-
-/* Custom page footer */
+/* Small footer */
 .footer {
   z-index: 1;
   position: absolute;
@@ -50,37 +67,102 @@ html, body {
   bottom: 0px;
 }
 
-p {
+.footer p {
     font-size: small;
     margin: 3px;
 }
 
+/**
+ * NAVIGATION BAR
+ */
+
+ .navbar-default {
+     background-color: $nb-bg-color;
+     border-color: $nb-br-color;
+ }
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  flex: 0 1 auto;
+  // border: 5px solid blue;
+}
+
+.navbar a {
+    color: $nb-tx-color !important;
+}
+
+// space the buttons when collapse
+.in .navbar-form,
+.collapsing .navbar-form
+{
+  border-top: none;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.in .navbar-form .btn,
+.collapsing .navbar-form .btn
+{
+  margin-bottom: 8px;
+}
+
+/**
+ * Button colors
+ */
+$scolor: $bt-bg-color; //$navbar-bg-color; // support color
+
+$colorn : dblue, lgreen, lblue, lyellow, lred, dpurple;
+$colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
+
+@for $i from 1 through length($colorn) {
+  .btn-#{nth($colorn,$i)} {
+    // button-variant(letters, background, border)
+    @include button-variant($scolor,
+                            nth($colorv,$i),
+                            darken(nth($colorv,$i), 10%));
+    &.btn-inverse {
+      @include button-variant(nth($colorv,$i),
+                              $scolor,
+                              nth($colorv,$i));
+      &:hover,
+      &:focus,
+      &.focus {
+        @include button-variant($scolor,
+                                lighten(nth($colorv,$i), 10%),
+                                nth($colorv,$i));
+      }
+    }
+  }
+}
+
+button:focus {
+    outline: none !important;
+}
+
+/**
+ * Map styles
+ */
+
+ #map {
+	width: 100%;
+  flex: 1 1 auto; // fill the remaining height
+  z-index: 0;
+  background-color: inherit;
+  // border: 5px solid yellow;
+}
+
+
+
+/**
+ * RESPONSIVE SETUP
+ */
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  p {
+  .footer p {
       font-size: smaller;
       margin: 3px;
-  }
-
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
   }
 }

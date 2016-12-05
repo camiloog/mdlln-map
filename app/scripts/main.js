@@ -1,129 +1,109 @@
-// map scripts
-var map, gsn, res;
+/**
+ * Main scripts for the interactive map
+ * application.
+ */
+
+var map, gsn_comcorr;
+var zoomed = false;
+var i_res = {
+// ! match this colors with the ones in the
+// color sheme from main css
+  REC_AGUA :{color:'#3b87c8'},
+  REC_SUELO:{color:'#5cb85c'},
+  REC_AIRE:{color:'#5bc0de'},
+  FAUNA_DOM:{color:'#f0ad4e'},
+  SOCIOCULT:{color:'#de6764'},
+  REC_FLORA:{color:'#be6aba'},
+  NONE:{color:'#f8f8f8'}
+};
+var res = i_res.NONE;
 
 // init
 $(document).ready(function(){
   init_map();
-  init_gsn();
+  draw_gsn_comcorr();
 });
 
 // init map
 function init_map () {
   map = L.map('map',{
+    // scrollWheelZoom: false,
+    // touchZoom: false,
     zoomControl: false,
     attributionControl: false,
-  }).setView([6.2691, -75.5956], 12);
+    // crs: L.CRS.EPSG4326
+    crs: L.CRS.Simple
+  })
 }
 
-// init geoJson
-function init_gsn () {
-  gsn = L.geoJson(comcorr,{
-    style: init_style
+// Draw comcorr
+function draw_gsn_comcorr () {
+  if (map.hasLayer(gsn_comcorr))
+    map.removeLayer(gsn_comcorr);
+  gsn_comcorr = L.geoJson(comcorr,{
+    style: style,
+    onEachFeature: onEachFeature
   }).addTo(map);
-}
-
-// function to style shp
-function init_style (feature) {
-  return {
-    fillColor: '#ffffff',
-    fillOpacity: 1,
-    weight: 2,
-    color: '#373a3c',
-    opacity: 1
-  };
-}
-
-// // function for each feature
-// function onEachFeature (feature, layer) {
-//   if (feature.REC_AGUA == 1) {
-//     layer.setStyle({fillColor: '#0275D8'});
-//   }
-// }
-
-// update geojson graph according to resource
-function update_gsn () {
-  map.removeLayer(gsn); // remove actual map
-  gsn = L.geoJson(comcorr,{
-    style: style
-  }).addTo(map);
+  map.fitBounds(gsn_comcorr.getBounds());
 }
 
 function style (feature){
-  console.log(res);
   return {
     fillColor: getColor(feature.properties[res]),
     fillOpacity: 1,
-    weight: 2,
-    color: '#373a3c',
+    weight: 1.5,
+    dashArray: '3',
+    color: '#222',
     opacity: 1
   };
 }
 
 // get color according to properties
 function getColor (p) {
-  return p > 0 ? '#0275D8':
-                 '#ffffff';
+  return p > 0 ? i_res[res].color:
+                 i_res.NONE.color;
+}
+
+function onEachFeature (feature, layer) {
+  layer.on({
+    mouseover: highlightFeature,
+    mouseout: resetHighlight,
+    click: zoomToFeature
+  });
+}
+
+function highlightFeature (e) {
+  var layer = e.target;
+  layer.setStyle({
+    weight: 2.5,
+    dashArray: null,
+    color: '#000',
+    opacity: 1
+  });
+  if ( !L.Browser.ie
+    && !L.Browser.opera
+    && !L.Browser.edge) {
+    layer.bringToFront();
+  }
+}
+
+function resetHighlight (e) {
+  gsn_comcorr.resetStyle(e.target);
+}
+
+function zoomToFeature(e) {
+  if (zoomed == true) {
+    map.fitBounds(gsn_comcorr.getBounds());
+  }
+  else {
+    map.fitBounds(e.target.getBounds());
+  }
+  zoomed = !zoomed;
 }
 
 // handle click on res menu
-$('a.res').click(function(){
+$('button.res').click(function(){
     res = $(this).attr('id');
-    update_gsn();
+    // update_gsn_comcorr();
+    draw_gsn_comcorr();
 });
-
-// L.geoJson(comcorr,{
-//   style: {
-//     fillColor: '0275D8',
-//     fillOpacity: 1
-//     weight: 2,
-//     opacity: 1,
-//     color: '#373a3c',
-//   }
-// }).addTo(map);
-
-// function style(feature) {
-//     return {
-//         fillColor: getColor(feature.properties.REC_AGUA),
-//         weight: 2,
-//         opacity: 1,
-//         color: '#373a3c',
-//         fillOpacity: 0.7
-//     };
-// }
-// L.geoJson(comcorr, {style: style}).addTo(map);
-
-// var res = 'FAUNA_DOM';
-// function style(feature) {
-//     return {
-//         console.log(res);
-//         fillColor: getColor(feature.properties[res]),
-//         weight: 2,
-//         opacity: 1,
-//         color: '#373a3c',
-//         fillOpacity: 1
-//     };
-// }
-// L.geoJson(comcorr, {style: style}).addTo(map);
-
-
-// function getColor(d) {
-//     return d > 1000 ? '#800026' :
-//            d > 500  ? '#BD0026' :
-//            d > 200  ? '#E31A1C' :
-//            d > 100  ? '#FC4E2A' :
-//            d > 50   ? '#FD8D3C' :
-//            d > 20   ? '#FEB24C' :
-//            d > 10   ? '#FED976' :
-//                       '#FFEDA0';
-// }
-// function style(feature) {
-//     return {
-//         fillColor: getColor(feature.properties.density),
-//         weight: 2,
-//         opacity: 1,
-//         color: 'white',
-//         dashArray: '3',
-//         fillOpacity: 0.7
-//     };
-// }
-// L.geoJson(statesData, {style: style}).addTo(map);
