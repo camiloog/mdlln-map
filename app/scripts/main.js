@@ -8,12 +8,12 @@ var zoomed = false;
 var i_res = {
 // ! match this colors with the ones in the
 // color sheme from main css
-  REC_AGUA :{color:'#337ab7'},
+  REC_AGUA :{color:'#3b87c8'},
   REC_SUELO:{color:'#5cb85c'},
   REC_AIRE:{color:'#5bc0de'},
   FAUNA_DOM:{color:'#f0ad4e'},
-  SOCIOCULT:{color:'#d9534f'},
-  REC_FLORA:{color:'#b658b2'},
+  SOCIOCULT:{color:'#de6764'},
+  REC_FLORA:{color:'#be6aba'},
   NONE:{color:'#f8f8f8'}
 };
 var res = i_res.NONE;

@@ -106,12 +106,12 @@ $scolor: $bt-bg-color; //$navbar-bg-color; // support color
 
 // ! match this colors with the ones in the
 // var i_res from main js
-$dblue : #337ab7;
+$dblue : lighten(#337ab7,5%);
 $lgreen : #5cb85c;
 $lblue : #5bc0de;
 $lyellow : #f0ad4e;
-$lred : #d9534f;
-$dpurple : #b658b2;
+$lred : lighten(#d9534f,5%);
+$dpurple : lighten(#b658b2,5%);
 
 
 $colorn : dblue, lgreen, lblue, lyellow, lred, dpurple;
