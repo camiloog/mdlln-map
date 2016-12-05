@@ -91,7 +91,7 @@ function zoomToFeature(e) {
 }
 
 // handle click on res menu
-$('a.res').click(function(){
+$('button.res').click(function(){
     res = $(this).attr('id');
     // update_gsn_comcorr();
     draw_gsn_comcorr();

@@ -4,6 +4,10 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
+/**
+ * BASIC LAYOUT
+ */
+
 .browserupgrade {
   margin: 0.2em 0;
   background: #ccc;
@@ -30,14 +34,6 @@ flex its inner content*/
   // border: 5px solid red;
 }
 
-/* navigation bar */
-.navbar {
-  margin-bottom: 0;
-  border-radius: 0;
-  flex: 0 1 auto;
-  // border: 5px solid blue;
-}
-
 /* Define a container and set it
 to position its content relative to */
 .flex-conteiner {
@@ -45,14 +41,6 @@ to position its content relative to */
   display: flex;  // allow flex its inner content
   position: relative;
   // border: 5px solid green;
-}
-
-/* map styles */
-#map {
-	width: 100%;
-  flex: 1 1 auto; // fill the remaining height
-  z-index: 0;
-  // border: 5px solid yellow;
 }
 
 /* Small footer */
@@ -63,37 +51,51 @@ to position its content relative to */
   bottom: 0px;
 }
 
-p {
+.footer p {
     font-size: small;
     margin: 3px;
 }
 
+/**
+ * NAVIGATION BAR
+ */
+
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+  flex: 0 1 auto;
+  // border: 5px solid blue;
+}
+
+// space the buttons when collapse
+.in .navbar-form,
+.collapsing .navbar-form
+{
+  border-top: none;
+  margin-top: 8px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+.in .navbar-form .btn,
+.collapsing .navbar-form .btn
+{
+  margin-bottom: 8px;
+}
+
+
+/* map styles */
+#map {
+	width: 100%;
+  flex: 1 1 auto; // fill the remaining height
+  z-index: 0;
+  // border: 5px solid yellow;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  p {
+  .footer p {
       font-size: smaller;
       margin: 3px;
-  }
-
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
   }
 }
