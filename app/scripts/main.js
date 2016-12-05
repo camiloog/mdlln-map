@@ -4,6 +4,7 @@
  */
 
 var map, gsn_comcorr;
+var zoomed = false;
 var i_res = {
 // ! match this colors with the ones in the
 // color sheme from main css
@@ -89,7 +90,13 @@ function resetHighlight (e) {
 }
 
 function zoomToFeature(e) {
+  if (zoomed == true) {
+    map.fitBounds(gsn_comcorr.getBounds());
+  }
+  else {
     map.fitBounds(e.target.getBounds());
+  }
+  zoomed = !zoomed;
 }
 
 // handle click on res menu
