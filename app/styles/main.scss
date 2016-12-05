@@ -8,9 +8,12 @@ $icon-font-path: '../fonts/';
  * BASIC LAYOUT
  */
 
+// base colors
+$bg-color : #eee;
+$nb-bg-color : #ddd;
+
 .browserupgrade {
   margin: 0.2em 0;
-  background: #fff;
   color: #000;
   padding: 0.2em 0;
 }
@@ -24,6 +27,7 @@ html, body {
 and width to match the browser space and
 flex its inner content*/
 #super-conteiner{
+  background: $bg-color;
   display: flex;
   flex-flow: column;
   padding: 0px;
@@ -59,10 +63,9 @@ to position its content relative to */
 /**
  * NAVIGATION BAR
  */
- $navbar-bg-color : #eee;
 
 .navbar {
-  background: $navbar-bg-color;
+  background: $nb-bg-color;
   margin-bottom: 0;
   border-radius: 0;
   flex: 0 1 auto;
@@ -88,7 +91,7 @@ to position its content relative to */
 /**
  * Color Scheme
  */
-$scolor: #fff; //$navbar-bg-color; // support color
+$scolor: $bg-color; //$navbar-bg-color; // support color
 
 // ! match this colors with the ones in the
 // var i_res from main js
