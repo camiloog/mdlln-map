@@ -64,11 +64,11 @@ var mapApp = function () {
   /* getResProIf: Function to get a propertie from the current
    * resource if a feature belongs to it. The propertie from
    * the default resource (NONE) in other case.
-   * belong    - boolean, belongs to the current resource?
+   * condition - boolean, condition to evaluate
    * propertie - the propertie to return
    */
-  function getResProIf (belong, propertie) {
-    if (belong) {
+  function getResProIf (condition, propertie) {
+    if (condition) {
       return c_res[propertie]();
     } else {
       return resources.NONE[propertie];
@@ -93,16 +93,13 @@ var mapApp = function () {
     this.dStyle = dStyle;
     this.onEach = onEach;
     this.fit = fit;
-    // this.gsn = L.geoJson(this.data,{
-    //   style: dStyle(),
-    //   onEachFeature: onEach()
-    // });
+    this.lZoomed = false; // A layer is zoomed
     this.draw = function () {
       if (map.hasLayer(this.gsn))
         map.removeLayer(this.gsn);
       this.gsn = L.geoJson(this.data,{
-        style: this.dStyle(),
-        onEachFeature: this.onEach()
+        style: this.dStyle,
+        onEachFeature: this.onEach
       }).addTo(map);
       if (this.fit) {
         map.fitBounds(this.gsn.getBounds());
@@ -111,25 +108,55 @@ var mapApp = function () {
   }
 
   // Main geoJson layer
-  var gsnComCorr = new gsn(
-    comcorr,
-    function (feature) {
-      return {
-        // fillColor: getResProIf(
-        //   feature.properties[c_res.label],
-        //   'color'
-        // ),
-        fillColor: c_res.color(),
-        fillOpacity: 1,
-        weight: 1.5,
-        dashArray: '3',
-        color: '#222',
-        opacity: 1
-      };
-    },
-    function(feature, layer){},
-    true
-  );
+  var gsnComCorr = new gsn(comcorr, undefined, undefined, true);
+
+  // Default style of main geoJson layer
+  gsnComCorr.dStyle = function (feature) {
+    return {
+      fillColor: getResProIf(
+        feature.properties[c_res.label] == 1,
+        'color'
+      ),
+      // fillColor: c_res.color(),
+      fillOpacity: 1,
+      weight: 1.5,
+      dashArray: '3',
+      color: '#222',
+      opacity: 1
+    };
+  }
+
+  // Add event listeners for each layer of main geoJson layer
+  gsnComCorr.onEach = function (feature, layer) {
+    layer.on({
+      mouseover: function (e) {
+        var layer = e.target;
+        layer.setStyle({
+          weight: 2.5,
+          dashArray: null,
+          color: '#000',
+          opacity: 1
+        });
+        if ( !L.Browser.ie
+          && !L.Browser.opera
+          && !L.Browser.edge) {
+          layer.bringToFront();
+        }
+      },
+      mouseout: function (e) {
+        gsnComCorr.gsn.resetStyle(e.target);
+      },
+      click: function (e) {
+        if (gsnComCorr.lZoomed == true) {
+          map.fitBounds(gsnComCorr.gsn.getBounds());
+        }
+        else {
+          map.fitBounds(e.target.getBounds());
+        }
+        gsnComCorr.lZoomed = !gsnComCorr.lZoomed;
+      }
+    });
+  }
 
   /*
     +-----------------------------------+
@@ -137,116 +164,31 @@ var mapApp = function () {
     +-----------------------------------+
   */
   return {
-    c_res,
-    gsnComCorr
+    c_res,      // current resource
+    gsnComCorr  // main geoJson handler
   };
 
 }(); // End mapApp
 
-
-//
-// var map, gsn_comcorr;
-// var zoomed = false;
-// var i_res = {
-// // ! match this colors with the ones in the
-// // color sheme from main css
-//   REC_AGUA :{color:'#3b87c8'},
-//   REC_SUELO:{color:'#5cb85c'},
-//   REC_AIRE:{color:'#5bc0de'},
-//   FAUNA_DOM:{color:'#f0ad4e'},
-//   SOCIOCULT:{color:'#de6764'},
-//   REC_FLORA:{color:'#be6aba'},
-//   NONE:{color:'#f8f8f8'}
-// };
-// var res = i_res.NONE;
-//
-// // init
-// $(document).ready(function(){
-//   // init_map();
-//   // draw_gsn_comcorr();
-// });
-//
-// // init map
-// function init_map () {
-//   map = L.map('map',{
-//     // scrollWheelZoom: false,
-//     // touchZoom: false,
-//     zoomControl: false,
-//     attributionControl: false,
-//     // crs: L.CRS.EPSG4326
-//     crs: L.CRS.Simple
-//   })
-// }
-//
-// // Draw comcorr
-// function draw_gsn_comcorr () {
-//   if (map.hasLayer(gsn_comcorr))
-//     map.removeLayer(gsn_comcorr);
-//   gsn_comcorr = L.geoJson(comcorr,{
-//     style: style,
-//     onEachFeature: onEachFeature
-//   }).addTo(map);
-//   map.fitBounds(gsn_comcorr.getBounds());
-// }
-//
-// function style (feature){
-//   return {
-//     fillColor: getColor(feature.properties[res]),
-//     fillOpacity: 1,
-//     weight: 1.5,
-//     dashArray: '3',
-//     color: '#222',
-//     opacity: 1
-//   };
-// }
-//
-// // get color according to properties
-// function getColor (p) {
-//   return p > 0 ? i_res[res].color:
-//                  i_res.NONE.color;
-// }
-//
-// function onEachFeature (feature, layer) {
-//   layer.on({
-//     mouseover: highlightFeature,
-//     mouseout: resetHighlight,
-//     click: zoomToFeature
-//   });
-// }
-//
-// function highlightFeature (e) {
-//   var layer = e.target;
-//   layer.setStyle({
-//     weight: 2.5,
-//     dashArray: null,
-//     color: '#000',
-//     opacity: 1
-//   });
-//   if ( !L.Browser.ie
-//     && !L.Browser.opera
-//     && !L.Browser.edge) {
-//     layer.bringToFront();
-//   }
-// }
-//
-// function resetHighlight (e) {
-//   gsn_comcorr.resetStyle(e.target);
-// }
-//
-// function zoomToFeature(e) {
-//   if (zoomed == true) {
-//     map.fitBounds(gsn_comcorr.getBounds());
-//   }
-//   else {
-//     map.fitBounds(e.target.getBounds());
-//   }
-//   zoomed = !zoomed;
-// }
-
-mapApp.gsnComCorr.draw();
+/*
+  +------------------------------------+
+  | Object to handle buttons behabiors |
+  | namespace.                         |
+  +------------------------------------+
+*/
 
 // handle click on res menu
 $('button.res').click(function(){
     mapApp.c_res.label = $(this).attr('id');
     mapApp.gsnComCorr.draw();
+});
+
+
+/*
+  +------------------------------------+
+  | Start and execute application      |
+  +------------------------------------+
+*/
+$(document).ready(function(){
+  mapApp.gsnComCorr.draw();
 });
