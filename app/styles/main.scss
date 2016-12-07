@@ -4,9 +4,11 @@ $icon-font-path: '../fonts/';
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-/**
- * BASIC LAYOUT
- */
+/*
+  +------------------------------------+
+  | Basic layout and color scheme      |
+  +------------------------------------+
+*/
 
 // base colors
 $bg-color : #353535; // background
@@ -15,8 +17,7 @@ $nb-br-color : #e7e7e7; // navbar border
 $nb-tx-color : $bg-color; // navbar text
 $bt-bg-color : $bg-color; // button baground
 
-// ! match this colors with the ones in the
-// var i_res from main js
+// Color palet ! match this colors with the ones on main js
 $dblue : lighten(#337ab7,5%);
 $lgreen : #5cb85c;
 $lblue : #5bc0de;
@@ -35,57 +36,27 @@ html, body {
   padding: 0px;
 }
 
-/* Define a container that fill its height
-and width to match the browser space and
-flex its inner content*/
-#super-conteiner{
+body {
   background: $bg-color;
-  display: flex;
-  flex-flow: column;
-  padding: 0px;
-  margin: 0px;
-  min-height: 100%;
-  height:auto !important; /* cross-browser */
-  height: 100%; /* cross-browser */
-  // border: 5px solid red;
+  color: $nb-bg-color;
 }
 
-/* Define a container and set it
-to position its content relative to */
-.flex-conteiner {
-  flex: 1 1 auto; // flex its height to fill
-  display: flex;  // allow flex its inner content
-  position: relative;
-  // border: 5px solid green;
+/*
+  +------------------------------+
+  | Basic HTML objects styles    |
+  +------------------------------+
+*/
+
+/* NAVBAR */
+
+.navbar-default {
+   background-color: $nb-bg-color;
+   border-color: $nb-br-color;
 }
-
-/* Small footer */
-.footer {
-  z-index: 1;
-  position: absolute;
-  color: #777;
-  bottom: 0px;
-}
-
-.footer p {
-    font-size: small;
-    margin: 3px;
-}
-
-/**
- * NAVIGATION BAR
- */
-
- .navbar-default {
-     background-color: $nb-bg-color;
-     border-color: $nb-br-color;
- }
 
 .navbar {
   margin-bottom: 0;
   border-radius: 0;
-  flex: 0 1 auto;
-  // border: 5px solid blue;
 }
 
 .navbar a {
@@ -102,17 +73,131 @@ to position its content relative to */
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
 .in .navbar-form .btn,
 .collapsing .navbar-form .btn
 {
   margin-bottom: 8px;
 }
 
-/**
- * Button colors
- */
-$scolor: $bt-bg-color; //$navbar-bg-color; // support color
+/* MAP STYLES */
 
+#map {
+  width: 100%;
+  height: 100%;
+  background-color: inherit;
+}
+
+/* FOOTER */
+
+.footer {
+  color: #777;
+  bottom: 0px;
+}
+
+.footer p {
+    font-size: small;
+    margin: 3px;
+}
+
+
+/*
+  +------------------------------+
+  | Responsive layout and styles |
+  +------------------------------+
+*/
+
+.mred{
+  border: 3px solid red;
+}
+.mblue{
+  border: 3px solid blue;
+}
+.mpurple{
+  border: 3px solid purple;
+}
+
+.flex-conteiner-col {
+  height: 100%;
+  padding: 0px;
+  display: flex;
+  flex-flow: column;
+}
+
+.flex-item-grow {
+  width: 100%;
+  margin: 0px !important;
+  flex: 1 1 auto;
+}
+
+.side-bar {
+  background-color: blue
+}
+
+.map-conteiner {
+  height: 100%; // for flex
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+  padding: 0px !important;
+  height: 100%;
+}
+
+[class*="col-"] {
+  height: 100%;
+}
+
+// force fill height
+.fill-height {
+  // min-height: 100%;
+  // height:auto !important; /* cross-browser */
+  // height: 100%; /* cross-browser */
+}
+
+// set view on small viewport
+@media (max-width: 767px) {
+
+  body {
+    height: auto;
+  }
+
+  #map {
+    height: 300px;
+  }
+
+  .flex-conteiner-col {
+    height: auto;
+    // padding: 0px;
+    // display: flex;
+    // flex-flow: column;
+  }
+
+  .flex-item-grow {
+    width: atuo;
+    // margin: 0px !important;
+    flex: none;
+  }
+
+  .map-conteiner {
+    height: auto;
+  }
+
+  .row {
+    padding: none;
+    height: auto;
+  }
+
+}
+
+/*
+  +------------------------------+
+  | BUTTON STYLES                |
+  +------------------------------+
+*/
+
+$scolor: $bt-bg-color; // support color
 $colorn : dblue, lgreen, lblue, lyellow, lred, dpurple;
 $colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
 
@@ -139,28 +224,4 @@ $colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
 
 button:focus {
     outline: none !important;
-}
-
-/**
- * Map styles
- */
-
- #map {
-	width: 100%;
-  flex: 1 1 auto; // fill the remaining height
-  z-index: 0;
-  background-color: inherit;
-  // border: 5px solid yellow;
-}
-
-/**
- * RESPONSIVE SETUP
- */
-
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .footer p {
-      font-size: smaller;
-      margin: 3px;
-  }
 }
