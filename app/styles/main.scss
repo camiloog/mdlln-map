@@ -268,7 +268,9 @@ $colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
                               nth($colorv,$i));
       &:hover,
       &:focus,
-      &.focus {
+      &.active,
+      &.focus
+      {
         @include button-variant($scolor,
                                 lighten(nth($colorv,$i), 10%),
                                 nth($colorv,$i));
@@ -277,7 +279,8 @@ $colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
   }
 }
 
-button:focus {
+// Remove blue border on press
+label {
     outline: none !important;
 }
 

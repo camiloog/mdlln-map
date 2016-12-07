@@ -107,6 +107,10 @@ var mapApp = function () {
         map.fitBounds(this.gsn.getBounds());
       }
     };
+    this.update = function () {
+      // function to update the layers based on c_res without
+      // removing and adding new gsn.
+    };
   }
 
   // Main geoJson layer
@@ -224,11 +228,13 @@ var mapApp = function () {
   +------------------------------------+
 */
 
-// handle click on res menu
-$('button.res').click(function(){
-    mapApp.c_res.label = $(this).attr('id');
-    mapApp.gsnComCorr.draw();
-});
+// // handle click on res menu
+// $('button.res').click(function(){
+//   console.log($(this));
+//   // $(this).addClass('active').siblings().removeClass('active'); // why doesnt work?
+//   mapApp.c_res.label = $(this).attr('id');
+//   mapApp.gsnComCorr.draw();
+// });
 
 
 /*
@@ -238,4 +244,22 @@ $('button.res').click(function(){
 */
 $(document).ready(function(){
   mapApp.gsnComCorr.draw();
+
+  $('#rec_selector label').click(function(){
+      console.log('pressed');
+      mapApp.c_res.label = $(this).attr('id');
+      mapApp.gsnComCorr.draw();
+  });
+
+  // // handle click on res menu
+  // $('#rec_selector input').click(function(){
+  //   console.log(this);
+  //   mapApp.c_res.label = $(this).attr('id');
+  //   mapApp.gsnComCorr.draw();
+  // });
+
+  // $('#rec_selector label').click(function(){
+  //     console.log('Agua pressed');
+  // });
+
 });
