@@ -142,18 +142,18 @@ var mapApp = function () {
           && !L.Browser.edge) {
           layer.bringToFront();
         }
-        info.update(layer.feature.properties);
       },
       mouseout: function (e) {
         gsnComCorr.gsn.resetStyle(e.target);
-        info.update();
       },
       click: function (e) {
         if (gsnComCorr.lZoomed == true) {
           map.fitBounds(gsnComCorr.gsn.getBounds());
+          info.update();
         }
         else {
           map.fitBounds(e.target.getBounds());
+          info.update(layer.feature.properties);
         }
         gsnComCorr.lZoomed = !gsnComCorr.lZoomed;
       }
@@ -166,39 +166,23 @@ var mapApp = function () {
     +------------------------------------+
   */
 
-    var MyControl = L.Control.extend({
-      options: {
-          position: 'topright'
-      },
-      onAdd: function (map) {
-          // create the control container with a particular class name
-          var container = L.DomUtil.create('div', 'my-custom-control');
-
-          // ... initialize other DOM elements, add listeners, etc.
-
-          return container;
-      }
-    });
-
-  map.addControl(new MyControl());
-
-  // var info = L.control();
-  //
-  // info.onAdd = function (map) {
-  //     this._div = L.DomUtil.create('div', 'info'); // create a div with a class "info"
-  //     this.update();
-  //     return this._div;
-  // };
-
-  // info.addTo(map);
-  //
-  // // method that we will use to update the control based on feature properties passed
-  // info.update = function (propeties) {
-  //     // this._div.innerHTML = (properties ?
-  //     //   '<h4>Identifica:' + propeties.IDENTIFICA + '</h4><br/>' +
-  //     //   '<h4>Nombre:'+ propeties.NOMBRE + '</h4><br/>';
-  //     //   : 'Hover a place');
-  // };
+  var info = L.control(); // default topright
+  info.update = function (properties) {
+    if (properties == undefined) {
+      this._div.innerHTML = '';
+      this._div.style.visibility = "hidden";
+    } else {
+      this._div.innerHTML = '<h4>' + properties.NOMBRE + '</h4>' +
+                            '<h5>'+ properties.IDENTIFICA + '</h5>';
+      this._div.style.visibility = "visible";
+    }
+  };
+  info.onAdd = function (map) {
+      this._div = L.DomUtil.create('div', 'info-conteiner'); // create a div with a class "info"
+      this.update();
+      return this._div;
+  };
+  info.addTo(map);
 
   /*
     +-----------------------------------+

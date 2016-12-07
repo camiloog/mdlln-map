@@ -125,10 +125,26 @@ header h3 {
   z-index: 0;
 }
 
-.my-custom-control {
-  width: 100px;
-  height: 100px;
-  background-color: red;
+// $nb-bg-color : #f8f8f8; // navbar backgroudn
+// $nb-br-color : #e7e7e7; // navbar border
+// $nb-tx-color : $bg-color; // navbar text
+
+$info-color : $bg-color;
+$info-bg    : $nb-bg-color; // background
+
+.info-conteiner {
+  padding: 0px 6px;
+  border-radius: 4px;
+  text-align: center;
+  color: $info-color;
+  background: $info-bg;
+  border: 2px solid darken($info-bg, 20%);
+}
+.info-conteiner h4 {
+}
+.info-conteiner h5 {
+  font-family: "Times New Roman", Times, serif;
+  color: lighten($info-color, 10%);
 }
 
 /* FOOTER */
