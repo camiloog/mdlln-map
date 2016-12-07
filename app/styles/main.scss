@@ -110,6 +110,12 @@ header h3 {
   margin-bottom: 8px;
 }
 
+// this space is added because is needed after build,
+// diference between gulp serve and gulp serve:dist why?
+#rec_selector label {
+  margin-right: 4px;
+}
+
 /* MAP STYLES */
 
 #map {
@@ -166,6 +172,7 @@ header h3 {
 }
 
 #di-conteiner .row h5{
+  font-size: 18px;
   font-family: "Times New Roman", Times, serif;
   line-height: 2;
     color: grey;
