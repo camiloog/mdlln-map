@@ -25,6 +25,10 @@ $lyellow : #f0ad4e;
 $lred : lighten(#d9534f,5%);
 $dpurple : lighten(#b658b2,5%);
 
+// Info conteiner
+$info-color : $bg-color; // text
+$info-bg    : $nb-bg-color; // background
+
 .browserupgrade {
   margin: 0.2em 0;
   color: #000;
@@ -108,10 +112,6 @@ header h3 {
 
 /* MAP STYLES */
 
-#g-info {
-
-}
-
 #map {
   width: 100%;
   height: 100%;
@@ -124,13 +124,6 @@ header h3 {
 .row {
   z-index: 0;
 }
-
-// $nb-bg-color : #f8f8f8; // navbar backgroudn
-// $nb-br-color : #e7e7e7; // navbar border
-// $nb-tx-color : $bg-color; // navbar text
-
-$info-color : $bg-color;
-$info-bg    : $nb-bg-color; // background
 
 .info-conteiner {
   padding: 0px 6px;
@@ -158,6 +151,33 @@ $info-bg    : $nb-bg-color; // background
     font-size: small;
     margin: 3px;
 }
+
+/*
+  +---------------------+
+  | Dinamic HTML styles |
+  +---------------------+
+*/
+
+#di-conteiner .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#di-conteiner .row h5{
+  font-family: "Times New Roman", Times, serif;
+  line-height: 2;
+    color: grey;
+    padding: 12px 0px;
+    text-align: center;
+    max-width: 50%;
+}
+
+// #di-conteiner .row [class*="col-"]{
+//   height: auto;
+//   border: 1px solid grey;
+// }
 
 /*
   +------------------------------+

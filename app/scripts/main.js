@@ -98,6 +98,7 @@ var mapApp = function () {
       if (map.hasLayer(this.gsn)) {
         map.removeLayer(this.gsn);
         this.lZoomed = undefined;
+        info.update(); // clear any info
       }
       this.gsn = L.geoJson(this.data,{
         style: this.dStyle,
