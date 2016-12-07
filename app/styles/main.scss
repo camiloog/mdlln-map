@@ -118,6 +118,19 @@ header h3 {
   background-color: inherit;
 }
 
+/* MAP INFO STYLE */
+
+// put it behind the navbar
+.row {
+  z-index: 0;
+}
+
+.my-custom-control {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+}
+
 /* FOOTER */
 
 .footer {
@@ -129,7 +142,6 @@ header h3 {
     font-size: small;
     margin: 3px;
 }
-
 
 /*
   +------------------------------+
