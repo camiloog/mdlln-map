@@ -107,15 +107,15 @@ body {
   +------------------------------+
 */
 
-.mred{
-  border: 3px solid red;
-}
-.mblue{
-  border: 3px solid blue;
-}
-.mpurple{
-  border: 3px solid purple;
-}
+// .mred{
+//   border: 3px solid red;
+// }
+// .mblue{
+//   border: 3px solid blue;
+// }
+// .mpurple{
+//   border: 3px solid purple;
+// }
 
 .flex-conteiner-col {
   height: 100%;
@@ -149,15 +149,12 @@ body {
   height: 100%;
 }
 
-// force fill height
-.fill-height {
-  // min-height: 100%;
-  // height:auto !important; /* cross-browser */
-  // height: 100%; /* cross-browser */
-}
-
 // set view on small viewport
 @media (max-width: 767px) {
+
+  [class*="col-"] {
+    height: auto;
+  }
 
   body {
     height: auto;
