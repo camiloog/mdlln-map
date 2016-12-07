@@ -93,10 +93,12 @@ var mapApp = function () {
     this.dStyle = dStyle;
     this.onEach = onEach;
     this.fit = fit;
-    this.lZoomed = false; // A layer is zoomed
+    this.lZoomed = undefined; // Layer zoomed
     this.draw = function () {
-      if (map.hasLayer(this.gsn))
+      if (map.hasLayer(this.gsn)) {
         map.removeLayer(this.gsn);
+        this.lZoomed = undefined;
+      }
       this.gsn = L.geoJson(this.data,{
         style: this.dStyle,
         onEachFeature: this.onEach
@@ -126,9 +128,9 @@ var mapApp = function () {
     };
   }
 
-  // to highlight the style
-  gsnComCorr.hStyle = function (e) {
-    var layer = e.target;
+  // Highlighted style
+  gsnComCorr.hStyle = function (layer) {//(e) {
+    // var layer = e.target;
     layer.setStyle({
       weight: 2.5,
       dashArray: null,
@@ -146,27 +148,32 @@ var mapApp = function () {
   gsnComCorr.onEach = function (feature, layer) {
     layer.on({
       mouseover: function (e) {
-        if (gsnComCorr.lZoomed != true) { // hold the style when zoomed
-          gsnComCorr.hStyle(e);
+        // Change the style on hover only if zoomed out
+        if (gsnComCorr.lZoomed == undefined) {
+          gsnComCorr.hStyle(e.target);
         }
       },
       mouseout: function (e) {
-        if (gsnComCorr.lZoomed != true) { // hold the style when zoomed
+        // Change the style when zoomed out
+        if (gsnComCorr.lZoomed == undefined) {
           gsnComCorr.gsn.resetStyle(e.target);
         }
       },
       click: function (e) {
-        if (gsnComCorr.lZoomed != true) {
-          map.fitBounds(e.target.getBounds());
-          info.update(layer.feature.properties);
-          gsnComCorr.hStyle(e); // highlight the layer again. (needed on mobile because hover doesnt change the style)
+        // click on a layer when zoomed out
+        if (gsnComCorr.lZoomed == undefined) {
+          gsnComCorr.lZoomed = e.target; // save the layer
+          map.fitBounds(e.target.getBounds()); // adjust zoom
+          info.update(e.target.feature.properties); // Set info box
+          gsnComCorr.hStyle(e.target); // highlight the layer.
         }
+        // click on the same or a new layer
         else {
-          map.fitBounds(gsnComCorr.gsn.getBounds());
-          info.update();
-          gsnComCorr.gsn.resetStyle(e.target); // Remove highlight. (needed on mobile)
+          map.fitBounds(gsnComCorr.gsn.getBounds()); // zoome out
+          info.update(); // Clear Info box
+          gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
+          gsnComCorr.lZoomed = undefined; // clear zoomed layer
         }
-        gsnComCorr.lZoomed = !gsnComCorr.lZoomed;
       }
     });
   }
@@ -183,11 +190,11 @@ var mapApp = function () {
   info.update = function (properties) {
     if (properties == undefined) {
       this._div.innerHTML = '';
-      this._div.style.visibility = "hidden";
+      this._div.style.visibility = 'hidden';
     } else {
       this._div.innerHTML = '<h4>' + properties.NOMBRE + '</h4>' +
                             '<h5>'+ properties.IDENTIFICA + '</h5>';
-      this._div.style.visibility = "visible";
+      this._div.style.visibility = 'visible';
     }
   };
   info.onAdd = function (map) {
@@ -220,8 +227,6 @@ var mapApp = function () {
 // handle click on res menu
 $('button.res').click(function(){
     mapApp.c_res.label = $(this).attr('id');
-    mapApp.gsnComCorr.lZoomed = false;
-    mapApp.info.update();
     mapApp.gsnComCorr.draw();
 });
 
