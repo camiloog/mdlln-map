@@ -126,39 +126,52 @@ var mapApp = function () {
     };
   }
 
+  // to highlight the style
+  gsnComCorr.hStyle = function (e) {
+    var layer = e.target;
+    layer.setStyle({
+      weight: 2.5,
+      dashArray: null,
+      color: '#000',
+      opacity: 1
+    });
+    if ( !L.Browser.ie
+      && !L.Browser.opera
+      && !L.Browser.edge) {
+      layer.bringToFront();
+    }
+  }
+
   // Add event listeners for each layer of main geoJson layer
   gsnComCorr.onEach = function (feature, layer) {
     layer.on({
       mouseover: function (e) {
-        var layer = e.target;
-        layer.setStyle({
-          weight: 2.5,
-          dashArray: null,
-          color: '#000',
-          opacity: 1
-        });
-        if ( !L.Browser.ie
-          && !L.Browser.opera
-          && !L.Browser.edge) {
-          layer.bringToFront();
+        if (gsnComCorr.lZoomed != true) { // hold the style when zoomed
+          gsnComCorr.hStyle(e);
         }
       },
       mouseout: function (e) {
-        gsnComCorr.gsn.resetStyle(e.target);
+        if (gsnComCorr.lZoomed != true) { // hold the style when zoomed
+          gsnComCorr.gsn.resetStyle(e.target);
+        }
       },
       click: function (e) {
-        if (gsnComCorr.lZoomed == true) {
-          map.fitBounds(gsnComCorr.gsn.getBounds());
-          info.update();
-        }
-        else {
+        if (gsnComCorr.lZoomed != true) {
           map.fitBounds(e.target.getBounds());
           info.update(layer.feature.properties);
+          gsnComCorr.hStyle(e); // highlight the layer again. (needed on mobile because hover doesnt change the style)
+        }
+        else {
+          map.fitBounds(gsnComCorr.gsn.getBounds());
+          info.update();
+          gsnComCorr.gsn.resetStyle(e.target); // Remove highlight. (needed on mobile)
         }
         gsnComCorr.lZoomed = !gsnComCorr.lZoomed;
       }
     });
   }
+
+
 
   /*
     +------------------------------------+
