@@ -82,6 +82,10 @@ body {
 
 /* MAP STYLES */
 
+#g-info {
+
+}
+
 #map {
   width: 100%;
   height: 100%;
@@ -107,15 +111,15 @@ body {
   +------------------------------+
 */
 
-// .mred{
-//   border: 3px solid red;
-// }
-// .mblue{
-//   border: 3px solid blue;
-// }
-// .mpurple{
-//   border: 3px solid purple;
-// }
+.mred{
+  border: 3px solid red;
+}
+.mblue{
+  border: 3px solid blue;
+}
+.mpurple{
+  border: 3px solid purple;
+}
 
 .flex-conteiner-col {
   height: 100%;
@@ -125,13 +129,13 @@ body {
 }
 
 .flex-item-grow {
-  width: 100%;
+  // width: 100%; // unnecesary?
   margin: 0px !important;
   flex: 1 1 auto;
 }
 
 .side-bar {
-  background-color: blue
+  // background-color: blue
 }
 
 .map-conteiner {
@@ -141,8 +145,8 @@ body {
 }
 
 .row {
-  padding: 0px !important;
-  height: 100%;
+  // padding: 0px !important; // for flex, unnecesary?
+  height: 100%; // for flex
 }
 
 [class*="col-"] {
@@ -152,11 +156,11 @@ body {
 // set view on small viewport
 @media (max-width: 767px) {
 
-  [class*="col-"] {
+  html, body {
     height: auto;
   }
 
-  body {
+  [class*="col-"] {
     height: auto;
   }
 
@@ -172,7 +176,7 @@ body {
   }
 
   .flex-item-grow {
-    width: atuo;
+    // width: auto; // unnecesary?
     // margin: 0px !important;
     flex: none;
   }
