@@ -203,6 +203,7 @@ var mapApp = function () {
     +-----------------------------------+
   */
   return {
+    info,       // handler to control the info box
     c_res,      // current resource
     gsnComCorr  // main geoJson handler
   };
@@ -219,6 +220,8 @@ var mapApp = function () {
 // handle click on res menu
 $('button.res').click(function(){
     mapApp.c_res.label = $(this).attr('id');
+    mapApp.gsnComCorr.lZoomed = false;
+    mapApp.info.update();
     mapApp.gsnComCorr.draw();
 });
 
