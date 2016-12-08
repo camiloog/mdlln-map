@@ -21,6 +21,7 @@ var mapApp = function () {
     // touchZoom: false,
     zoomControl: false,
     attributionControl: false,
+    maxBoundsViscosity: 0.1, // how hard bounce in bounds
     // crs: L.CRS.EPSG4326
     crs: L.CRS.Simple
   });
@@ -107,11 +108,12 @@ var mapApp = function () {
       if (this.fit) {
         map.fitBounds(this.gsn.getBounds());
       }
+      map.setMaxBounds(map.getBounds());
     };
-    this.update = function () {
-      // function to update the layers based on c_res without
-      // removing and adding new gsn.
-    };
+    // this.update = function () {
+    //   function to update the layers based on c_res without
+    //   removing and adding new gsn.
+    // };
   }
 
   // Main geoJson layer
@@ -126,9 +128,9 @@ var mapApp = function () {
       ),
       // fillColor: c_res.color(),
       fillOpacity: 1,
-      weight: 1.5,
-      dashArray: '3',
-      color: '#222',
+      weight: 1.2, //1.5,
+      // dashArray: '3',
+      color: '#2F2F2F', //'#3C3C3C', //#222,
       opacity: 1
     };
   }
@@ -137,7 +139,7 @@ var mapApp = function () {
   gsnComCorr.hStyle = function (layer) {//(e) {
     // var layer = e.target;
     layer.setStyle({
-      weight: 2.5,
+      weight: 3, //2.5,
       dashArray: null,
       color: '#000',
       opacity: 1
@@ -215,6 +217,7 @@ var mapApp = function () {
     +-----------------------------------+
   */
   return {
+    map,        // map handler
     info,       // handler to control the info box
     c_res,      // current resource
     gsnComCorr  // main geoJson handler

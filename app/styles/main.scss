@@ -121,7 +121,7 @@ header h3 {
 #map {
   width: 100%;
   height: 100%;
-  background-color: inherit;
+  background-color: darken($bg-color,3%);
 }
 
 /* MAP INFO STYLE */
@@ -132,6 +132,7 @@ header h3 {
 }
 
 .info-conteiner {
+  font-size: 18px;
   padding: 0px 6px;
   border-radius: 4px;
   text-align: center;
@@ -140,9 +141,11 @@ header h3 {
   border: 2px solid darken($info-bg, 20%);
 }
 .info-conteiner h4 {
+  font-size: 100%;
 }
 .info-conteiner h5 {
   font-family: "Times New Roman", Times, serif;
+  font-size: 85%;
   color: lighten($info-color, 10%);
 }
 
@@ -269,6 +272,14 @@ header h3 {
   .row {
     padding: none;
     height: auto;
+  }
+
+  // Map info box
+  .info-conteiner h4 {
+    font-size: 90%;
+  }
+  .info-conteiner h5 {
+    font-size: 80%;
   }
 
 }
