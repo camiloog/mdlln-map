@@ -15,7 +15,40 @@
 */
 var mapApp = function () {
 
-  // Generate map object from leaflet
+  /*
+    +-------------------+
+    | Custome functions |
+    +-------------------+
+  */
+
+  /* edBounds: Encrease or decrease bounds on certein percent.
+   *  bounds - The bounds to modify
+   *  percent - the amount of encrease or decrease. i.e '10%', '-5%'
+   * return the new bounds.
+   */
+  var edBounds = function (bounds, percent) {
+    // percent
+    var p = new Number(percent.replace("%","")) / 100 + 1;
+    // center of the bounds
+    var center = bounds.getCenter();
+    var points = ["_northEast","_southWest"];
+    var values = ["lat","lng"];
+    points.forEach(function (point) {
+      values.forEach(function (value) {
+        console.log("before :" + point + " " + value + ": " + bounds[point][value]);
+        bounds[point][value] =  (bounds[point][value] - center[value]) * p + center[value];
+        console.log("after :" + point + " " + value + ": " + bounds[point][value]);
+      });
+    });
+    return bounds;
+  }
+
+  /*
+    +-------------------------+
+    | Map object from leaflet |
+    +-------------------------+
+  */
+
   var map = L.map('map',{
     // scrollWheelZoom: false,
     // touchZoom: false,
@@ -108,7 +141,9 @@ var mapApp = function () {
       if (this.fit) {
         map.fitBounds(this.gsn.getBounds());
       }
-      map.setMaxBounds(map.getBounds());
+      map.setMaxBounds(
+        edBounds(this.gsn.getBounds(),'60%')
+      );
     };
     // this.update = function () {
     //   function to update the layers based on c_res without
