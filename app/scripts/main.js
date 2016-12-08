@@ -144,6 +144,7 @@ var mapApp = function () {
       map.setMaxBounds(
         edBounds(this.gsn.getBounds(),'60%')
       );
+      map.setMinZoom(map.getZoom());
     };
     // this.update = function () {
     //   function to update the layers based on c_res without
