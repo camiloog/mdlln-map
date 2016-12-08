@@ -35,9 +35,9 @@ var mapApp = function () {
     var values = ["lat","lng"];
     points.forEach(function (point) {
       values.forEach(function (value) {
-        console.log("before :" + point + " " + value + ": " + bounds[point][value]);
+        // console.log("before :" + point + " " + value + ": " + bounds[point][value]);
         bounds[point][value] =  (bounds[point][value] - center[value]) * p + center[value];
-        console.log("after :" + point + " " + value + ": " + bounds[point][value]);
+        // console.log("after :" + point + " " + value + ": " + bounds[point][value]);
       });
     });
     return bounds;
@@ -58,6 +58,7 @@ var mapApp = function () {
     // crs: L.CRS.EPSG4326
     crs: L.CRS.Simple
   });
+  map.setMinZoom(10); // min zoom, able to fit the map on min 270px width
 
   /*
     +-------------------------------------+
@@ -138,14 +139,12 @@ var mapApp = function () {
         style: this.dStyle,
         onEachFeature: this.onEach
       }).addTo(map);
-      if (this.fit) {
-        map.setMinZoom(); // clear min zoom level before fit
-        map.fitBounds(this.gsn.getBounds());
-      }
       map.setMaxBounds(
         edBounds(this.gsn.getBounds(),'60%')
       );
-      map.setMinZoom(map.getZoom());
+      if (this.fit) {
+        map.fitBounds(this.gsn.getBounds());
+      }
     };
     // this.update = function () {
     //   function to update the layers based on c_res without
@@ -287,7 +286,6 @@ $(document).ready(function(){
   mapApp.gsnComCorr.draw();
 
   $('#rec_selector label').click(function(){
-      console.log('pressed');
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
   });
