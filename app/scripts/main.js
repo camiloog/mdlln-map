@@ -139,6 +139,7 @@ var mapApp = function () {
         onEachFeature: this.onEach
       }).addTo(map);
       if (this.fit) {
+        map.setMinZoom(); // clear min zoom level before fit
         map.fitBounds(this.gsn.getBounds());
       }
       map.setMaxBounds(
