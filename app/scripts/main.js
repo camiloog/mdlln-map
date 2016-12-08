@@ -221,8 +221,6 @@ var mapApp = function () {
     });
   }
 
-
-
   /*
     +------------------------------------+
     | Custom information box for the map |
@@ -263,42 +261,16 @@ var mapApp = function () {
 
 /*
   +------------------------------------+
-  | Object to handle buttons behabiors |
-  | namespace.                         |
-  +------------------------------------+
-*/
-
-// // handle click on res menu
-// $('button.res').click(function(){
-//   console.log($(this));
-//   // $(this).addClass('active').siblings().removeClass('active'); // why doesnt work?
-//   mapApp.c_res.label = $(this).attr('id');
-//   mapApp.gsnComCorr.draw();
-// });
-
-
-/*
-  +------------------------------------+
   | Start and execute application      |
   +------------------------------------+
 */
 $(document).ready(function(){
   mapApp.gsnComCorr.draw();
 
+  // Buttons behaviors
   $('#rec_selector label').click(function(){
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
   });
-
-  // // handle click on res menu
-  // $('#rec_selector input').click(function(){
-  //   console.log(this);
-  //   mapApp.c_res.label = $(this).attr('id');
-  //   mapApp.gsnComCorr.draw();
-  // });
-
-  // $('#rec_selector label').click(function(){
-  //     console.log('Agua pressed');
-  // });
 
 });

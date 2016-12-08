@@ -132,7 +132,7 @@ header h3 {
 }
 
 .info-conteiner {
-  font-size: 18px;
+  font-size: 20px;
   padding: 0px 6px;
   border-radius: 4px;
   text-align: center;
@@ -141,11 +141,11 @@ header h3 {
   border: 2px solid darken($info-bg, 20%);
 }
 .info-conteiner h4 {
+  font-family: "Times New Roman", Times, serif;
   font-size: 100%;
 }
 .info-conteiner h5 {
-  font-family: "Times New Roman", Times, serif;
-  font-size: 85%;
+  font-size: 65%;
   color: lighten($info-color, 10%);
 }
 
@@ -162,32 +162,41 @@ header h3 {
 }
 
 /*
-  +---------------------+
-  | Dinamic HTML styles |
-  +---------------------+
+  +-------------------+
+  | Left panel styles |
+  +-------------------+
 */
 
+// For scrolling properlly
+
+#di-conteiner {
+  padding: 0;
+  overflow-y: auto;
+}
+
 #di-conteiner .row {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
-#di-conteiner .row h5{
-  font-size: 18px;
-  font-family: "Times New Roman", Times, serif;
-  line-height: 2;
-    color: grey;
-    padding: 12px 0px;
-    text-align: center;
-    max-width: 50%;
+.row > .row {
+  height: auto;
+  padding: 0px 15px;
 }
 
-// #di-conteiner .row [class*="col-"]{
-//   height: auto;
-//   border: 1px solid grey;
-// }
+// Style
+
+#di-conteiner .desc {
+  text-align: left;
+}
+#di-conteiner .fase {
+  text-align: right;
+}
+
+#di-conteiner .row [class*="col-"]{
+  height: auto;
+  border: 1px solid grey;
+}
 
 /*
   +------------------------------+
@@ -279,9 +288,8 @@ header h3 {
     font-size: 90%;
   }
   .info-conteiner h5 {
-    font-size: 80%;
+    font-size: 58%;
   }
-
 }
 
 /*
