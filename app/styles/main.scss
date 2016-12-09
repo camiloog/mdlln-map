@@ -231,6 +231,27 @@ header h3 {
   height: auto;
 }
 
+// to display a simple message centered
+.di-conteiner-flex {
+  padding-bottom: 0px !important;
+}
+
+.di-row-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.di-item-flex {
+  font-size: 18px;
+  // font-family: "Times New Roman", Times, serif;
+  line-height: 2;
+  color: $nb-bg-color;
+  padding: 12px 0px;
+  text-align: center;
+  max-width: 50%;
+}
+
 /*
   +------------------------------+
   | Responsive layout and styles |

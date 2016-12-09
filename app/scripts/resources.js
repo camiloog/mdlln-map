@@ -1,0 +1,36 @@
+var resources = {
+  'REC_AGUA': [
+    {'DESCRIPCIÓN':'Contaminación y desbordamiento de las quebradas, inestabilidad de terrenos.  ','FRASE_CORTA':'Desbordamiento de quebradas'},
+    {'DESCRIPCIÓN':'Vertimiento de las aguas residuales a quebradas por falta de alcantarillado en los barrios.','FRASE_CORTA':'Vertimiento de las Aguas residuales a las quebradas'},
+    {'DESCRIPCIÓN':'Invasión de los Retiros de las quebradas','FRASE_CORTA':'Invasión de los retiros de quebradas'},
+    {'DESCRIPCIÓN':'Aguas subterráneas y acueductos en mal estado y falta de los mismos.','FRASE_CORTA':'Acueductos en mal estado'},
+    {'DESCRIPCIÓN':'Falta de agua potable en los barrios carambolas, Bello Oriente, Cima 1, Cima 2, La Cruz y la Honda.','FRASE_CORTA':'Falta de Agua Potable'}
+  ],
+  'REC_AIRE': [
+    {'DESCRIPCIÓN':'No hay una planeación de movilidad intercomunal, esto genera contaminación ambiental con material particulado y ruido que afecta ostensiblemente a la comunidad como: problemas de salud, problemas de convivencia, entre otros. ','FRASE_CORTA':'No hay planeación de movilidad intercomunal'},
+    {'DESCRIPCIÓN':'El impacto de la industria de la construcción ha disminuido los espacios verdes y afectando los servicios Ecosistémicos y su biodiversidad.','FRASE_CORTA':'Disminución de espacios verdes'},
+    {'DESCRIPCIÓN':'Contaminación auditiva por los establecimientos con equipos con volumen alto, afectando los vecinos y generando problemas de convivencia.','FRASE_CORTA':'contaminación auditiva'},
+    {'DESCRIPCIÓN':'Explotación ilegal de canteras.','FRASE_CORTA':'Explotación ilegal de canteras'}
+  ],
+  'REC_SUELO': [
+    {'DESCRIPCIÓN':'Manejo inadecuado de residuos y manejo inadecuado de excretas de mascotas en espacios públicos.','FRASE_CORTA':'Manejo inadecuado de residuos, Excretas de mascotas en espacio público'},
+    {'DESCRIPCIÓN':'Aumento en la producción de basuras.','FRASE_CORTA':'Aumento en la producción de basuras'},
+    {'DESCRIPCIÓN':'Propagación de plagas (roedores, rastreros, voladores), epidemias de salud pública.','FRASE_CORTA':'Propagación de plagas'},
+    {'DESCRIPCIÓN':'Expansión urbana descontrolada.','FRASE_CORTA':'Expansión urbana descontrolada'},
+    {'DESCRIPCIÓN':'Movimiento en masa en cerros tutelaras.','FRASE_CORTA':'Movimiento en masa en cerros tutelares'}
+  ],
+  'SOCIOCULT': [
+    {'DESCRIPCIÓN':'Falta de cultura y educación ambiental.','FRASE_CORTA':'Falta de cultura y Educación Ambiental'},
+    {'DESCRIPCIÓN':'Carencia de espacios verdes para el disfrute.','FRASE_CORTA':'Carencia de espacios verdes para el disfrute'},
+    {'DESCRIPCIÓN':'Deficiencia en la aplicación  del manual de convivencia para compartir con la ciudadanía.','FRASE_CORTA':'Deficiencia en la aplicación del manual de convivencia.'},
+    {'DESCRIPCIÓN':'Deficiencia en la aplicación de la norma 1774: Los Animales seres sintientes.','FRASE_CORTA':'Deficiencia en la aplicación de la norma 1774'},
+    {'DESCRIPCIÓN':'No se aplica el comparendo ambiental por parte de las autoridades competentes. ','FRASE_CORTA':'Deficiencia en la aplicación del comparendo ambiental'},
+    {'DESCRIPCIÓN':'Desconocimiento del nuevo código de policía.','FRASE_CORTA':'Desconocimiento del nuevo código de policia'}
+  ],
+  'REC_FLORA': [
+    {'DESCRIPCIÓN':'Aumento en la deforestación, especialmente de árboles nativos, disminuyendo la calidad del paisajismo y sus servicios Ecosistémicos.','FRASE_CORTA':'Deforestación en la ciudad'}
+  ],
+  'FAUNA_DOM': [
+    {'DESCRIPCIÓN':'Tenencia Irresponsable de mascotas. ','FRASE_CORTA':'Tenencia irresponsable de mascotas'}
+  ]
+}

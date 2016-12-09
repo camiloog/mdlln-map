@@ -74,40 +74,9 @@
 
     <div class="container-fluid flex-item-grow flex-conteiner-col mred">
       <div class="row mblue flex-item-grow">
-          <div id="di-conteiner" class="col-lg-4 col-md-5 col-sm-6 col-sx-12 side-bar mpurple">
-            <div id="di-row" class="row">
-              <!-- <h5>Información sobre cada recurso natural añadida de forma dinámica según la selección.</h5> -->
-              <div id="resName"class="col-xs-12 color-lblue"><h2>Agua</h2></div>
-              <div class="row headings">
-                <div class="desc col-xs-6"><h3>Descripción</h3></div>
-                <div class="fase col-xs-6"><h3>Fase corta</h3></div>
-              </div>
-
-              <div class="row"><div class="sep sep-lblue"></div>
-                <div class="desc col-custom">Contaminación y desbordamiento de las quebradas, inestabilidad de terrenos.</div>
-                <div class="fase col-custom">Desbordamiento de quebradas.</div>
-              </div>
-              <div class="row"><div class="sep sep-dblue"></div>
-                <div class="desc col-custom">No hay una planeación de movilidad intercomunal, esto genera contaminación ambiental con material particulado y ruido que afecta ostensiblemente a la comunidad como: problemas de salud, problemas de convivencia, entre otros.</div>
-                <div class="fase col-custom">No hay planeación de movilidad intercomunal.</div>
-              </div>
-              <div class="row"><div class="sep"></div>
-                <div class="desc col-custom">Vertimiento de las aguas residuales a quebradas por falta de alcantarillado en los barrios.</div>
-                <div class="fase col-custom">Vertimiento de las Aguas residuales a las quebradas.</div>
-              </div>
-              <div class="row"><div class="sep"></div>
-                <div class="desc col-custom">Invasión de los Retiros de las quebradas.</div>
-                <div class="fase col-custom">Invasión de los retiros de quebradas.</div>
-              </div>
-              <div class="row"><div class="sep"></div>
-                <div class="desc col-custom">Aguas subterráneas y acueductos en mal estado y falta de los mismos.</div>
-                <div class="fase col-custom">Acueductos en mal estado.</div>
-              </div>
-              <div class="row"><div class="sep"></div>
-                <div class="desc col-custom">Falta de agua potable en los barrios carambolas, Bello Oriente, Cima 1, Cima 2, La Cruz y la Honda.</div>
-                <div class="fase col-custom">Falta de Agua Potable.</div>
-              </div>
-
+          <div id="di-conteiner" class="col-lg-4 col-md-5 col-sm-6 col-sx-12 side-bar mpurple di-conteiner-flex">
+            <div id="di-row" class="row di-row-flex">
+              <h5 class="di-item-flex">SELECCIONE UN RECURSO NATURAL</h5>
             </div>
           </div>
           <div class="col-lg-8 col-md-7 col-sm-6 col-sx-12 map-conteiner mred">
@@ -117,14 +86,14 @@
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-    <script>
+    <!-- <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
       e=o.createElement(i);r=o.getElementsByTagName(i)[0];
       e.src='https://www.google-analytics.com/analytics.js';
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','UA-XXXXX-X');ga('send','pageview');
-    </script>
+    </script> -->
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -146,8 +115,9 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
-
+    
     <!-- build:js scripts/main.js -->
+    <script src="scripts/resources.js"></script>
     <script src="scripts/comcorr.js"></script>
     <script src="scripts/leaflet-src.js"></script>
     <script src="scripts/main.js"></script>

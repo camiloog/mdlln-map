@@ -28,11 +28,11 @@ var mapApp = function () {
    */
   var edBounds = function (bounds, percent) {
     // percent
-    var p = new Number(percent.replace("%","")) / 100 + 1;
+    var p = new Number(percent.replace('%','')) / 100 + 1;
     // center of the bounds
     var center = bounds.getCenter();
-    var points = ["_northEast","_southWest"];
-    var values = ["lat","lng"];
+    var points = ['_northEast','_southWest'];
+    var values = ['lat','lng'];
     points.forEach(function (point) {
       values.forEach(function (value) {
         // console.log("before :" + point + " " + value + ": " + bounds[point][value]);
@@ -70,21 +70,22 @@ var mapApp = function () {
    * label - label of the resources
    * color - color assigned to the resource
    */
-  function res(label, color, className){
+  function res(label, color, className, nombre){
       this.label = label;
       this.color = color;
       this.className = className;
+      this.nombre = nombre;
   }
 
   // Object literal to conein all the resources information
   var resources = {
-    REC_AGUA : new res('REC_AGUA' ,'#3b87c8','dblue'),
-    REC_SUELO: new res('REC_SUELO','#5cb85c','lgreen'),
-    REC_AIRE : new res('REC_AIRE' ,'#5bc0de','lblue'),
-    FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e','lyellow'),
-    SOCIOCULT: new res('SOCIOCULT','#de6764','lred'),
-    REC_FLORA: new res('REC_FLORA','#be6aba','dpurple'),
-    NONE     : new res('NONE'     ,'#f8f8f8','')
+    REC_AGUA : new res('REC_AGUA' ,'#3b87c8','dblue','Agua'),
+    REC_SUELO: new res('REC_SUELO','#5cb85c','lgreen','Suelo'),
+    REC_AIRE : new res('REC_AIRE' ,'#5bc0de','lblue','Aire'),
+    FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e','lyellow','Fauna Doméstica'),
+    SOCIOCULT: new res('SOCIOCULT','#de6764','lred','Sociocultural'),
+    REC_FLORA: new res('REC_FLORA','#be6aba','dpurple','Flora'),
+    NONE     : new res('NONE'     ,'#f8f8f8','','')
   }
 
   /* Object to handle the current resource,
@@ -95,7 +96,8 @@ var mapApp = function () {
   var c_res = new res(
     'NONE',
     function () {return resources[this.label].color},
-    function () {return resources[this.label].className}
+    function () {return resources[this.label].className},
+    function () {return resources[this.label].nombre}
   );
 
   /* getResProIf: Function to get a propertie from the current
@@ -270,7 +272,7 @@ var mapApp = function () {
 var dInfo = function () {
 
   function removeClassWidth (selector, content) {
-    var classes = ($(selector).attr("class")).split(' ');
+    var classes = ($(selector).attr('class')).split(' ');
     $.each(classes, function(i, c) {
         if (c.indexOf(content) == 0) {
             $(selector).removeClass(c);
@@ -278,13 +280,45 @@ var dInfo = function () {
     });
   }
 
-  var update = function (resLabel) {
-    if (resLabel == "")
-      return;
-    removeClassWidth('#resName','color');
-    $('#resName').addClass('color-'+ resLabel);
-    removeClassWidth('.sep','sep-');
-    $('.sep').addClass('sep-'+ resLabel);
+  var update = function (c_res) {
+
+    $('#di-row').empty();
+    $('#di-conteiner').removeClass('di-conteiner-flex');
+    $('#di-row').removeClass('di-row-flex');
+
+    if (c_res.label == 'NONE') {
+      $('#di-conteiner').addClass('di-conteiner-flex');
+      $('#di-row').addClass('di-row-flex');
+      $('#di-row').append(
+        '<h5 class="di-item-flex">SELECCIONE UN RECURSO NATURAL</h5>'
+      );
+    }
+    else {
+      $('#di-row').append(
+        '<div id="resName"class="col-xs-12"><h2>' + c_res.nombre() + '</h2></div>' +
+        '<div class="row headings">' +
+        '  <div class="desc col-xs-6"><h3>Descripción</h3></div>' +
+        '  <div class="fase col-xs-6"><h3>Fase corta</h3></div>' +
+        '</div>'
+      );
+
+      $.each(resources[c_res.label], function (i) {
+        var d = resources[c_res.label][i]['DESCRIPCIÓN'];
+        var f = resources[c_res.label][i]['FRASE_CORTA'];
+        $('#di-row').append(
+          '<div class="row"><div class="sep"></div>' +
+          '  <div class="desc col-custom">' + d + '</div>' +
+          '  <div class="fase col-custom">' + f + '</div>' +
+          '</div>'
+        );
+      });
+
+      removeClassWidth('#resName','color');
+      $('#resName').addClass('color-'+ c_res.className());
+      removeClassWidth('.sep','sep-');
+      $('.sep').addClass('sep-'+ c_res.className());
+    }
+
   }
 
   return {
@@ -305,7 +339,7 @@ $(document).ready(function(){
   $('#rec_selector label').click(function(){
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
-      dInfo.update(mapApp.c_res.className());
+      dInfo.update(mapApp.c_res);
   });
 
 });
