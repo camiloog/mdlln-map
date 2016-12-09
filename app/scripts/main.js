@@ -342,6 +342,4 @@ $(document).ready(function(){
       dInfo.update(mapApp.c_res);
   });
 
-  window.location.reload(true); // to clear cache
-
 });
