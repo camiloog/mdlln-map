@@ -80,11 +80,11 @@ var mapApp = function () {
   // Object literal to conein all the resources information
   var resources = {
     REC_AGUA : new res('REC_AGUA' ,'#3b87c8','dblue','Agua'),
-    REC_SUELO: new res('REC_SUELO','#5cb85c','lgreen','Suelo'),
+    REC_SUELO: new res('REC_SUELO','#bf864a','lgreen','Suelo'),
     REC_AIRE : new res('REC_AIRE' ,'#5bc0de','lblue','Aire'),
     FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e','lyellow','Fauna Doméstica'),
     SOCIOCULT: new res('SOCIOCULT','#de6764','lred','Sociocultural'),
-    REC_FLORA: new res('REC_FLORA','#be6aba','dpurple','Flora'),
+    REC_FLORA: new res('REC_FLORA','#5cb85c','dpurple','Flora'),
     NONE     : new res('NONE'     ,'#f8f8f8','','')
   }
 

@@ -19,11 +19,11 @@ $bt-bg-color : $bg-color; // button baground
 
 // Color palet ! match this colors with the ones on main js
 $dblue : lighten(#337ab7,5%);
-$lgreen : #5cb85c;
+$lgreen : #bf864a; //darken(#5cb85c,10%);
 $lblue : #5bc0de;
 $lyellow : #f0ad4e;
 $lred : lighten(#d9534f,5%);
-$dpurple : lighten(#b658b2,5%);
+$dpurple : #5cb85c;
 
 // Info conteiner
 $info-color : $bg-color; // text
