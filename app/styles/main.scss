@@ -29,6 +29,12 @@ $dpurple : lighten(#b658b2,5%);
 $info-color : $bg-color; // text
 $info-bg    : $nb-bg-color; // background
 
+// for futher mixings
+$scolor: $bt-bg-color; // support color
+$colorn : dblue, lgreen, lblue, lyellow, lred, dpurple;
+$colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
+
+
 .browserupgrade {
   margin: 0.2em 0;
   color: #000;
@@ -167,35 +173,62 @@ header h3 {
   +-------------------+
 */
 
-// For scrolling properlly
+/* For scrolling properlly */
 
 #di-conteiner {
   padding: 0;
+  padding-bottom: 20px;
   overflow-y: auto;
 }
 
 #di-conteiner .row {
   margin: 0;
-  padding: 0;
 }
 
-.row > .row {
+#di-row .row {
+  position: relative;
+  padding-bottom: 10px;
   height: auto;
-  padding: 0px 15px;
 }
 
-// Style
-
-#di-conteiner .desc {
-  text-align: left;
+/* Style */
+#resName {
+  font-family: "Times New Roman", Times, serif;
+  // font-size: 40px;
+  text-align: center;
 }
-#di-conteiner .fase {
+
+#di-row div {
+  margin-top: 10px;
+}
+
+#di-row h3 {
+  font-size: 1.5em;
+  margin-top: 0;
+}
+
+#di-row .row {
+  font-size: 11pt;
+}
+
+.desc {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 1.1em;
+  padding-left: 15px;
+  padding-right: 5px;// default 15px
   text-align: right;
+  color: $nb-bg-color;
+}
+.fase {
+  font-size: 1em;
+  padding-right: 15px;
+  padding-left: 5px;// default 15px
+  text-align: left;
+  color: darken($nb-bg-color, 36%);
 }
 
 #di-conteiner .row [class*="col-"]{
   height: auto;
-  border: 1px solid grey;
 }
 
 /*
@@ -290,6 +323,34 @@ header h3 {
   .info-conteiner h5 {
     font-size: 58%;
   }
+
+}
+
+// custom style for dinamic info
+.col-custom {
+  float: left;
+}
+
+@media (min-width: 450px) {
+  .col-custom{
+    width: 50%;
+  }
+}
+
+@media (max-width: 449px) {
+  .col-custom{
+    width: 100%;
+  }
+
+  .desc {
+    padding-right: 15px;
+    text-align: center;
+  }
+  .fase {
+    padding-left: 15px;
+    text-align: center;
+  }
+
 }
 
 /*
@@ -297,10 +358,6 @@ header h3 {
   | BUTTON STYLES                |
   +------------------------------+
 */
-
-$scolor: $bt-bg-color; // support color
-$colorn : dblue, lgreen, lblue, lyellow, lred, dpurple;
-$colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
 
 @for $i from 1 through length($colorn) {
   .btn-#{nth($colorn,$i)} {
@@ -329,6 +386,33 @@ $colorv : $dblue, $lgreen, $lblue, $lyellow, $lred, $dpurple;
 label {
     outline: none !important;
 }
+
+/*
+  +------------------------------+
+  | EXTRA CLASSES FOR RESOURCES  |
+  +------------------------------+
+*/
+
+.sep {
+  position: absolute;
+  margin-top: 0px !important;
+  left: 35%;
+  width: 30%;
+  height: auto;
+  @for $i from 1 through length($colorn) {
+    &.sep-#{nth($colorn,$i)} {
+      border-top: 2px solid nth($colorv,$i);
+    }
+  }
+}
+
+@for $i from 1 through length($colorn) {
+  .color-#{nth($colorn,$i)} {
+    color: nth($colorv,$i);
+  }
+}
+
+
 
 /* Temporal fix for problem with flexbox
 and navbar. The fix is applied collapsing

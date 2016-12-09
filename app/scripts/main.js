@@ -70,20 +70,21 @@ var mapApp = function () {
    * label - label of the resources
    * color - color assigned to the resource
    */
-  function res(label, color){
+  function res(label, color, className){
       this.label = label;
       this.color = color;
+      this.className = className;
   }
 
   // Object literal to conein all the resources information
   var resources = {
-    REC_AGUA : new res('REC_AGUA' ,'#3b87c8'),
-    REC_SUELO: new res('REC_SUELO','#5cb85c'),
-    REC_AIRE : new res('REC_AIRE' ,'#5bc0de'),
-    FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e'),
-    SOCIOCULT: new res('SOCIOCULT','#de6764'),
-    REC_FLORA: new res('REC_FLORA','#be6aba'),
-    NONE     : new res('NONE'     ,'#f8f8f8')
+    REC_AGUA : new res('REC_AGUA' ,'#3b87c8','dblue'),
+    REC_SUELO: new res('REC_SUELO','#5cb85c','lgreen'),
+    REC_AIRE : new res('REC_AIRE' ,'#5bc0de','lblue'),
+    FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e','lyellow'),
+    SOCIOCULT: new res('SOCIOCULT','#de6764','lred'),
+    REC_FLORA: new res('REC_FLORA','#be6aba','dpurple'),
+    NONE     : new res('NONE'     ,'#f8f8f8','')
   }
 
   /* Object to handle the current resource,
@@ -93,7 +94,8 @@ var mapApp = function () {
    */
   var c_res = new res(
     'NONE',
-    function () {return resources[this.label].color}
+    function () {return resources[this.label].color},
+    function () {return resources[this.label].className}
   );
 
   /* getResProIf: Function to get a propertie from the current
@@ -260,6 +262,38 @@ var mapApp = function () {
 }(); // End mapApp
 
 /*
+  +---------------------+
+  | Dinamic Info update |
+  +---------------------+
+*/
+
+var dInfo = function () {
+
+  function removeClassWidth (selector, content) {
+    var classes = ($(selector).attr("class")).split(' ');
+    $.each(classes, function(i, c) {
+        if (c.indexOf(content) == 0) {
+            $(selector).removeClass(c);
+        }
+    });
+  }
+
+  var update = function (resLabel) {
+    if (resLabel == "")
+      return;
+    removeClassWidth('#resName','color');
+    $('#resName').addClass('color-'+ resLabel);
+    removeClassWidth('.sep','sep-');
+    $('.sep').addClass('sep-'+ resLabel);
+  }
+
+  return {
+      update
+  }
+
+}();
+
+/*
   +------------------------------------+
   | Start and execute application      |
   +------------------------------------+
@@ -271,6 +305,7 @@ $(document).ready(function(){
   $('#rec_selector label').click(function(){
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
+      dInfo.update(mapApp.c_res.className());
   });
 
 });
