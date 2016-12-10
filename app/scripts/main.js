@@ -335,8 +335,10 @@ var dInfo = function () {
 $(document).ready(function(){
   mapApp.gsnComCorr.draw();
 
-  // Buttons behaviors
-  $('#rec_selector label').click(function(){
+  // Resource buttons behavior
+  $('#rec_selector button').click(function(){
+      $('#rec_selector button').removeClass('active');
+      $(this).addClass('active');
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);

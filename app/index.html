@@ -47,15 +47,15 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="to-collapse">
 
-        <form id="rec_selector" class="navbar-form navbar-left" data-toggle="buttons">
-          <label id="REC_AGUA"  class="btn btn-dblue   btn-inverse"><input type="radio" autocomplete="off">Agua</label>
-          <label id="REC_SUELO" class="btn btn-lgreen  btn-inverse"><input type="radio" autocomplete="off">Suelo</label>
-          <label id="REC_AIRE"  class="btn btn-lblue   btn-inverse"><input type="radio" autocomplete="off">Aire</label>
-          <label id="FAUNA_DOM" class="btn btn-lyellow btn-inverse"><input type="radio" autocomplete="off">Fauna Doméstica</label>
-          <label id="SOCIOCULT" class="btn btn-lred    btn-inverse"><input type="radio" autocomplete="off">Sociocultural</label>
-          <label id="REC_FLORA" class="btn btn-dpurple btn-inverse"><input type="radio" autocomplete="off">Flora</label>
-          <label id="NONE"      class="btn btn-default active">     <input type="radio" autocomplete="off" checked>Limpiar</label>
-        </form>
+      <form id="rec_selector" class="navbar-form navbar-left">
+        <button id="REC_AGUA"  type="button" class="btn btn-dblue   btn-inverse">Agua</button>
+        <button id="REC_SUELO" type="button" class="btn btn-lgreen  btn-inverse">Suelo</button>
+        <button id="REC_AIRE"  type="button" class="btn btn-lblue   btn-inverse">Aire</button>
+        <button id="FAUNA_DOM" type="button" class="btn btn-lyellow btn-inverse">Fauna Doméstica</button>
+        <button id="SOCIOCULT" type="button" class="btn btn-lred    btn-inverse">Sociocultural</button>
+        <button id="REC_FLORA" type="button" class="btn btn-dpurple btn-inverse">Flora</button>
+        <button id="NONE"      type="button" class="btn btn-default">Limpiar</button>
+      </form>
 
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
@@ -115,7 +115,7 @@
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/collapse.js"></script>
     <script src="/bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js"></script>
     <!-- endbuild -->
-    
+
     <!-- build:js scripts/main.js -->
     <script src="scripts/resources.js"></script>
     <script src="scripts/comcorr.js"></script>
