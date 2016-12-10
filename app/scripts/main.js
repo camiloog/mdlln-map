@@ -283,19 +283,17 @@ var dInfo = function () {
   var update = function (c_res) {
 
     $('#di-row').empty();
-    $('#di-conteiner').removeClass('di-conteiner-flex');
-    $('#di-row').removeClass('di-row-flex');
 
     if (c_res.label == 'NONE') {
-      $('#di-conteiner').addClass('di-conteiner-flex');
-      $('#di-row').addClass('di-row-flex');
       $('#di-row').append(
         '<h5 class="di-item-flex">SELECCIONE UN RECURSO NATURAL</h5>'
       );
     }
     else {
       $('#di-row').append(
-        '<div id="resName"class="col-xs-12"><h2>' + c_res.nombre() + '</h2></div>' +
+        '<div class="row">' +
+        ' <div id="resName"class="col-xs-12"><h2>' + c_res.nombre() + '</h2></div>' +
+        '</div>' +
         '<div class="row headings">' +
         '  <div class="desc col-xs-6"><h3>Descripción</h3></div>' +
         '  <div class="fase col-xs-6"><h3>Fase corta</h3></div>' +
