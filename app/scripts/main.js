@@ -303,9 +303,9 @@ var dInfo = function () {
         '</div>'
       );
 
-      $.each(resources[c_res.label], function (i) {
-        var d = resources[c_res.label][i]['DESCRIPCIÓN'];
-        var f = resources[c_res.label][i]['FRASE_CORTA'];
+      $.each(r_data[c_res.label], function (i) {
+        var d = r_data[c_res.label][i]['DESCRIPCIÓN'];
+        var f = r_data[c_res.label][i]['FRASE_CORTA'];
         $('#di-row').append(
           '<div class="row"><div class="sep"></div>' +
           '  <div class="desc col-xs-12">' + d + '</div>' +

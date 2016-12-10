@@ -1,4 +1,4 @@
-var resources = {
+var r_data = {
   'REC_AGUA': [
     {'DESCRIPCIÓN':'Contaminación y desbordamiento de las quebradas, inestabilidad de terrenos.  ','FRASE_CORTA':'Desbordamiento de quebradas'},
     {'DESCRIPCIÓN':'Vertimiento de las aguas residuales a quebradas por falta de alcantarillado en los barrios.','FRASE_CORTA':'Vertimiento de las Aguas residuales a las quebradas'},
