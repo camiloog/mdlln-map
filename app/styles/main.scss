@@ -225,20 +225,27 @@ header h3 {
   font-size: 11pt;
 }
 
-.desc {
+.descHeader {
+  text-align: center;
   font-family: "Times New Roman", Times, serif;
+  color: $nb-bg-color;
+}
+.desc {
   font-size: 1.1em;
   padding-left: 15px;
-  padding-right: 5px;// default 15px
-  text-align: right;
-  color: $nb-bg-color;
+  padding-right: 15px;
+  text-align: center;// right;
+  color: darken($nb-bg-color, 25%);
 }
 .fase {
   font-size: 1em;
   padding-right: 15px;
-  padding-left: 5px;// default 15px
+  padding-left: 5px;// default15px
   text-align: left;
   color: darken($nb-bg-color, 36%);
+}
+.msg {
+  text-align: center;
 }
 
 /*

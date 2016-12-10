@@ -4,7 +4,7 @@ var resources = {
     {'DESCRIPCIÓN':'Vertimiento de las aguas residuales a quebradas por falta de alcantarillado en los barrios.','FRASE_CORTA':'Vertimiento de las Aguas residuales a las quebradas'},
     {'DESCRIPCIÓN':'Invasión de los Retiros de las quebradas','FRASE_CORTA':'Invasión de los retiros de quebradas'},
     {'DESCRIPCIÓN':'Aguas subterráneas y acueductos en mal estado y falta de los mismos.','FRASE_CORTA':'Acueductos en mal estado'},
-    {'DESCRIPCIÓN':'Falta de agua potable en los barrios carambolas, Bello Oriente, Cima 1, Cima 2, La Cruz y la Honda.','FRASE_CORTA':'Falta de Agua Potable'}
+    {'DESCRIPCIÓN':'Falta de agua potable.','FRASE_CORTA':'Falta de Agua Potable'}
   ],
   'REC_AIRE': [
     {'DESCRIPCIÓN':'No hay una planeación de movilidad intercomunal, esto genera contaminación ambiental con material particulado y ruido que afecta ostensiblemente a la comunidad como: problemas de salud, problemas de convivencia, entre otros. ','FRASE_CORTA':'No hay planeación de movilidad intercomunal'},
@@ -17,7 +17,7 @@ var resources = {
     {'DESCRIPCIÓN':'Aumento en la producción de basuras.','FRASE_CORTA':'Aumento en la producción de basuras'},
     {'DESCRIPCIÓN':'Propagación de plagas (roedores, rastreros, voladores), epidemias de salud pública.','FRASE_CORTA':'Propagación de plagas'},
     {'DESCRIPCIÓN':'Expansión urbana descontrolada.','FRASE_CORTA':'Expansión urbana descontrolada'},
-    {'DESCRIPCIÓN':'Movimiento en masa en cerros tutelaras.','FRASE_CORTA':'Movimiento en masa en cerros tutelares'}
+    {'DESCRIPCIÓN':'Movimiento en masa en cerros tutelares.','FRASE_CORTA':'Movimiento en masa en cerros tutelares'}
   ],
   'SOCIOCULT': [
     {'DESCRIPCIÓN':'Falta de cultura y educación ambiental.','FRASE_CORTA':'Falta de cultura y Educación Ambiental'},

@@ -286,7 +286,9 @@ var dInfo = function () {
 
     if (c_res.label == 'NONE') {
       $('#di-row').append(
-        '<h5 class="di-item-flex">SELECCIONE UN RECURSO NATURAL</h5>'
+      '<div class="row">' +
+      '  <div class="col-xs-12 msg">SELECCIONE UN RECURSO NATURAL</div>' +
+      '</div>'
       );
     }
     else {
@@ -295,8 +297,9 @@ var dInfo = function () {
         ' <div id="resName"class="col-xs-12"><h2>' + c_res.nombre() + '</h2></div>' +
         '</div>' +
         '<div class="row headings">' +
-        '  <div class="desc col-xs-6"><h3>Descripción</h3></div>' +
-        '  <div class="fase col-xs-6"><h3>Fase corta</h3></div>' +
+        '  <div class="descHeader col-xs-12"><h3>Problemáticas</h3></div>' +
+        // '  <div class="desc col-xs-6"><h3>Descripción</h3></div>' +
+        // '  <div class="fase col-xs-6"><h3>Fase corta</h3></div>' +
         '</div>'
       );
 
@@ -305,8 +308,9 @@ var dInfo = function () {
         var f = resources[c_res.label][i]['FRASE_CORTA'];
         $('#di-row').append(
           '<div class="row"><div class="sep"></div>' +
-          '  <div class="desc col-custom">' + d + '</div>' +
-          '  <div class="fase col-custom">' + f + '</div>' +
+          '  <div class="desc col-xs-12">' + d + '</div>' +
+          // '  <div class="desc col-custom">' + d + '</div>' +
+          // '  <div class="fase col-custom">' + f + '</div>' +
           '</div>'
         );
       });
