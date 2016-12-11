@@ -70,23 +70,25 @@ var mapApp = function () {
    * label - label of the resources
    * color - color assigned to the resource
    */
-  function res(label, color, className, nombre){
+  function res(label, color, className, nombre, glyphicon){
       this.label = label;
       this.color = color;
       this.className = className;
       this.nombre = nombre;
+      this.glyphicon = glyphicon;
   }
 
   // Object literal to conein all the resources information
   var resources = {
-    REC_AGUA : new res('REC_AGUA' ,'#3b87c8','dblue','Agua'),
-    REC_SUELO: new res('REC_SUELO','#bf864a','lgreen','Suelo'),
-    REC_AIRE : new res('REC_AIRE' ,'#5bc0de','lblue','Aire'),
-    FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e','lyellow','Fauna Doméstica'),
-    SOCIOCULT: new res('SOCIOCULT','#de6764','lred','Sociocultural'),
-    REC_FLORA: new res('REC_FLORA','#5cb85c','dpurple','Flora'),
-    NONE     : new res('NONE'     ,'#f8f8f8','','')
-  }
+    REC_AGUA : new res('REC_AGUA' ,'#3b87c8','dblue','Agua','glyphicon-tint'),
+    REC_SUELO: new res('REC_SUELO','#bf864a','lgreen','Suelo','glyphicon-globe'),
+    REC_AIRE : new res('REC_AIRE' ,'#5bc0de','lblue','Aire','glyphicon-cloud'),
+    FAUNA_DOM: new res('FAUNA_DOM','#f0ad4e','lyellow','Fauna Doméstica','glyphicon-home'),
+    SOCIOCULT: new res('SOCIOCULT','#de6764','lred','Sociocultural','glyphicon-user'),
+    REC_FLORA: new res('REC_FLORA','#5cb85c','dpurple','Flora','glyphicon-tree-deciduous'),
+    NONE     : new res('NONE'     ,'#f8f8f8','','','')
+  };
+  // console.log(resources);
 
   /* Object to handle the current resource,
    * initialized with NONE.
@@ -97,7 +99,8 @@ var mapApp = function () {
     'NONE',
     function () {return resources[this.label].color},
     function () {return resources[this.label].className},
-    function () {return resources[this.label].nombre}
+    function () {return resources[this.label].nombre},
+    function () {return resources[this.label].glyphicon}
   );
 
   /* getResProIf: Function to get a propertie from the current
@@ -240,6 +243,17 @@ var mapApp = function () {
       this._div.innerHTML = '<h4>' + properties.NOMBRE + '</h4>' +
                             '<h5>'+ properties.IDENTIFICA + '</h5>';
       this._div.style.visibility = 'visible';
+      // Add glyphicons
+      $.each(resources,function(index){
+        if (properties[index] == 1) {
+          $('div.info-conteiner.leaflet-control').append(
+            '&nbsp<span class="glyphicon ' +
+            resources[index].glyphicon +
+            ' color-' + resources[index].className +
+            '" aria-hidden="true"></span>'
+          );
+        }
+      });
     }
   };
   info.onAdd = function (map) {
@@ -258,7 +272,8 @@ var mapApp = function () {
     map,        // map handler
     info,       // handler to control the info box
     c_res,      // current resource
-    gsnComCorr  // main geoJson handler
+    gsnComCorr,  // main geoJson handler
+    resources
   };
 
 }(); // End mapApp
@@ -336,6 +351,15 @@ var dInfo = function () {
 */
 $(document).ready(function(){
   mapApp.gsnComCorr.draw();
+
+  // Add glyphicons
+  $.each(mapApp.resources,function(index){
+    $('#'+index).append(
+      '&nbsp<span class="glyphicon ' +
+      mapApp.resources[index].glyphicon +
+      '" aria-hidden="true"></span>'
+    );
+  });
 
   // Resource buttons behavior
   $('#rec_selector button').click(function(){
