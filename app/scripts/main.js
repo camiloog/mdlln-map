@@ -345,6 +345,13 @@ var dInfo = function () {
 }();
 
 /*
+  +-----------------------+
+  | Support Maps Handling |
+  +-----------------------+
+*/
+// #support-maps
+
+/*
   +------------------------------------+
   | Start and execute application      |
   +------------------------------------+
@@ -361,6 +368,20 @@ $(document).ready(function(){
     );
   });
 
+  // checkbox handling
+  $('#support-maps :checkbox').change(function() {
+      // this will contain a reference to the checkbox
+      if (this.checked) {
+        console.log($(this).val());
+        console.log('it\'s been checked');
+          // the checkbox is now checked
+      } else {
+        console.log($(this).val());
+        console.log('it\'s been unchecked');
+          // the checkbox is now no longer checked
+      }
+  });
+
   // Resource buttons behavior
   $('#rec_selector button').click(function(){
       $('#rec_selector button').removeClass('active');
@@ -368,6 +389,8 @@ $(document).ready(function(){
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);
+
+      $('#support-maps :checkbox[value=quebradas]').prop('checked', true); // this change the checkbox state but dont trigger the .change() event.
   });
 
 });
