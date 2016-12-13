@@ -124,6 +124,9 @@ var mapApp = function () {
   */
   var sMaps = function () {
 
+    // Layer gorup to hold the geoJson objects ready for map
+    var lGroup = L.layerGroup([]);
+
     // function to get geoJson files
     function getGeoJson(address) {
       var geoJson = null;
@@ -139,6 +142,7 @@ var mapApp = function () {
       return geoJson;
     }
 
+    // Function to add callbacks to each path
     function toEach (feature, layer) {
       layer.on({
         mouseover: function (e) {
@@ -157,6 +161,7 @@ var mapApp = function () {
       });
     }
 
+    // Support map constructor
     function sMap (address, dStyle) {
       this.address = address;
       this.data = getGeoJson(address);
@@ -230,14 +235,18 @@ var mapApp = function () {
       }
     };
 
+    // Zoom levels
     var z = {
       z0 : 10,
       z1 : 12,
       z2 : 14
     };
 
-    // Layer gorup to hold the geoJson objects ready for map
-    var lGroup = L.layerGroup([]);
+    // function to add the group of support layers to map
+    // this should be called just once
+    function init () {
+      return lGroup.addTo(map);
+    }
 
     // Bring to front the layers on lGroup
     function bringToFront () {
@@ -246,24 +255,19 @@ var mapApp = function () {
       });
     }
 
+    // To update the layers on the map
     function update () {
-      // remove layer group from map
-      if (map.hasLayer(lGroup)) {
-        map.removeLayer(lGroup);
-      }
-      // clean layer group
+      // clear layers on group
       lGroup.clearLayers();
-
       // uncheck all
       $('#support-maps :checkbox').prop('checked', false);
-
       // zoom Handling
       $.each(z, function (cZ) {
         // console.log('evaluating: ' + cZ + ':' + z[cZ]);
         if (map.getZoom() >= z[cZ]){
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('adding: ' + v);
-            if (layers[v] != undefined) {
+            if (layers[v].gsn != undefined) {
               lGroup.addLayer(layers[v].gsn);
               $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
             }
@@ -271,17 +275,16 @@ var mapApp = function () {
         } else {
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('removing: ' + v);
-            if (layers[v] != undefined) {
+            if (layers[v].gsn != undefined) {
               lGroup.removeLayer(layers[v].gsn);
               $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
             }
           });
         }
       });
-
-      lGroup.addTo(map);
     }
 
+    // Add callback function for zoom event
     map.on('zoomend', function(e) {
       update();
     });
@@ -289,11 +292,11 @@ var mapApp = function () {
     return {
       layers,
       lGroup,
+      init,
       update,
       bringToFront,
       res
     };
-
   }();
 
 
@@ -448,6 +451,7 @@ var mapApp = function () {
       this.update();
       return this._div;
   };
+
   info.addTo(map);
 
   /*
@@ -533,19 +537,11 @@ var dInfo = function () {
 }();
 
 /*
-  +-----------------------+
-  | Support Maps Handling |
-  +-----------------------+
-*/
-// #support-maps
-
-/*
   +------------------------------------+
   | Start and execute application      |
   +------------------------------------+
 */
 $(document).ready(function(){
-  mapApp.gsnComCorr.draw();
 
   // Add glyphicons
   $.each(mapApp.resources,function(index){
@@ -556,21 +552,24 @@ $(document).ready(function(){
     );
   });
 
-  // checkbox handling
+  // Draw main map
+  mapApp.gsnComCorr.draw();
+
+  // Add checkbox handling
   $('#support-maps :checkbox').change(function() {
       // this will contain a reference to the checkbox
       if (this.checked) {
         console.log($(this).val());
         console.log('it\'s been checked');
         if ($(this).val() == 'quebradas') {return;}
-        mapApp.map.addLayer(
+        mapApp.sMaps.lGroup.addLayer(
           mapApp.sMaps.layers[$(this).val()].gsn
         );
       } else {
         console.log($(this).val());
         console.log('it\'s been unchecked');
         if ($(this).val() == 'quebradas') {return;}
-        mapApp.map.removeLayer(
+        mapApp.sMaps.lGroup.removeLayer(
           mapApp.sMaps.layers[$(this).val()].gsn
         );
       }
@@ -584,5 +583,7 @@ $(document).ready(function(){
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);
   });
+
+  mapApp.sMaps.init();
 
 });
