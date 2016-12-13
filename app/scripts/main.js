@@ -368,7 +368,6 @@ var mapApp = function () {
         feature.properties[c_res.label] == 1,
         'color'
       ),
-      // fillColor: c_res.color(),
       fillOpacity: 1,
       weight: 1.2, //1.5,
       // dashArray: '3',
