@@ -128,18 +128,20 @@ var mapApp = function () {
     var lGroup = L.layerGroup([]);
 
     // function to get geoJson files
-    function getGeoJson(address) {
-      var geoJson = null;
+    function getGeoJson(address, obj) {
       $.ajax({
-          'async': false,
           'global': false,
           'url': address,
           'dataType': 'json',
           'success': function (data) {
-              geoJson = data;
+            obj.gsn = L.geoJson(data,{
+              style: obj.dStyle,
+              onEachFeature: obj.onEach,
+            });
+            // console.log('Success on getting :' + address);
+            update();
           }
       });
-      return geoJson;
     }
 
     // Function to add callbacks to each path
@@ -163,14 +165,14 @@ var mapApp = function () {
 
     // Support map constructor
     function sMap (address, dStyle) {
+      this.get = function () {
+        // Request for the data
+        getGeoJson(address,this);
+      };
+      this.requested = false;
       this.address = address;
-      this.data = getGeoJson(address);
       this.dStyle = dStyle;
       this.onEach = toEach;
-      this.gsn = L.geoJson(this.data,{
-        style: this.dStyle,
-        onEachFeature: this.onEach,
-      });
     }
 
     // layers of support maps
@@ -257,6 +259,7 @@ var mapApp = function () {
 
     // To update the layers on the map
     function update () {
+      console.log('updating sMaps');
       // clear layers on group
       lGroup.clearLayers();
       // uncheck all
@@ -267,7 +270,12 @@ var mapApp = function () {
         if (map.getZoom() >= z[cZ]){
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('adding: ' + v);
-            if (layers[v].gsn != undefined) {
+            if (layers[v].gsn == undefined) {
+              if (layers[v].requested == false) {
+                layers[v].requested = true;
+                layers[v].get();
+              }
+            } else {
               lGroup.addLayer(layers[v].gsn);
               $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
             }
@@ -275,7 +283,12 @@ var mapApp = function () {
         } else {
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('removing: ' + v);
-            if (layers[v].gsn != undefined) {
+            if (layers[v].gsn == undefined) {
+              if (layers[v].requested == false) {
+                layers[v].requested = true;
+                layers[v].get();
+              }
+            } else {
               lGroup.removeLayer(layers[v].gsn);
               $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
             }
@@ -584,6 +597,7 @@ $(document).ready(function(){
       dInfo.update(mapApp.c_res);
   });
 
+  // init support maps
   mapApp.sMaps.init();
 
 });
