@@ -131,7 +131,7 @@ var mapApp = function () {
           'async': false,
           'global': false,
           'url': address,
-          'dataType': "json",
+          'dataType': 'json',
           'success': function (data) {
               geoJson = data;
           }
