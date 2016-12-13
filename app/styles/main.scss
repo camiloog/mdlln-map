@@ -143,7 +143,7 @@ header h3 {
   text-align: center;
   color: $info-color;
   background: $info-bg;
-  border: 2px solid darken($info-bg, 20%);
+  border: 2px solid #000; //darken($info-bg, 20%);
 }
 .info-conteiner h4 {
   font-family: "Times New Roman", Times, serif;

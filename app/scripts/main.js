@@ -118,9 +118,149 @@ var mapApp = function () {
   }
 
   /*
-    +------------------------------------+
-    | Objects to handle GeoJson layers   |
-    +------------------------------------+
+    +--------------+
+    | Support maps |
+    +--------------+
+  */
+  var sMaps = function () {
+
+    // function to get geoJson files
+    function getGeoJson(address) {
+      var geoJson = null;
+      $.ajax({
+          'async': false,
+          'global': false,
+          'url': address,
+          'dataType': "json",
+          'success': function (data) {
+              geoJson = data;
+          }
+      });
+      return geoJson;
+    }
+
+    function sMap (address, dStyle) {
+      this.address = address;
+      this.data = getGeoJson(address);
+      this.dStyle = dStyle;
+      this.onEach = undefined;
+      this.gsn = L.geoJson(this.data,{
+        style: this.dStyle,
+        onEachFeature: this.onEach,
+      });
+    }
+
+    // layers of support maps
+    var layers = {
+      rio : new sMap('/support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      quebradas_z0 : new sMap('/support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      quebradas_z2 : new sMap('/support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1})
+    }
+
+    // layers to separate support maps for resource and zoom level
+    var res_ = {
+      REC_AGUA : {
+        z0: ['rio','quebradas_z0'],
+        z1: ['barrio','ciclorutas','metro','plantas_potab','humedales'],
+        z2: ['quebradas_z2','retiros']
+      },
+      REC_SUELO : {
+        z0: [],
+        z1: [],
+        z2: []
+      },
+      REC_AIRE : {
+        z0: [],
+        z1: [],
+        z2: []
+      },
+      FAUNA_DOM : {
+        z0: [],
+        z1: [],
+        z2: []
+      },
+      SOCIOCULT : {
+        z0: [],
+        z1: [],
+        z2: []
+      },
+      REC_FLORA : {
+        z0: [],
+        z1: [],
+        z2: []
+      },
+      NONE : {
+        z0: ['rio','quebradas_z0'],
+        z1: [],
+        z2: ['quebradas_z2']
+      }
+    };
+
+    var z = {
+      z0 : 10,
+      z1 : 12,
+      z2 : 14
+    };
+
+    // Layer gorup to hold the geoJson objects ready for map
+    var lGroup = L.layerGroup([]);
+
+    // Bring to front the layers on lGroup
+    function bringToFront () {
+      lGroup.eachLayer(function(l){
+        l.bringToFront();
+      });
+    }
+
+    function update () {
+      // remove layer group from map
+      if (map.hasLayer(lGroup)) {
+        map.removeLayer(lGroup);
+      }
+      // clean layer group
+      lGroup.clearLayers();
+
+      // zoom Handling
+      $.each(z, function (cZ) {
+        // console.log('evaluating: ' + cZ + ':' + z[cZ]);
+        if (map.getZoom() >= z[cZ]){
+          $.each(res_[c_res.label][cZ],function(i,v){
+            // console.log('adding: ' + v);
+            if (layers[v] != undefined)
+              lGroup.addLayer(layers[v].gsn);
+          });
+        } else {
+          $.each(res_[c_res.label][cZ],function(i,v){
+            // console.log('removing: ' + v);
+            if (layers[v] != undefined)
+              lGroup.removeLayer(layers[v].gsn);
+          });
+        }
+      });
+
+      lGroup.addTo(map);
+    }
+
+    map.on('zoomend', function(e) {
+      update();
+    });
+
+    return {
+      layers,
+      lGroup,
+      update,
+      bringToFront,
+      res
+    };
+
+  }();
+
+
+
+  /*
+    +------------------------+
+    | Main Map GeoJson layer |
+    +------------------------+
   */
 
   /* gsn : GeoJson layer constructor
@@ -152,6 +292,8 @@ var mapApp = function () {
       if (this.fit) {
         map.fitBounds(this.gsn.getBounds());
       }
+      sMaps.update();
+      sMaps.bringToFront();
     };
     // this.update = function () {
     //   function to update the layers based on c_res without
@@ -191,6 +333,7 @@ var mapApp = function () {
       && !L.Browser.opera
       && !L.Browser.edge) {
       layer.bringToFront();
+      sMaps.bringToFront();
     }
   }
 
@@ -273,7 +416,8 @@ var mapApp = function () {
     info,       // handler to control the info box
     c_res,      // current resource
     gsnComCorr,  // main geoJson handler
-    resources
+    resources,
+    sMaps
   };
 
 }(); // End mapApp
@@ -374,11 +518,17 @@ $(document).ready(function(){
       if (this.checked) {
         console.log($(this).val());
         console.log('it\'s been checked');
-          // the checkbox is now checked
+        if ($(this).val() == 'quebradas') {return;}
+        mapApp.map.addLayer(
+          mapApp.sMaps.layers[$(this).val()].gsn
+        );
       } else {
         console.log($(this).val());
         console.log('it\'s been unchecked');
-          // the checkbox is now no longer checked
+        if ($(this).val() == 'quebradas') {return;}
+        mapApp.map.removeLayer(
+          mapApp.sMaps.layers[$(this).val()].gsn
+        );
       }
   });
 
