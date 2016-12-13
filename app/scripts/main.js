@@ -154,45 +154,61 @@ var mapApp = function () {
     var layers = {
       rio : new sMap('/support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
       quebradas_z0 : new sMap('/support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
-      quebradas_z2 : new sMap('/support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1})
+      quebradas_z2 : new sMap('/support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      retiros : new sMap('/support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
+      barrio : new sMap('/support_maps/barrio.geojson',{fillOpacity: 0, weight: 1, dashArray: '2', color: '#999999', opacity: 1}),
+      ciclorutas : new sMap('/support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 1, color: '#005A78', opacity: 1}),
+      metro : new sMap('/support_maps/metro.geojson',{fillOpacity: 0, weight: 1, color: '#106C10', opacity: 1}),
+      esp_publico : new sMap('/support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
+      plantas_potab : new sMap('/support_maps/plantas_potab.geojson',{}),
+      humedales : new sMap('/support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
+      c_acopio : new sMap('/support_maps/c_acopio.geojson',{}),
+      s_orografico : new sMap('/support_maps/s_orografico.geojson',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
+      cv_residuos : new sMap('/support_maps/cv_residuos.geojson',{}),
+      proteg : new sMap('/support_maps/proteg.geojson',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
+      conect_eco : new sMap('/support_maps/conect_eco.geojson',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
+      equip_z0 : new sMap('/support_maps/equip_z0.geojson',{fillOpacity: 0, weight: 0.9, color: '#999999', opacity: 1}),
+      equip_z1 : new sMap('/support_maps/equip_z1.geojson',{fillOpacity: 0, weight: 0.9, color: '#999999', opacity: 1}),
+      equip_z2 : new sMap('/support_maps/equip_z2.geojson',{fillOpacity: 0, weight: 0.9, color: '#999999', opacity: 1}),
+      int_cultural : new sMap('/support_maps/int_cultural.geojson',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
     }
 
     // layers to separate support maps for resource and zoom level
     var res_ = {
       REC_AGUA : {
-        z0: ['rio','quebradas_z0'],
+        z0: ['rio','quebradas_z0','equip_z0'],
         z1: ['barrio','ciclorutas','metro','plantas_potab','humedales'],
         z2: ['quebradas_z2','retiros']
       },
       REC_SUELO : {
-        z0: [],
-        z1: [],
-        z2: []
+        z0: ['rio','equip_z0'],
+        z1: ['barrio','ciclorutas','metro','c_acopio','s_orografico','cv_residuos','equip_z1'],
+        z2: ['equip_z1']
       },
       REC_AIRE : {
-        z0: [],
-        z1: [],
-        z2: []
+        z0: ['rio','equip_z0'],
+        z1: ['barrio','ciclorutas','metro','esp_publico','s_orografico'],
+        z2: ['conect_eco']
       },
       FAUNA_DOM : {
-        z0: [],
-        z1: [],
-        z2: []
+        z0: ['rio','equip_z0'],
+        z1: ['barrio','ciclorutas','metro','esp_publico','equip_z1'],
+        z2: ['equip_z2']
       },
       SOCIOCULT : {
-        z0: [],
-        z1: [],
-        z2: []
+        z0: ['rio','equip_z0'],
+        z1: ['barrio','ciclorutas','metro','esp_publico','equip_z1'],
+        z2: ['equip_z2','int_cultural']
       },
       REC_FLORA : {
-        z0: [],
-        z1: [],
-        z2: []
+        z0: ['rio','equip_z0'],
+        z1: ['barrio','ciclorutas','metro','s_orografico','proteg'],
+        z2: ['conect_eco']
       },
       NONE : {
-        z0: ['rio','quebradas_z0'],
-        z1: [],
-        z2: ['quebradas_z2']
+        z0: ['rio'],
+        z1: ['barrio','metro'],
+        z2: []
       }
     };
 
@@ -220,20 +236,27 @@ var mapApp = function () {
       // clean layer group
       lGroup.clearLayers();
 
+      // uncheck all
+      $('#support-maps :checkbox').prop('checked', false);
+
       // zoom Handling
       $.each(z, function (cZ) {
         // console.log('evaluating: ' + cZ + ':' + z[cZ]);
         if (map.getZoom() >= z[cZ]){
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('adding: ' + v);
-            if (layers[v] != undefined)
+            if (layers[v] != undefined) {
               lGroup.addLayer(layers[v].gsn);
+              $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
+            }
           });
         } else {
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('removing: ' + v);
-            if (layers[v] != undefined)
+            if (layers[v] != undefined) {
               lGroup.removeLayer(layers[v].gsn);
+              $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
+            }
           });
         }
       });
@@ -344,12 +367,14 @@ var mapApp = function () {
         // Change the style on hover only if zoomed out
         if (gsnComCorr.lZoomed == undefined) {
           gsnComCorr.hStyle(e.target);
+          // gsnComCorr.gsn.bringToBack();
         }
       },
       mouseout: function (e) {
         // Change the style when zoomed out
         if (gsnComCorr.lZoomed == undefined) {
           gsnComCorr.gsn.resetStyle(e.target);
+          // gsnComCorr.gsn.bringToBack();
         }
       },
       click: function (e) {
@@ -367,6 +392,7 @@ var mapApp = function () {
           gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
           gsnComCorr.lZoomed = undefined; // clear zoomed layer
         }
+        // sMaps.bringToFront();
       }
     });
   }
@@ -539,8 +565,6 @@ $(document).ready(function(){
       mapApp.c_res.label = $(this).attr('id');
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);
-
-      $('#support-maps :checkbox[value=quebradas]').prop('checked', true); // this change the checkbox state but dont trigger the .change() event.
   });
 
 });
