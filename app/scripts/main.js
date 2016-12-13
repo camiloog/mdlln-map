@@ -139,11 +139,29 @@ var mapApp = function () {
       return geoJson;
     }
 
+    function toEach (feature, layer) {
+      layer.on({
+        mouseover: function (e) {
+        },
+        mouseout: function (e) {
+        },
+        click: function (e) {
+          // we are zoomed in on a main layer
+          if (gsnComCorr.lZoomed != undefined) {
+            map.fitBounds(gsnComCorr.gsn.getBounds()); // zoome out
+            info.update(); // Clear Info box
+            gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
+            gsnComCorr.lZoomed = undefined; // clear zoomed layer
+          }
+        }
+      });
+    }
+
     function sMap (address, dStyle) {
       this.address = address;
       this.data = getGeoJson(address);
       this.dStyle = dStyle;
-      this.onEach = undefined;
+      this.onEach = toEach;
       this.gsn = L.geoJson(this.data,{
         style: this.dStyle,
         onEachFeature: this.onEach,
