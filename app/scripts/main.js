@@ -129,7 +129,7 @@ var mapApp = function () {
 
     // function to get geoJson files
     function getGeoJson(address, obj) {
-      $.ajax({
+      return $.ajax({
           'global': false,
           'url': address,
           'dataType': 'json',
@@ -138,7 +138,7 @@ var mapApp = function () {
               style: obj.dStyle,
               onEachFeature: obj.onEach,
             });
-            // console.log('Success on getting :' + address);
+            console.log('Success on getting :' + address);
             update();
           }
       });
@@ -167,7 +167,7 @@ var mapApp = function () {
     function sMap (address, dStyle) {
       this.get = function () {
         // Request for the data
-        getGeoJson(address,this);
+        return getGeoJson(address,this);
       };
       this.requested = false;
       this.address = address;
@@ -259,7 +259,7 @@ var mapApp = function () {
 
     // To update the layers on the map
     function update () {
-      console.log('updating sMaps');
+      // console.log('updating sMaps');
       // clear layers on group
       lGroup.clearLayers();
       // uncheck all
@@ -570,22 +570,33 @@ $(document).ready(function(){
 
   // Add checkbox handling
   $('#support-maps :checkbox').change(function() {
-      // this will contain a reference to the checkbox
-      if (this.checked) {
-        console.log($(this).val());
-        console.log('it\'s been checked');
-        if ($(this).val() == 'quebradas') {return;}
-        mapApp.sMaps.lGroup.addLayer(
-          mapApp.sMaps.layers[$(this).val()].gsn
-        );
+    var l = $(this).val();
+    if (this.checked) {
+      // console.log(l + ' it\'s been checked')
+      if (mapApp.sMaps.layers[l].gsn == undefined) {
+        if (mapApp.sMaps.layers[l].requested == false) {
+          mapApp.sMaps.layers[l].requested = true;
+          $.when(mapApp.sMaps.layers[l].get())
+           .done(function () {
+             mapApp.sMaps.lGroup.addLayer(
+              mapApp.sMaps.layers[l].gsn
+             );
+             $('#support-maps :checkbox[value=' + l + ']').prop('checked', true);
+           });
+        }
       } else {
-        console.log($(this).val());
-        console.log('it\'s been unchecked');
-        if ($(this).val() == 'quebradas') {return;}
-        mapApp.sMaps.lGroup.removeLayer(
-          mapApp.sMaps.layers[$(this).val()].gsn
+        mapApp.sMaps.lGroup.addLayer(
+          mapApp.sMaps.layers[l].gsn
         );
       }
+    } else {
+      // console.log(l + 'it\'s been unchecked');
+      if (mapApp.sMaps.layers[l].gsn != undefined) {
+        mapApp.sMaps.lGroup.removeLayer(
+          mapApp.sMaps.layers[l].gsn
+        );
+      }
+    }
   });
 
   // Resource buttons behavior
