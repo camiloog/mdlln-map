@@ -59,6 +59,7 @@ var mapApp = function () {
     crs: L.CRS.Simple
   });
   map.setMinZoom(10); // min zoom, able to fit the map on min 270px width
+  map.doubleClickZoom.disable(); // to allow other double clicks callbacks
 
   /*
     +-------------------------------------+
@@ -146,12 +147,18 @@ var mapApp = function () {
 
     // Function to add callbacks to each path
     function toEach (feature, layer) {
+
+      if (feature.properties.NOMBRE != undefined) {
+        layer.bindPopup(feature.properties.NOMBRE);
+      }
+
       layer.on({
         mouseover: function (e) {
         },
         mouseout: function (e) {
         },
-        click: function (e) {
+        dblclick: function (e) {
+          console.log('double clicked.');
           // we are zoomed in on a main layer
           if (gsnComCorr.lZoomed != undefined) {
             map.fitBounds(gsnComCorr.gsn.getBounds()); // zoome out
@@ -244,6 +251,40 @@ var mapApp = function () {
       z2 : 14
     };
 
+    var order = [
+      'barrio',
+      'retiros',
+      'proteg',
+      'conect_eco',
+      's_orografico',
+      'esp_publico',
+      'ciclorutas',
+      'metro',
+      'plantas_potab',
+      'c_acopio',
+      'cv_residuos',
+      'equip_z0',
+      'equip_z1',
+      'equip_z2',
+      'int_cultural',
+      'humedales',
+      'quebradas_z2',
+      'quebradas_z0',
+      'rio'
+    ];
+
+    function order_sMaps () {
+      console.log('ordering:');
+      $.each(order,function (i,v){
+        if (layers[v].gsn != undefined) {
+          if (lGroup.hasLayer(layers[v].gsn)) {
+            console.log(v);
+            layers[v].gsn.bringToFront();
+          }
+        }
+      });
+    }
+
     // function to add the group of support layers to map
     // this should be called just once
     function init () {
@@ -295,6 +336,7 @@ var mapApp = function () {
           });
         }
       });
+      order_sMaps();
     }
 
     // Add callback function for zoom event
@@ -308,7 +350,8 @@ var mapApp = function () {
       init,
       update,
       bringToFront,
-      res
+      res,
+      order_sMaps
     };
   }();
 
@@ -410,7 +453,7 @@ var mapApp = function () {
           // gsnComCorr.gsn.bringToBack();
         }
       },
-      click: function (e) {
+      dblclick: function (e) {
         // click on a layer when zoomed out
         if (gsnComCorr.lZoomed == undefined) {
           gsnComCorr.lZoomed = e.target; // save the layer
