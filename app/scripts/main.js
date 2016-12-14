@@ -152,6 +152,7 @@ var mapApp = function () {
       if (feature.properties.NOMBRE != undefined) {
         layer.bindPopup(
           feature.properties.NOMBRE,{
+            autoPan: false,
             autoClose:false,
             closeOnClick:false//,
             // closeButton:false
@@ -200,12 +201,12 @@ var mapApp = function () {
     // layers of support maps
     var layers = {
       rio : new sMap('/support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
-      quebradas_z0 : new sMap('/support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
-      quebradas_z2 : new sMap('/support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      quebradas_z0 : new sMap('/support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      quebradas_z2 : new sMap('/support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
       retiros : new sMap('/support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
       barrio : new sMap('/support_maps/barrio.geojson',{fillOpacity: 0, weight: 1, dashArray: '2', color: '#999999', opacity: 1}),
-      ciclorutas : new sMap('/support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 1, color: '#005A78', opacity: 1}),
-      metro : new sMap('/support_maps/metro.geojson',{fillOpacity: 0, weight: 1, color: '#106C10', opacity: 1}),
+      ciclorutas : new sMap('/support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#005A78', opacity: 1}),
+      metro : new sMap('/support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
       esp_publico : new sMap('/support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
       plantas_potab : new sMap('/support_maps/plantas_potab.geojson',{}),
       humedales : new sMap('/support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
@@ -313,13 +314,18 @@ var mapApp = function () {
       });
     }
 
+    function clean () {
+      lGroup.clearLayers();
+      $('#support-maps :checkbox').prop('checked', false);
+    }
+
     // To update the layers on the map
     function update () {
       // console.log('updating sMaps');
       // clear layers on group
-      lGroup.clearLayers();
+      // lGroup.clearLayers();
       // uncheck all
-      $('#support-maps :checkbox').prop('checked', false);
+      // $('#support-maps :checkbox').prop('checked', false);
       // zoom Handling
       $.each(z, function (cZ) {
         // console.log('evaluating: ' + cZ + ':' + z[cZ]);
@@ -332,8 +338,10 @@ var mapApp = function () {
                 layers[v].get();
               }
             } else {
-              lGroup.addLayer(layers[v].gsn);
-              $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
+              if (lGroup.hasLayer(layers[v].gsn) == false) { // Check if the layer is already on group
+                lGroup.addLayer(layers[v].gsn);
+                $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
+              }
             }
           });
         } else {
@@ -345,8 +353,10 @@ var mapApp = function () {
                 layers[v].get();
               }
             } else {
-              lGroup.removeLayer(layers[v].gsn);
-              $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
+              if (lGroup.hasLayer(layers[v].gsn) == true) { // Check if the layer is already on group
+                lGroup.removeLayer(layers[v].gsn);
+                $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
+              }
             }
           });
         }
@@ -364,6 +374,7 @@ var mapApp = function () {
       lGroup,
       init,
       update,
+      clean,
       bringToFront,
       res,
       order_sMaps
@@ -661,6 +672,7 @@ $(document).ready(function(){
       $('#rec_selector button').removeClass('active');
       $(this).addClass('active');
       mapApp.c_res.label = $(this).attr('id');
+      mapApp.sMaps.clean();
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);
   });
