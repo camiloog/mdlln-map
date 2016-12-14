@@ -1,4 +1,13 @@
 var r_data = {
+  'NONE': [
+    {'USAGE':'Seleccione un recurso del menú de recursos naturales para visualizar los mapas relacionados con este recurso natural.'},
+    {'USAGE':'Active o desactive mapas desde el menú Incluir.'},
+    {'USAGE':'Use el mouse y las teclas de dirección para navegar por el mapa.'},
+    {'USAGE':'Pase el puntero del mouse sobre los elementos del mapa para visualizar su nombre. De click sobre cualquier elemento para fijar su nombre en la posición deseada.'},
+    {'USAGE':'Ingrese en la vista de comuna o corregimiento haciendo doble click sobre la comuna deseada. Haga doble click nuevamente sobre el mapa para salir de esta vista.'},
+    {'USAGE':'Observe el cuadro de información en la vista de comuna o corregimiento. En este se muestran los iconos de los recursos con los que esta comuna tiene problematicas ambientales.'},
+    {'USAGE':'Regrese a este menú y limpie el mapa dando click en el boton Limpiar.'}
+  ],
   'REC_AGUA': [
     {'DESCRIPCIÓN':'Contaminación y desbordamiento de las quebradas, inestabilidad de terrenos.  ','FRASE_CORTA':'Desbordamiento de quebradas'},
     {'DESCRIPCIÓN':'Vertimiento de las aguas residuales a quebradas por falta de alcantarillado en los barrios.','FRASE_CORTA':'Vertimiento de las Aguas residuales a las quebradas'},

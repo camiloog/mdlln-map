@@ -60,12 +60,20 @@ body {
 /* HEADER */
 
 header {
+  padding-top: 8px;
   text-align: center;
   background-color: $nb-bg-color;
   color: $nb-tx-color;
 }
 
+header img {
+  margin: 15px;
+  margin-top: 8px;
+  height: 60px;
+}
+
 header span {
+  height: auto;
   align-items: center;
   text-align: center;
 }
@@ -454,6 +462,7 @@ button {
   left: 35%;
   width: 30%;
   height: auto;
+  border-top: 2px solid $nb-bg-color;
   @for $i from 1 through length($colorn) {
     &.sep-#{nth($colorn,$i)} {
       border-top: 2px solid nth($colorv,$i);

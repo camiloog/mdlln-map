@@ -633,10 +633,20 @@ var dInfo = function () {
 
     if (c_res.label == 'NONE') {
       $('#di-row').append(
-      '<div class="row">' +
-      '  <div class="col-xs-12 msg">SELECCIONE UN RECURSO NATURAL</div>' +
-      '</div>'
+        '<div class="row">' +
+        ' <div id="resName"class="col-xs-12"><h2>Bienvenido</h2></div>' +
+        '</div>'
       );
+
+      $.each(r_data[c_res.label], function (i) {
+        var u = r_data[c_res.label][i]['USAGE'];
+        $('#di-row').append(
+          '<div class="row"><div class="sep"></div>' +
+          '  <div class="desc col-xs-12">' + u + '</div>' +
+          '</div>'
+        );
+      });
+
     }
     else {
       $('#di-row').append(
@@ -652,7 +662,7 @@ var dInfo = function () {
 
       $.each(r_data[c_res.label], function (i) {
         var d = r_data[c_res.label][i]['DESCRIPCIÓN'];
-        var f = r_data[c_res.label][i]['FRASE_CORTA'];
+        // var f = r_data[c_res.label][i]['FRASE_CORTA'];
         $('#di-row').append(
           '<div class="row"><div class="sep"></div>' +
           '  <div class="desc col-xs-12">' + d + '</div>' +
@@ -691,6 +701,9 @@ $(document).ready(function(){
       '" aria-hidden="true"></span>'
     );
   });
+
+  // update dynamic info
+  dInfo.update(mapApp.c_res);
 
   // Draw main map
   mapApp.gsnComCorr.draw();
