@@ -464,6 +464,19 @@ var mapApp = function () {
 
   // Add event listeners for each layer of main geoJson layer
   gsnComCorr.onEach = function (feature, layer) {
+
+    layer.popupOpened = false;
+    if (feature.properties.NOMBRE != undefined) {
+      layer.bindPopup(
+        feature.properties.NOMBRE,{
+          autoPan: false,
+          autoClose:false,
+          closeOnClick:false//,
+          // closeButton:false
+        }
+      )
+    }
+
     layer.on({
       mouseover: function (e) {
         // Change the style on hover only if zoomed out
@@ -471,6 +484,8 @@ var mapApp = function () {
           gsnComCorr.hStyle(e.target);
           // gsnComCorr.gsn.bringToBack();
         }
+        if (e.target.popupOpened != true)
+          e.target.openPopup();
       },
       mouseout: function (e) {
         // Change the style when zoomed out
@@ -478,6 +493,12 @@ var mapApp = function () {
           gsnComCorr.gsn.resetStyle(e.target);
           // gsnComCorr.gsn.bringToBack();
         }
+        if (e.target.popupOpened != true)
+          e.target.closePopup();
+      },
+      click: function (e) {
+        e.target.popupOpened = true;
+        // console.log(e.target);
       },
       dblclick: function (e) {
         // click on a layer when zoomed out
