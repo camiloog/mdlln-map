@@ -145,13 +145,34 @@ var mapApp = function () {
       });
     }
 
+    function getPopupMsg (properties) {
+      var msg = '';
+      if (properties.NOMBRE != undefined)
+        msg = properties.NOMBRE
+      if (properties.ELEMENTO != undefined)
+        msg = properties.ELEMENTO;
+      if (properties.CATEGORIA != undefined)
+        msg = msg + ',<br>' + properties.CATEGORIA;
+      if (properties.DOMINIO != undefined)
+        msg = msg + ',<br>' + properties.DOMINIO;
+      if (properties.ADMINISTRA != undefined)
+        msg = msg + ',<br>' + properties.ADMINISTRA;
+      if (properties.TIPO != undefined)
+        msg = msg + ',<br>' + properties.TIPO;
+      if (msg != '')
+        return msg;
+      else
+        return undefined;
+    }
+
     // Function to add callbacks to each path
     function toEach (feature, layer) {
 
       layer.popupOpened = false;
-      if (feature.properties.NOMBRE != undefined) {
+      var msg = getPopupMsg(feature.properties);
+      if (msg != undefined) {
         layer.bindPopup(
-          feature.properties.NOMBRE,{
+          msg,{
             autoPan: false,
             autoClose:false,
             closeOnClick:false//,
@@ -171,7 +192,12 @@ var mapApp = function () {
         },
         click: function (e) {
           e.target.popupOpened = true;
-          // console.log(e.target);
+          if (e.target._icon != undefined) // is a marker
+            e.target.openPopup();
+          console.log(e.target);
+        },
+        popupclose: function (e) {
+          e.target.popupOpened = false;
         },
         dblclick: function (e) {
           console.log('double clicked.');
