@@ -148,14 +148,29 @@ var mapApp = function () {
     // Function to add callbacks to each path
     function toEach (feature, layer) {
 
+      layer.popupOpened = false;
       if (feature.properties.NOMBRE != undefined) {
-        layer.bindPopup(feature.properties.NOMBRE);
+        layer.bindPopup(
+          feature.properties.NOMBRE,{
+            autoClose:false,
+            closeOnClick:false//,
+            // closeButton:false
+          }
+        )
       }
 
       layer.on({
         mouseover: function (e) {
+          if (e.target.popupOpened != true)
+            e.target.openPopup();
         },
         mouseout: function (e) {
+          if (e.target.popupOpened != true)
+            e.target.closePopup();
+        },
+        click: function (e) {
+          e.target.popupOpened = true;
+          // console.log(e.target);
         },
         dblclick: function (e) {
           console.log('double clicked.');
