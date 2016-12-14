@@ -155,6 +155,11 @@ header h3 {
   color: lighten($info-color, 10%);
 }
 
+// north image
+.north img {
+  width: 40px;
+}
+
 /* FOOTER */
 
 .footer {
@@ -367,6 +372,11 @@ header h3 {
 
   .dropdown-menu{
     max-height: none;
+  }
+
+  // north image
+  .north img {
+    width: 25px;
   }
 
 }

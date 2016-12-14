@@ -61,6 +61,15 @@ var mapApp = function () {
   map.setMinZoom(10); // min zoom, able to fit the map on min 270px width
   map.doubleClickZoom.disable(); // to allow other double clicks callbacks
 
+  // add north image
+  var north = L.control({position: 'bottomleft'});
+  north.onAdd = function(map) {
+      var div = L.DomUtil.create('div','north');
+      div.innerHTML = '<img src="./styles/images/north.png">';
+      return div;
+  }
+  north.addTo(map);
+
   /*
     +-------------------------------------+
     | Objects to handle resources options |
@@ -525,6 +534,9 @@ var mapApp = function () {
       click: function (e) {
         e.target.popupOpened = true;
         // console.log(e.target);
+      },
+      popupclose: function (e) {
+        e.target.popupOpened = false;
       },
       dblclick: function (e) {
         // click on a layer when zoomed out
