@@ -62,7 +62,7 @@ var mapApp = function () {
   map.doubleClickZoom.disable(); // to allow other double clicks callbacks
 
   // add north image
-  var north = L.control({position: 'bottomleft'});
+  var north = L.control({position: 'topleft'});
   north.onAdd = function(map) {
       var div = L.DomUtil.create('div','north');
       div.innerHTML = '<img src="./styles/images/north.png">';
