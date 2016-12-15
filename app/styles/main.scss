@@ -173,15 +173,12 @@ header h3 {
 }
 
 /* FOOTER */
-
-.footer {
-  color: #777;
-  bottom: 0px;
-}
-
-.footer p {
-    font-size: small;
-    margin: 3px;
+footer {
+  font-size: 12px;
+  padding: 0px 5px;
+  text-align: center;
+  background-color: $nb-bg-color;
+  color: $nb-tx-color;
 }
 
 /*
