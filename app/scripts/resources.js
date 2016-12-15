@@ -1,6 +1,6 @@
 var r_data = {
   'NONE': [
-    {'USAGE':'Seleccione un recurso del menú de recursos naturales para visualizar los mapas relacionados con este recurso natural.'},
+    {'USAGE':'Seleccione un recurso del menú de recursos naturales para mostrar los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.'},
     {'USAGE':'Active o desactive mapas desde el menú Incluir.'},
     {'USAGE':'Use el mouse y las teclas de dirección para navegar por el mapa.'},
     {'USAGE':'Pase el puntero del mouse sobre los elementos del mapa para visualizar su nombre. De click sobre cualquier elemento para fijar su nombre en la posición deseada.'},
