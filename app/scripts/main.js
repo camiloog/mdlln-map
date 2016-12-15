@@ -148,7 +148,7 @@ var mapApp = function () {
               style: obj.dStyle,
               onEachFeature: obj.onEach,
             });
-            console.log('Success on getting :' + address);
+            // console.log('Success on getting :' + address);
             update();
           }
       });
@@ -156,14 +156,17 @@ var mapApp = function () {
 
     function getPopupMsg (properties) {
       var msg = '';
-      if (properties.NOMBRE != undefined)
-        msg = properties.NOMBRE
+      if (properties.NOMBRE != undefined && properties.NOMBRE != 'Sin Información')
+        msg = msg + properties.NOMBRE;
       if (properties.ELEMENTO != undefined)
-        msg = properties.ELEMENTO;
+        msg = msg + properties.ELEMENTO;
       if (properties.CATEGORIA != undefined)
-        msg = msg + ',<br>' + properties.CATEGORIA;
-      if (properties.DOMINIO != undefined)
-        msg = msg + ',<br>' + properties.DOMINIO;
+        if (properties.NOMBRE != 'Sin Información'){
+          msg = msg + ',<br>' + properties.CATEGORIA;
+        }
+        else {
+          msg = msg + properties.CATEGORIA;
+        }
       if (properties.ADMINISTRA != undefined)
         msg = msg + ',<br>' + properties.ADMINISTRA;
       if (properties.TIPO != undefined)
@@ -203,13 +206,13 @@ var mapApp = function () {
           e.target.popupOpened = true;
           if (e.target._icon != undefined) // is a marker
             e.target.openPopup();
-          console.log(e.target);
+          // console.log(e.target);
         },
         popupclose: function (e) {
           e.target.popupOpened = false;
         },
         dblclick: function (e) {
-          console.log('double clicked.');
+          // console.log('double clicked.');
           // we are zoomed in on a main layer
           if (gsnComCorr.lZoomed != undefined) {
             map.fitBounds(gsnComCorr.gsn.getBounds()); // zoome out
@@ -217,6 +220,8 @@ var mapApp = function () {
             gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
             gsnComCorr.lZoomed = undefined; // clear zoomed layer
           }
+          // remove extra data
+          extraData_update();
         }
       });
     }
@@ -325,11 +330,11 @@ var mapApp = function () {
     ];
 
     function order_sMaps () {
-      console.log('ordering:');
+      // console.log('ordering:');
       $.each(order,function (i,v){
         if (layers[v].gsn != undefined) {
           if (lGroup.hasLayer(layers[v].gsn)) {
-            console.log(v);
+            // console.log(v);
             layers[v].gsn.bringToFront();
           }
         }
@@ -430,6 +435,27 @@ var mapApp = function () {
    * onEach - function to apply on each feature
    * fit    - boolean to auto zoom or not
    */
+
+   // function to add extra info to the sidebar according to layer
+   function extraData_update (properties) {
+     if (properties == undefined) {
+       console.log('properties undefined');
+       $('.extraData').remove();
+     } else {
+       // Add extra info to side-bar
+       if (properties.EXTRADATA != undefined) {
+         if (properties.EXTRADATA[c_res.label] != undefined){
+           console.log('EXTRA:' + properties.EXTRADATA[c_res.label]);
+           $('#di-row').append(
+             '<div class="row extraData"><div class="sep sep-' + c_res.className() + '"></div>' +
+             '  <div class="desc col-xs-12">' + properties.EXTRADATA[c_res.label] + '</div>' +
+             '</div>'
+           );
+         }
+       }
+     }
+   }
+
   function gsn(data, dStyle, onEach, fit) {
     this.gsn = {};
     this.data = data;
@@ -503,6 +529,7 @@ var mapApp = function () {
     layer.popupOpened = false;
     if (feature.properties.NOMBRE != undefined) {
       layer.bindPopup(
+        feature.properties.IDENTIFICA + '<br>' +
         feature.properties.NOMBRE,{
           autoPan: false,
           autoClose:false,
@@ -553,6 +580,8 @@ var mapApp = function () {
           gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
           gsnComCorr.lZoomed = undefined; // clear zoomed layer
         }
+        // Add extra info to the side-bar
+        extraData_update(e.target.feature.properties);
         // sMaps.bringToFront();
       }
     });
