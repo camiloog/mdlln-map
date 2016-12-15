@@ -179,7 +179,16 @@ footer {
   text-align: center;
   background-color: $nb-bg-color;
   color: $nb-tx-color;
+  position: relative;
 }
+
+.cred {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  font-size: 10px;
+}
+
 
 /*
   +-----------------+
