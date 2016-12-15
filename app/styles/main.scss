@@ -286,20 +286,21 @@ header h3 {
   +------------------------------+
 */
 
-// .mred{
-//   border: 3px solid red;
-// }
-// .mblue{
-//   border: 3px solid blue;
-// }
-// .mpurple{
-//   border: 3px solid purple;
-// }
+.mred{
+  border: 3px solid red;
+}
+.mblue{
+  border: 3px solid blue;
+}
+.mpurple{
+  border: 3px solid purple;
+}
 
 .flex-conteiner-col {
   height: 100%;
   padding: 0px;
   display: flex;
+  overflow: auto;
   flex-flow: column;
 }
 
