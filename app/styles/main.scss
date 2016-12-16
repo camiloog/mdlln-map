@@ -67,7 +67,7 @@ header {
 }
 
 header img {
-  margin: 15px;
+  margin: 10px 20px;
   margin-top: 8px;
   height: 60px;
 }
@@ -87,6 +87,7 @@ header h1 {
   font-family: "Times New Roman", Times, serif;
 }
 header h3 {
+  margin: 10px 20px;
   color: lighten($nb-tx-color,20%)
 }
 
@@ -175,17 +176,17 @@ header h3 {
 /* FOOTER */
 footer {
   font-size: 12px;
-  padding: 0px 5px;
+  padding: 5px 15px;
   text-align: center;
-  background-color: $nb-bg-color;
-  color: $nb-tx-color;
+  background-color:darken($bg-color,8%);
+  color: darken($nb-bg-color,50%);
   position: relative;
 }
 
 .cred {
   position: absolute;
-  left: 5px;
-  bottom: 5px;
+  left: 3px;
+  bottom: 3px;
   font-size: 10px;
 }
 
@@ -465,6 +466,11 @@ footer {
   .north img {
     width: 25px;
   }
+
+  footer {
+    padding: 20px 15px;
+  }
+
 
 }
 

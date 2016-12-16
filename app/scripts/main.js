@@ -377,7 +377,7 @@ var mapApp = function () {
       $('#support-maps :checkbox').prop('checked', false);
     }
 
-    // To update the layers on the map
+    // To update the layers on the support-maps
     function update () {
       // console.log('updating sMaps');
       // clear layers on group
@@ -943,6 +943,7 @@ $(document).ready(function(){
               mapApp.sMaps.layers[l].gsn
              );
              mapApp.sMaps.legends.addLayerLegend(l);
+             mapApp.sMaps.order_sMaps();
              $('#support-maps :checkbox[value=' + l + ']').prop('checked', true);
            });
         }
@@ -951,6 +952,7 @@ $(document).ready(function(){
           mapApp.sMaps.layers[l].gsn
         );
         mapApp.sMaps.legends.addLayerLegend(l);
+        mapApp.sMaps.order_sMaps();
       }
     } else {
       // console.log(l + 'it\'s been unchecked');
