@@ -587,6 +587,17 @@ var mapApp = function () {
     });
   }
 
+  // open all popups of layers from gsnComCorr related width c_res
+  function open_c_res_popups () {
+    $.each(gsnComCorr.gsn._layers, function(i,v){
+      if (v.feature.properties[c_res.label] == 1){
+        v.popupOpened = true;
+        v.openPopup();
+        console.log(v);
+      }
+    });
+  }
+
   /*
     +------------------------------------+
     | Custom information box for the map |
@@ -634,7 +645,8 @@ var mapApp = function () {
     c_res,      // current resource
     gsnComCorr,  // main geoJson handler
     resources,
-    sMaps
+    sMaps,
+    open_c_res_popups
   };
 
 }(); // End mapApp
@@ -776,6 +788,7 @@ $(document).ready(function(){
       mapApp.sMaps.clean();
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);
+      mapApp.open_c_res_popups(); // Open popups asociated width current ress
   });
 
   // init support maps
