@@ -5,7 +5,7 @@ var r_data = {
     {'USAGE':'Use el mouse y las teclas de dirección para navegar por el mapa.'},
     {'USAGE':'Pase el puntero del mouse sobre los elementos del mapa para visualizar su nombre. De click sobre cualquier elemento para fijar su nombre en la posición deseada.'},
     {'USAGE':'Ingrese en la vista de comuna o corregimiento haciendo doble click sobre la comuna deseada. Haga doble click nuevamente sobre el mapa para salir de esta vista.'},
-    {'USAGE':'Observe el cuadro de información en la vista de comuna o corregimiento. En este se muestran los iconos de los recursos con los que esta comuna tiene problematicas ambientales.'},
+    {'USAGE':'Observe el cuadro de información en la vista de comuna o corregimiento. En este se muestran los iconos de los recursos con los que esta comuna tiene problematicas ambientales. De click en estos iconos para actualizar el mapa.'},
     {'USAGE':'Regrese a este menú y limpie el mapa dando click en el boton Limpiar.'}
   ],
   'REC_AGUA': [
