@@ -259,7 +259,7 @@ var mapApp = function () {
     var layers = {
       rio : new sMap('Rio Medellín','Polygon','./support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
       quebradas_z0 : new sMap('Quebradas','Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      quebradas_z2 : new sMap('Quebradas','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      quebradas_z2 : new sMap('Quebradas','Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
       retiros : new sMap('Retiros a quebradas','Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
       barrio : new sMap('Limite barrios y veredas','Polygon','./support_maps/barrio.geojson',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
       ciclorutas : new sMap('Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#005A78', opacity: 1}),
