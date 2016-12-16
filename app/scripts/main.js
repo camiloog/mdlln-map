@@ -144,7 +144,7 @@ var mapApp = function () {
           'url': address,
           'dataType': 'json',
           'success': function (data) {
-            console.log('generating gsn for:' +obj.type);
+            console.log('generating gsn for:' +obj.name);
             if (obj.type == 'Point'){
               obj.gsn = L.geoJson(data,{
                 pointToLayer: function (feature, latlng) {
@@ -242,11 +242,12 @@ var mapApp = function () {
     }
 
     // Support map constructor
-    function sMap (type,address, dStyle) {
+    function sMap (name,type,address, dStyle) {
       this.get = function () {
         // Request for the data
         return getGeoJson(address,this);
       };
+      this.name = name;
       this.type = type;
       this.requested = false;
       this.address = address;
@@ -256,25 +257,25 @@ var mapApp = function () {
 
     // layers of support maps
     var layers = {
-      rio : new sMap('Polygon','./support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
-      quebradas_z0 : new sMap('Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      quebradas_z2 : new sMap('Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      retiros : new sMap('Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
-      barrio : new sMap('Polygon','./support_maps/barrio.geojson',{fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
-      ciclorutas : new sMap('Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#005A78', opacity: 1}),
-      metro : new sMap('Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
-      esp_publico : new sMap('Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
-      plantas_potab : new sMap('Point','./support_maps/plantas_potab.geojson',{class: 'icon_plantas_potab'}),
-      humedales : new sMap('Polygon','./support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
-      c_acopio : new sMap('Point','./support_maps/c_acopio.geojson',{class: 'icon_c_acopio'}),
-      s_orografico : new sMap('Polygon','./support_maps/s_orografico.geojson',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
-      cv_residuos : new sMap('Point','./support_maps/cv_residuos.geojson',{class: 'icon_cv_residuos'}),
-      proteg : new sMap('Polygon','./support_maps/proteg.geojson',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
-      conect_eco : new sMap('Polygon','./support_maps/conect_eco.geojson',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
-      equip_z0 : new sMap('Polygon','./support_maps/equip_z0.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      equip_z1 : new sMap('Polygon','./support_maps/equip_z1.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      equip_z2 : new sMap('Polygon','./support_maps/equip_z2.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      int_cultural : new sMap('Polygon','./support_maps/int_cultural.geojson',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
+      rio : new sMap('Rio Medellín','Polygon','./support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      quebradas_z0 : new sMap('Quebradas','Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      quebradas_z2 : new sMap('Quebradas','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      retiros : new sMap('Retiros a quebradas','Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
+      barrio : new sMap('Limite barrios y veredas','Polygon','./support_maps/barrio.geojson',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
+      ciclorutas : new sMap('Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#005A78', opacity: 1}),
+      metro : new sMap('Sitema Metro','Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
+      esp_publico : new sMap('Espacio público','Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
+      plantas_potab : new sMap('Plantas de potabilización','Point','./support_maps/plantas_potab.geojson',{class: 'icon_plantas_potab'}),
+      humedales : new sMap('Humedales','Polygon','./support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
+      c_acopio : new sMap('Centros de acopio de residuos','Point','./support_maps/c_acopio.geojson',{class: 'icon_c_acopio'}),
+      s_orografico : new sMap('Sistema orográfico','Polygon','./support_maps/s_orografico.geojson',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
+      cv_residuos : new sMap('Compraventas de residuos','Point','./support_maps/cv_residuos.geojson',{class: 'icon_cv_residuos'}),
+      proteg : new sMap('Areas protegidas','Polygon','./support_maps/proteg.geojson',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
+      conect_eco : new sMap('Conectividad ecólogica','Polygon','./support_maps/conect_eco.geojson',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
+      equip_z0 : new sMap('Equipamientos','Polygon','./support_maps/equip_z0.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      equip_z1 : new sMap('Equipamientos','Polygon','./support_maps/equip_z1.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      equip_z2 : new sMap('Equipamientos','Polygon','./support_maps/equip_z2.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      int_cultural : new sMap('Interés cultural','Polygon','./support_maps/int_cultural.geojson',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
     }
 
     // layers to separate support maps for resource and zoom level
@@ -372,6 +373,7 @@ var mapApp = function () {
 
     function clean () {
       lGroup.clearLayers();
+      legends.clear();
       $('#support-maps :checkbox').prop('checked', false);
     }
 
@@ -397,6 +399,7 @@ var mapApp = function () {
               if (lGroup.hasLayer(layers[v].gsn) == false) { // Check if the layer is already on group
                 lGroup.addLayer(layers[v].gsn);
                 console.log('Addig '+v+' type: '+layers[v].type);
+                legends.addLayerLegend(v);
                 $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
               }
             }
@@ -412,6 +415,7 @@ var mapApp = function () {
             } else {
               if (lGroup.hasLayer(layers[v].gsn) == true) { // Check if the layer is already on group
                 lGroup.removeLayer(layers[v].gsn);
+                legends.removeLayerLegend(v);
                 $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
               }
             }
@@ -426,6 +430,112 @@ var mapApp = function () {
       update();
     });
 
+
+    /*
+      +--------------------------+
+      | Legends for support-maps |
+      +--------------------------+
+    */
+
+    var legends = L.control({position: 'bottomleft'});
+    legends.onAdd = function(map) {
+        var div = L.DomUtil.create('div','legends');
+        return div;
+    }
+    legends.clear = function () {
+      $('.legends').html('');
+    }
+    legends.addLayerLegend = function (layerIndex) {// layer index
+      var l = layerIndex;
+      if (l == 'quebradas_z0' || l == 'quebradas_z2')
+        l = 'quebradas';
+      if (l == 'equip_z0' || l == 'equip_z1' || l == 'equip_z2')
+        l = 'equip';
+
+      if ($('.legends .'+l).length == 0) {
+
+        $('.legends').append(
+          '<div class="legendItem ' + l + '">' +
+          ' <span class="legendText">' + layers[layerIndex].name + '</span>' +
+          '</div>'
+        );
+        if (layers[layerIndex].type == 'Polygon') {
+          $('.' + l).prepend('<svg width="20" height="10"></svg>');
+          $('.' + l + ' svg').html(
+            '<rect width="20" height="10"'+
+            'fill="' + layers[layerIndex].dStyle.fillColor + '"'+
+            'fill-opacity="' + layers[layerIndex].dStyle.fillOpacity + '"'+
+            'stroke="' + layers[layerIndex].dStyle.color + '"'+
+            'stroke-width="' + layers[layerIndex].dStyle.weight + '"'+
+            'stroke-dasharray="' + layers[layerIndex].dStyle.dashArray + '"'+
+            '>'
+          );
+        }
+        if (layers[layerIndex].type == 'Point') {
+          $('.' + l).prepend(
+            '<span class="glyphicon glyphicon-map-marker icon-marker ' +
+            layers[layerIndex].dStyle.class +
+            '" aria-hidden="true"></span>'
+          );
+        }
+        if (layers[layerIndex].type == 'Line') {
+          $('.' + l).prepend('<svg width="20" height="10"></svg>');
+          $('.' + l + ' svg').html(
+            '<line x1="0" x2="20" y1="10" y2="0" width="20" height="10"'+
+            'stroke="' + layers[layerIndex].dStyle.color + '"'+
+            'stroke-width="' + layers[layerIndex].dStyle.weight + '"'+
+            'stroke-dasharray="' + layers[layerIndex].dStyle.dashArray + '"'+
+            '>'
+          );
+        }
+
+      }
+    }
+    legends.removeLayerLegend = function (layerIndex) {
+      var l = layerIndex;
+      if (l == 'quebradas_z0' || l == 'quebradas_z2')
+        l = 'quebradas';
+      if (l == 'equip_z0' || l == 'equip_z1' || l == 'equip_z2')
+        l = 'equip';
+      $('.legends .'+l).remove();
+    }
+    legends.updateSupportLegends = function (cres) {
+      $('.legends .comcorr').remove();
+      $('.legends .cres').remove();
+      $('.legends').append(
+        '<div class="legendItem comcorr">' +
+        '  <svg width="20" height="10">' +
+        '    <rect width="20" height="10"' +
+        '    fill="transparent"' +
+        '    fill-opacity="1"' +
+        '    stroke="#2F2F2F"' +
+        '    stroke-width="1.2">' +
+        '    </rect>' +
+        '  </svg>' +
+        '  <span class="legendText">Limite comunas y corregimientos</span>' +
+        '</div>');
+        console.log('adding legend for '+resources[cres].nombre);
+      if (cres != 'NONE') {
+        $('.legends').append(
+          '<div class="legendItem cres">' +
+          '  <svg width="20" height="10">' +
+          '    <rect width="20" height="10"' +
+          '    fill="' + resources[cres].color + '"' +
+          '    fill-opacity="1"' +
+          '    stroke="#2F2F2F"' +
+          '    stroke-width="1.2">' +
+          '    </rect>' +
+          '  </svg>' +
+          '  <span class="legendText">Problemáticas con recurso ' +
+          resources[cres].nombre +
+          '</span>' +
+          '</div>'
+        );
+      }
+    }
+    legends.addTo(map);
+
+    /* Return public objects */
     return {
       layers,
       lGroup,
@@ -434,7 +544,8 @@ var mapApp = function () {
       clean,
       bringToFront,
       res,
-      order_sMaps
+      order_sMaps,
+      legends
     };
   }();
 
@@ -673,6 +784,7 @@ var mapApp = function () {
         gsnComCorr.fit = false;
         gsnComCorr.draw();
         dInfo.update(c_res);
+        mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
         // reset target comcorr, get layer from new gsn object
         var code = target.feature.properties.CODIGO;
         target = getLayer(gsnComCorr.gsn, code);
@@ -814,6 +926,9 @@ $(document).ready(function(){
   // Draw main map
   mapApp.gsnComCorr.draw();
 
+  // Add support-legends
+  mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
+
   // Add checkbox handling
   $('#support-maps :checkbox').change(function() {
     var l = $(this).val();
@@ -827,6 +942,7 @@ $(document).ready(function(){
              mapApp.sMaps.lGroup.addLayer(
               mapApp.sMaps.layers[l].gsn
              );
+             mapApp.sMaps.legends.addLayerLegend(l);
              $('#support-maps :checkbox[value=' + l + ']').prop('checked', true);
            });
         }
@@ -834,6 +950,7 @@ $(document).ready(function(){
         mapApp.sMaps.lGroup.addLayer(
           mapApp.sMaps.layers[l].gsn
         );
+        mapApp.sMaps.legends.addLayerLegend(l);
       }
     } else {
       // console.log(l + 'it\'s been unchecked');
@@ -841,6 +958,7 @@ $(document).ready(function(){
         mapApp.sMaps.lGroup.removeLayer(
           mapApp.sMaps.layers[l].gsn
         );
+        mapApp.sMaps.legends.removeLayerLegend(l);
       }
     }
   });
@@ -853,6 +971,7 @@ $(document).ready(function(){
       mapApp.sMaps.clean();
       mapApp.gsnComCorr.draw();
       dInfo.update(mapApp.c_res);
+      mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
       // mapApp.open_c_res_popups(); // Open popups asociated width current ress
   });
 

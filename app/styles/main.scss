@@ -245,6 +245,34 @@ footer {
 }
 
 /*
+  +---------+
+  | Legends |
+  +---------+
+*/
+
+.legends {
+  font-size: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  text-align: left;
+  color: $info-color;
+  background: $info-bg;
+  border: 2px solid #000; //darken($info-bg, 20%);
+}
+
+.legendItem .icon-marker{
+  width: 20px;
+  height: 10px;
+  text-shadow: none;
+  text-align: center;
+  font-size: 10px;
+}
+
+.legendText {
+  padding-left: 5px;
+}
+
+/*
   +-------------------+
   | Left panel styles |
   +-------------------+
