@@ -205,6 +205,28 @@ footer {
 }
 
 /*
+  +-----------+
+  | Map Icons |
+  +-----------+
+*/
+.icon-marker{
+  font-size: 20px;
+  text-shadow: 1px 1px 5px #000;
+}
+
+.icon_plantas_potab {
+  color: darken($dblue,15%);
+}
+
+.icon_c_acopio {
+  color: darken($dpurple,5%);
+}
+
+.icon_cv_residuos {
+  color: darken($lyellow,5%);;
+}
+
+/*
   +--------+
   | popups |
   +--------+
@@ -216,7 +238,10 @@ footer {
 }
 
 .leaflet-container a.leaflet-popup-close-button {
-  padding: 0px;
+  font-size: 12px;
+  width: 12px;
+  height: 12px;
+  padding: 2px 2px 0px 0px;
 }
 
 /*
