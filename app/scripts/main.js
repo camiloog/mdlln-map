@@ -260,7 +260,7 @@ var mapApp = function () {
       quebradas_z0 : new sMap('Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
       quebradas_z2 : new sMap('Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
       retiros : new sMap('Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
-      barrio : new sMap('Polygon','./support_maps/barrio.geojson',{fillOpacity: 0, weight: 1, dashArray: '2', color: '#666666', opacity: 1}),
+      barrio : new sMap('Polygon','./support_maps/barrio.geojson',{fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
       ciclorutas : new sMap('Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#005A78', opacity: 1}),
       metro : new sMap('Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
       esp_publico : new sMap('Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
@@ -495,6 +495,8 @@ var mapApp = function () {
       );
       if (this.fit) {
         map.fitBounds(this.gsn.getBounds());
+      } else {
+        this.fit = true;
       }
       sMaps.update();
       sMaps.bringToFront();
@@ -587,7 +589,7 @@ var mapApp = function () {
         if (gsnComCorr.lZoomed == undefined) {
           gsnComCorr.lZoomed = e.target; // save the layer
           map.fitBounds(e.target.getBounds()); // adjust zoom
-          info.update(e.target.feature.properties); // Set info box
+          info.update(e.target); // Set info box
           gsnComCorr.hStyle(e.target); // highlight the layer.
         }
         // click on the same or a new layer
@@ -621,28 +623,74 @@ var mapApp = function () {
     +------------------------------------+
   */
 
+  function getLayer (gsnobj, code) {
+    var layer = undefined;
+    $.each(gsnobj._layers, function(i,v){
+      // console.log('looking for:'+code+' on:'+v.feature.properties.CODIGO);
+      if (v.feature.properties.CODIGO == code) {
+        // console.log('found');
+        layer = v;
+      }
+    });
+    return layer;
+  }
+
   var info = L.control(); // default topright
-  info.update = function (properties) {
-    if (properties == undefined) {
+  info.update = function (target) {
+    if (target == undefined) {
       this._div.innerHTML = '';
       this._div.style.visibility = 'hidden';
     } else {
-      this._div.innerHTML = '<h4>' + properties.NOMBRE + '</h4>' +
-                            '<h5>'+ properties.IDENTIFICA + '</h5>';
+      var p = target.feature.properties;
+      this._div.innerHTML = '<h4>' + p.NOMBRE + '</h4>' +
+                            '<h5>'+ p.IDENTIFICA + '</h5>';
       this._div.style.visibility = 'visible';
       // Add glyphicons
       $.each(resources,function(index){
-        if (properties[index] == 1) {
+        if (p[index] == 1) {
           $('div.info-conteiner.leaflet-control').append(
-            '&nbsp<span class="glyphicon ' +
+            '&nbsp<span class="iconRes glyphicon ' +
             resources[index].glyphicon +
             ' color-' + resources[index].className +
+            ' icon-' + resources[index].label +
             '" aria-hidden="true"></span>'
           );
         }
       });
+      // Add glyphicons click callbacks
+      $('.iconRes').click(function(){
+        // get res label from glyphicon
+        var res = 'NONE';
+        var classes = ($(this).attr('class')).split(' ');
+        $.each(classes, function(i, c) {
+            if (c.indexOf('icon-') == 0) {
+                res = c.slice(+5);
+            }
+        });
+        c_res.label = res;
+        // simulate click on resource button
+        sMaps.clean();
+        gsnComCorr.fit = false;
+        gsnComCorr.draw();
+        dInfo.update(c_res);
+        // reset target comcorr, get layer from new gsn object
+        var code = target.feature.properties.CODIGO;
+        target = getLayer(gsnComCorr.gsn, code);
+        // console.log('restored layer:');
+        // console.log(target);
+        // simulate click on layer click on comcorr
+        gsnComCorr.lZoomed = target;
+        info.update(target);
+        gsnComCorr.hStyle(target);
+        extraData_update(target.feature.properties);
+        // Reopen popup
+        target.openPopup();
+        target.popupOpened = true;
+        console.log('clicked:'+res);
+      });
     }
   };
+
   info.onAdd = function (map) {
       this._div = L.DomUtil.create('div', 'info-conteiner'); // create a div with a class "info"
       this.update();
