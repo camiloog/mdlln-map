@@ -126,6 +126,10 @@ header h3 {
   margin-bottom: 8px;
 }
 
+#layersButtonField {
+  text-align: right;
+}
+
 .glyphicon {
   font-size: 13px;
 }
@@ -309,6 +313,17 @@ footer {
 
 #di-row .desc {
   font-size: 0.95em;
+}
+
+#di-row .row {
+  text-align: center;
+}
+
+#di-row img {
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
 }
 
 #di-conteiner .row [class*="col-"]{

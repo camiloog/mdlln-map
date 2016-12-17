@@ -73,6 +73,11 @@ gulp.task('sMaps', () => {
     .pipe(gulp.dest('dist/support_maps'));
 });
 
+gulp.task('tutorial', () => {
+  return gulp.src('app/tutorial/**/*')
+    .pipe(gulp.dest('dist/tutorial'));
+});
+
 gulp.task('leafletImages', () => {
   return gulp.src('app/styles/images/**/*')
     .pipe(gulp.dest('dist/styles/images'));
@@ -167,7 +172,7 @@ gulp.task('wiredep', () => {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras', 'leafletImages', 'sMaps'], () => {
+gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras', 'leafletImages', 'sMaps', 'tutorial'], () => {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 

@@ -787,6 +787,8 @@ var mapApp = function () {
         });
         c_res.label = res;
         // simulate click on resource button
+        $('#rec_selector button').removeClass('active');
+        $('#' + c_res.label).addClass('active');
         sMaps.clean();
         gsnComCorr.fit = false;
         gsnComCorr.draw();
@@ -865,11 +867,21 @@ var dInfo = function () {
 
       $.each(r_data[c_res.label], function (i) {
         var u = r_data[c_res.label][i]['USAGE'];
-        $('#di-row').append(
-          '<div class="row"><div class="sep"></div>' +
-          '  <div class="desc col-xs-12">' + u + '</div>' +
-          '</div>'
-        );
+        if (r_data[c_res.label][i]['GIF'] != undefined) {
+          var i = r_data[c_res.label][i]['GIF'];
+          $('#di-row').append(
+            '<div class="row"><div class="sep"></div>' +
+            '  <div class="desc col-xs-12">' + u + '</div>' +
+            '  <img src="' + i + '">' +
+            '</div>'
+          );
+        } else {
+          $('#di-row').append(
+            '<div class="row"><div class="sep"></div>' +
+            '  <div class="desc col-xs-12">' + u + '</div>' +
+            '</div>'
+          );
+        }
       });
 
     }

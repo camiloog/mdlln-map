@@ -1,6 +1,6 @@
 var r_data = {
   'NONE': [
-    {'USAGE':'Seleccione un recurso del menú de recursos naturales para mostrar los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.'},
+    {'USAGE':'Seleccione un recurso del menú de recursos naturales para mostrar los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.','GIF':'./tutorial/file.gif'},
     {'USAGE':'Active o desactive mapas desde el boton de capas.'},
     {'USAGE':'Use el la rueda del mouse y las teclas + y - para hacer zoom en el mapa.'},
     {'USAGE':'Haga click sostenido sobre el mapa y arrastre o use las teclas de dirección para navegar por el mapa.'},
