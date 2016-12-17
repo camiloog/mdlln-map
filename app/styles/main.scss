@@ -128,6 +128,11 @@ header h3 {
 
 #layersButtonField {
   text-align: right;
+  padding: 8px;
+}
+
+#layersButtonField img {
+  height: 34px;
 }
 
 .glyphicon {
@@ -211,10 +216,15 @@ footer {
   max-height: 300px;
   overflow-y: auto;
   min-width: 200px;
+  padding-left: 10px;
 }
 .checkbox {
-  font-size: 0.95em;
-  padding: 0px 15px;
+  vertical-align: middle;
+  font-size: 13px;
+}
+// to center checkbox input
+.checkbox input[type="checkbox"] {
+  margin: 2px 0px 2px -20px;
 }
 
 /*
@@ -450,6 +460,11 @@ footer {
     height: auto;
   }
 
+  header h1 {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
   #map {
     height: 300px;
   }
@@ -491,6 +506,16 @@ footer {
 
   .dropdown-menu{
     max-height: none;
+  }
+
+  #layersButtonField {
+    margin-top: -7.5px;
+    margin-bottom: -7.5px;
+    padding: 8px 15px;
+  }
+
+  .checkbox {
+    font-size: 14px;
   }
 
   // north image
