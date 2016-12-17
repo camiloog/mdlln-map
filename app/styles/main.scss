@@ -163,6 +163,13 @@ header h3 {
   font-size: 65%;
   color: lighten($info-color, 10%);
 }
+.iconRes {
+  padding: 2px;
+}
+.iconRes.active {
+  border-radius: 4px;
+  border: 1px solid $bg-color;
+}
 
 // north image
 .north img {
@@ -202,6 +209,7 @@ footer {
   min-width: 200px;
 }
 .checkbox {
+  font-size: 0.95em;
   padding: 0px 15px;
 }
 
@@ -299,6 +307,10 @@ footer {
   margin-top: 10px;
 }
 
+#di-row .desc {
+  font-size: 0.95em;
+}
+
 #di-conteiner .row [class*="col-"]{
   height: auto;
 }
@@ -318,6 +330,10 @@ footer {
   justify-content: flex-start;
   overflow-y: auto;
   padding-bottom: 10px;
+}
+
+.di-row-flex * {
+  flex: none;
 }
 
 /* Style */

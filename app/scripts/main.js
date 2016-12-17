@@ -764,10 +764,17 @@ var mapApp = function () {
             resources[index].glyphicon +
             ' color-' + resources[index].className +
             ' icon-' + resources[index].label +
-            '" aria-hidden="true"></span>'
+            '" aria-hidden="true"' +
+            ' title="' + resources[index].nombre + '"' +
+            '></span>'
           );
         }
       });
+      // add gliphicons active style
+      $('.iconRes').removeClass('active');
+      if (c_res.label != 'NONE') {
+        $('.icon-' + c_res.label).addClass('active');
+      }
       // Add glyphicons click callbacks
       $('.iconRes').click(function(){
         // get res label from glyphicon
