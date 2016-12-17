@@ -53,6 +53,7 @@ var mapApp = function () {
     // scrollWheelZoom: false,
     // touchZoom: false,
     zoomControl: false,
+    doubleClickZoom: false,
     attributionControl: false,
     maxBoundsViscosity: 0.1, // how hard bounce in bounds
     // crs: L.CRS.EPSG4326
@@ -232,7 +233,11 @@ var mapApp = function () {
           if (gsnComCorr.lZoomed != undefined) {
             map.fitBounds(gsnComCorr.gsn.getBounds()); // zoome out
             info.update(); // Clear Info box
-            gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
+            gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomeC layer.
+            if (gsnComCorr.lZoomed.isPopupOpen()) {
+              console.log('closing popup.');
+              gsnComCorr.lZoomed.closePopup();
+            }
             gsnComCorr.lZoomed = undefined; // clear zoomed layer
           }
           // remove extra data
@@ -689,22 +694,60 @@ var mapApp = function () {
           e.target.closePopup();
       },
       click: function (e) {
-        e.target.popupOpened = true;
+        console.log('clicked');
+        // click on a layer when zoomed out
+        if (gsnComCorr.lZoomed == undefined) {
+          e.target.popupOpened = true; // the popup opens
+        }
+        // click on a layer when zoomed in
+        else {
+          // if the layer is the zoomed layer
+          if (gsnComCorr.lZoomed == e.target) {
+          }
+          // if the layer is not the zoomed layer
+          else {
+            e.target.popupOpened = true; // the popup opens
+          }
+          // if (e.target.isPopupOpen()){
+          //   e.target.closePopup();
+          // }
+        }
         // console.log(e.target);
       },
       popupclose: function (e) {
         e.target.popupOpened = false;
       },
       dblclick: function (e) {
-        // click on a layer when zoomed out
+        console.log('dblclicked');
+        // dblclick on a layer when zoomed out
         if (gsnComCorr.lZoomed == undefined) {
           gsnComCorr.lZoomed = e.target; // save the layer
           map.fitBounds(e.target.getBounds()); // adjust zoom
           info.update(e.target); // Set info box
           gsnComCorr.hStyle(e.target); // highlight the layer.
         }
-        // click on the same or a new layer
+        // dblclick on a layer when zoomed in
         else {
+          // if (e.target.isPopupOpen()) {
+          //   e.target.closePopup();
+          // }
+          // the layer is the zoomed layer
+          if (gsnComCorr.lZoomed == e.target) {
+            if (gsnComCorr.lZoomed.popupOpened){
+              gsnComCorr.lZoomed.closePopup();
+            }
+            console.log('zoomed layer dblclicked');
+          }
+          // the layer is a diferent layer
+          else { 
+            if (gsnComCorr.lZoomed.popupOpened){
+              gsnComCorr.lZoomed.closePopup();
+            }
+            if (e.target.popupOpened){
+              e.target.closePopup();
+            }
+            console.log('dblclicked other');
+          }
           map.fitBounds(gsnComCorr.gsn.getBounds()); // zoome out
           info.update(); // Clear Info box
           gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomed layer.
