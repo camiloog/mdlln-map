@@ -27,7 +27,7 @@ $dpurple : #5cb85c;
 
 // Info conteiner
 $info-color : $bg-color; // text
-$info-bg    : $nb-bg-color; // background
+$info-bg    : rgba( $nb-bg-color, .85 ); // background
 
 // for futher mixings
 $scolor: $bt-bg-color; // support color
