@@ -76,7 +76,7 @@ var mapApp = function () {
         info.update(); // Clear Info box
         gsnComCorr.gsn.resetStyle(gsnComCorr.lZoomed); // Remove highlight from previously zoomeC layer.
         if (gsnComCorr.lZoomed.isPopupOpen()) {
-          console.log('closing popup.');
+          // console.log('closing popup.');
           gsnComCorr.lZoomed.closePopup();
         }
         gsnComCorr.lZoomed = undefined; // clear zoomed layer
@@ -108,7 +108,7 @@ var mapApp = function () {
     }
 
     var mainClick = function (layer) {
-      console.log('clicked');
+      // console.log('clicked');
       // click on a layer when zoomed out
       if (gsnComCorr.lZoomed == undefined) {
         layer.popupOpened = true; // the popup opens
@@ -130,7 +130,7 @@ var mapApp = function () {
     }
 
     var mainDblclick = function (layer) {
-      console.log('dblclicked');
+      // console.log('dblclicked');
       // dblclick on a layer when zoomed out
       if (gsnComCorr.lZoomed == undefined) {
         gsnComCorr.lZoomed = layer; // save the layer
@@ -261,7 +261,7 @@ var mapApp = function () {
           'url': address,
           'dataType': 'json',
           'success': function (data) {
-            console.log('generating gsn for:' +obj.name);
+            // console.log('generating gsn for:' +obj.name);
             if (obj.type == 'Point'){
               obj.gsn = L.geoJson(data,{
                 pointToLayer: function (feature, latlng) {
@@ -503,7 +503,7 @@ var mapApp = function () {
             } else {
               if (lGroup.hasLayer(layers[v].gsn) == false) { // Check if the layer is already on group
                 lGroup.addLayer(layers[v].gsn);
-                console.log('Addig '+v+' type: '+layers[v].type);
+                // console.log('Addig '+v+' type: '+layers[v].type);
                 legends.addLayerLegend(v);
                 $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
               }
@@ -619,7 +619,7 @@ var mapApp = function () {
         '  </svg>' +
         '  <span class="legendText">Limite comunas y corregimientos</span>' +
         '</div>');
-        console.log('adding legend for '+resources[cres].nombre);
+        // console.log('adding legend for '+resources[cres].nombre);
       if (cres != 'NONE') {
         $('.legends').append(
           '<div class="legendItem cres">' +
@@ -672,13 +672,13 @@ var mapApp = function () {
    // function to add extra info to the sidebar according to layer
    function extraData_update (properties) {
      if (properties == undefined) {
-       console.log('properties undefined');
+      //  console.log('properties undefined');
        $('.extraData').remove();
      } else {
        // Add extra info to side-bar
        if (properties.EXTRADATA != undefined) {
          if (properties.EXTRADATA[c_res.label] != undefined){
-           console.log('EXTRA:' + properties.EXTRADATA[c_res.label]);
+          //  console.log('EXTRA:' + properties.EXTRADATA[c_res.label]);
            $('#di-row').append(
              '<div class="row extraData"><div class="sep sep-' + c_res.className() + '"></div>' +
              '  <div class="desc col-xs-12">' + properties.EXTRADATA[c_res.label] + '</div>' +
@@ -799,7 +799,7 @@ var mapApp = function () {
       if (v.feature.properties[c_res.label] == 1){
         v.popupOpened = true;
         v.openPopup();
-        console.log(v);
+        // console.log(v);
       }
     });
   }
@@ -883,7 +883,7 @@ var mapApp = function () {
         // Reopen popup
         target.openPopup();
         target.popupOpened = true;
-        console.log('clicked:'+res);
+        // console.log('clicked:'+res);
       });
     }
   };

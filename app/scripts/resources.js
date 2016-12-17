@@ -1,7 +1,7 @@
 var r_data = {
   'NONE': [
-    {'USAGE':'Seleccione un recurso natural del menú para ver los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.'},
-    {'USAGE':'Active o desactive mapas desde el boton de capas.'},
+    {'USAGE':'Seleccione un recurso natural del menú para ver los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.','GIF':'./tutorial/click_recurso.gif'},
+    {'USAGE':'Active o desactive mapas desde el boton de capas.','GIF':'./tutorial/seleccionar_capas.gif'},
     {'USAGE':'Use el la rueda del mouse y las teclas + y - para hacer zoom en el mapa.'},
     {'USAGE':'Haga click sostenido sobre el mapa y arrastre o use las teclas de dirección para navegar por el mapa.'},
     {'USAGE':'Pase el puntero del mouse sobre los elementos del mapa para visualizar su nombre. De click sobre cualquier elemento para fijar su nombre en la posición deseada.'},
