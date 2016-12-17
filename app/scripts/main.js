@@ -862,6 +862,9 @@ var dInfo = function () {
       $('#di-row').append(
         '<div class="row">' +
         ' <div id="resName"class="col-xs-12"><h2>Bienvenido</h2></div>' +
+        '</div>' +
+        '<div class="row headings">' +
+        '  <div class="descHeader col-xs-12"><h3>Manual de Usuario</h3></div>' +
         '</div>'
       );
 
