@@ -367,7 +367,7 @@ var mapApp = function () {
       quebradas_z2 : new sMap('Quebradas','Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
       retiros : new sMap('Retiros a quebradas','Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
       barrio : new sMap('Limite barrios y veredas','Polygon','./support_maps/barrio.geojson',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
-      ciclorutas : new sMap('Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#005A78', opacity: 1}),
+      ciclorutas : new sMap('Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#AB3431', opacity: 1}),
       metro : new sMap('Sitema Metro','Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
       esp_publico : new sMap('Espacio público','Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
       plantas_potab : new sMap('Plantas de potabilización','Point','./support_maps/plantas_potab.geojson',{class: 'icon_plantas_potab'}),
