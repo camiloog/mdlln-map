@@ -1026,19 +1026,31 @@ var dInfo = function () {
 $(document).ready(function(){
 
   // Add glyphicons
-  $.each(mapApp.resources,function(index){
-    $('#'+index).append(
-      '&nbsp<span class="glyphicon ' +
-      mapApp.resources[index].glyphicon +
-      '" aria-hidden="true"></span>'
-    );
-  });
+  // $.each(mapApp.resources,function(index){
+  //   $('#'+index).append(
+  //     '&nbsp<span class="glyphicon ' +
+  //     mapApp.resources[index].glyphicon +
+  //     '" aria-hidden="true"></span>'
+  //   );
+  // });
 
   // update dynamic info
-  dInfo.update(mapApp.c_res);
+  // dInfo.update(mapApp.c_res);
 
   // Draw main map
   mapApp.gsnComCorr.draw();
+
+  // Resource buttons behavior
+  $('#rec_selector button').click(function(){
+      $('#rec_selector button').removeClass('active');
+      $(this).addClass('active');
+      mapApp.c_res.label = $(this).attr('id');
+      mapApp.sMaps.clean();
+      mapApp.gsnComCorr.draw();
+      dInfo.update(mapApp.c_res);
+      mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
+      // mapApp.open_c_res_popups(); // Open popups asociated width current ress
+  });
 
   // Add support-legends
   mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
@@ -1077,18 +1089,6 @@ $(document).ready(function(){
         mapApp.sMaps.legends.removeLayerLegend(l);
       }
     }
-  });
-
-  // Resource buttons behavior
-  $('#rec_selector button').click(function(){
-      $('#rec_selector button').removeClass('active');
-      $(this).addClass('active');
-      mapApp.c_res.label = $(this).attr('id');
-      mapApp.sMaps.clean();
-      mapApp.gsnComCorr.draw();
-      dInfo.update(mapApp.c_res);
-      mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
-      // mapApp.open_c_res_popups(); // Open popups asociated width current ress
   });
 
   // init support maps

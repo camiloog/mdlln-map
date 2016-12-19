@@ -50,13 +50,13 @@
       <div class="collapse navbar-collapse" id="to-collapse">
 
         <form id="rec_selector" class="navbar-form navbar-left">
-          <button id="REC_AGUA"  type="button" class="btn btn-dblue   btn-inverse">Agua</button>
-          <button id="REC_SUELO" type="button" class="btn btn-lgreen  btn-inverse">Suelo</button>
-          <button id="REC_AIRE"  type="button" class="btn btn-lblue   btn-inverse">Aire</button>
-          <button id="FAUNA_DOM" type="button" class="btn btn-lyellow btn-inverse">Fauna Doméstica</button>
-          <button id="SOCIOCULT" type="button" class="btn btn-lred    btn-inverse">Sociocultural</button>
-          <button id="REC_FLORA" type="button" class="btn btn-dpurple btn-inverse">Flora</button>
-          <button id="NONE"      type="button" class="btn btn-default">Limpiar</button>
+          <button id="REC_AGUA" type="button" class="btn btn-dblue   btn-inverse">Agua&nbsp;<span class="glyphicon glyphicon-tint" aria-hidden="true"></span></button>
+          <button id="REC_SUELO" type="button" class="btn btn-lgreen  btn-inverse">Suelo&nbsp;<span class="glyphicon glyphicon-globe" aria-hidden="true"></span></button>
+          <button id="REC_AIRE" type="button" class="btn btn-lblue   btn-inverse">Aire&nbsp;<span class="glyphicon glyphicon-cloud" aria-hidden="true"></span></button>
+          <button id="FAUNA_DOM" type="button" class="btn btn-lyellow btn-inverse">Fauna Doméstica&nbsp;<span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
+          <button id="SOCIOCULT" type="button" class="btn btn-lred    btn-inverse">Sociocultural&nbsp;<span class="glyphicon glyphicon-user" aria-hidden="true"></span></button>
+          <button id="REC_FLORA" type="button" class="btn btn-dpurple btn-inverse">Flora&nbsp;<span class="glyphicon glyphicon-tree-deciduous" aria-hidden="true"></span></button>
+          <button id="NONE" type="button" class="btn btn-default">Limpiar&nbsp;<span class="glyphicon " aria-hidden="true"></span></button>
         </form>
 
         <ul class="nav navbar-nav navbar-right">
@@ -93,8 +93,11 @@
     <div class="container-fluid flex-item-grow flex-conteiner-col mred">
       <div class="row mblue flex-item-grow">
           <div id="di-conteiner" class="col-lg-3 col-md-4 col-sm-5 col-sx-12 side-bar mpurple di-conteiner-flex">
-            <div id="di-row" class="row di-row-flex">
-            </div>
+            <!-- <div id="di-row" class="row di-row-flex">
+            </div> -->
+
+            <div id="di-row" class="row di-row-flex"><div class="row"> <div id="resName" class="col-xs-12"><h2>Bienvenido</h2></div></div><div class="row headings">  <div class="descHeader col-xs-12"><h3>Manual de Usuario</h3></div></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Seleccione un recurso natural del menú para ver los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.</div>  <img src="./tutorial/click_recurso.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Active o desactive mapas desde el boton de capas.</div>  <img src="./tutorial/seleccionar_capas.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Use el la rueda del mouse y las teclas <span style="border: 1px solid;padding: 0 2px;border-radius: 2px;" title="Más">+</span> y <span style="border: 1px solid;padding: 0 3px;border-radius: 2px;" title="Menos">-</span> para hacer zoom en el mapa.</div>  <img src="./tutorial/zoom.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Haga click sostenido sobre el mapa y arrastre o use las teclas de dirección para navegar por el mapa.</div>  <img src="./tutorial/click_arrastrar.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Pase el puntero del mouse sobre los elementos del mapa para visualizar su nombre. De click sobre cualquier elemento para fijar su nombre en la posición deseada.</div>  <img src="./tutorial/nombres_cursor.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Ingrese en la vista de comuna o corregimiento haciendo doble click sobre la comuna deseada. Haga doble click nuevamente sobre el mapa para salir de esta vista.</div>  <img src="./tutorial/ingresar_comuna.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Observe el cuadro de información en la vista de comuna o corregimiento. En este se muestran los iconos de los recursos con los que esta comuna tiene problematicas ambientales. De click en estos iconos para cambiar a la vista del recurso.</div>  <img src="./tutorial/informacion_comuna.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Si necesita más espacio para visualizar el mapa, sobretodo si accede desde un dispositivo mobil, puede colapsar las convenciones del mapa haciendo click sobre ellas. Haga click sobre el boton que aparece en su lugar para visualizarlas nuevamente.</div>  <img src="./tutorial/colapsar_leyendas.gif"></div><div class="row"><div class="sep"></div>  <div class="desc col-xs-12">Regrese a este manual y limpie el mapa dando click en el boton Limpiar del menú principal.</div></div></div>
+
           </div>
           <div class="col-lg-9 col-md-8 col-sm-7 col-sx-12 map-conteiner mred">
             <div id="map" class=""></div>

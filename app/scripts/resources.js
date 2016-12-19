@@ -2,7 +2,7 @@ var r_data = {
   'NONE': [
     {'USAGE':'Seleccione un recurso natural del menú para ver los mapas relacionados. Se asocia a cada recurso un icono para su fácil identificación.','GIF':'./tutorial/click_recurso.gif'},
     {'USAGE':'Active o desactive mapas desde el boton de capas.','GIF':'./tutorial/seleccionar_capas.gif'},
-    {'USAGE':'Use el la rueda del mouse y las teclas + y - para hacer zoom en el mapa.','GIF':'./tutorial/zoom.gif'},
+    {'USAGE':'Use el la rueda del mouse y las teclas <span style="border: 1px solid;padding: 0 2px;border-radius: 2px;" title="Más">+</span> y <span style="border: 1px solid;padding: 0 3px;border-radius: 2px;" title="Menos">-</span> para hacer zoom en el mapa.','GIF':'./tutorial/zoom.gif'},
     {'USAGE':'Haga click sostenido sobre el mapa y arrastre o use las teclas de dirección para navegar por el mapa.','GIF':'./tutorial/click_arrastrar.gif'},
     {'USAGE':'Pase el puntero del mouse sobre los elementos del mapa para visualizar su nombre. De click sobre cualquier elemento para fijar su nombre en la posición deseada.','GIF':'./tutorial/nombres_cursor.gif'},
     {'USAGE':'Ingrese en la vista de comuna o corregimiento haciendo doble click sobre la comuna deseada. Haga doble click nuevamente sobre el mapa para salir de esta vista.','GIF':'./tutorial/ingresar_comuna.gif'},
