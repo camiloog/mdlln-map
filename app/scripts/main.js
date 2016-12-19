@@ -259,6 +259,7 @@ var mapApp = function () {
       return $.ajax({
           'global': false,
           'url': address,
+          // 'timeout': 5000,
           'dataType': 'json',
           'success': function (data) {
             // console.log('generating gsn for:' +obj.name);
@@ -282,6 +283,9 @@ var mapApp = function () {
             }
             // console.log('Success on getting :' + address);
             update();
+          },
+          'error': function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log('Error on HttpRequest!');
           }
       });
     }
@@ -870,6 +874,7 @@ var mapApp = function () {
       // Add glyphicons click callbacks
       $('.iconRes').click(function(){
         // get res label from glyphicon
+        $('#rec_selector button').removeClass('active');
         var res = 'NONE';
         var classes = ($(this).attr('class')).split(' ');
         $.each(classes, function(i, c) {
@@ -879,7 +884,6 @@ var mapApp = function () {
         });
         c_res.label = res;
         // simulate click on resource button
-        $('#rec_selector button').removeClass('active');
         $('#' + c_res.label).addClass('active');
         sMaps.clean();
         gsnComCorr.fit = false;
