@@ -273,9 +273,10 @@ footer {
   +---------+
 */
 
-.legends {
+.legendsConteiner {
   font-size: 10px;
   padding: 5px;
+  padding-bottom: 4px;
   border-radius: 4px;
   text-align: left;
   color: $info-color;
@@ -520,7 +521,7 @@ footer {
 
   // north image
   .north img {
-    width: 25px;
+    width: 27px;
   }
 
   footer {

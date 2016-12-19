@@ -544,7 +544,8 @@ var mapApp = function () {
 
     var legends = L.control({position: 'bottomleft'});
     legends.onAdd = function(map) {
-        var div = L.DomUtil.create('div','legends');
+        var div = L.DomUtil.create('div','legendsConteiner');
+        $(div).html('<div class="legends"></div>');
         return div;
     }
     legends.clear = function () {
@@ -638,7 +639,22 @@ var mapApp = function () {
         );
       }
     }
+    legends.toggle = function () {
+      if ($('#legendsHidden').length == 0) {
+        $('.legends').hide();
+        $('.legendsConteiner').append(
+          '<span id="legendsHidden" class="glyphicon glyphicon-list" aria-hidden="true" style="font-size:20px;"></span>'
+        );
+      }
+      else {
+        $('#legendsHidden').remove();
+        $('.legends').show();
+      }
+    }
     legends.addTo(map);
+    $('.legendsConteiner').click(function(e){
+      legends.toggle();
+    });
 
     /* Return public objects */
     return {
