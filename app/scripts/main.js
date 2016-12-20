@@ -6,7 +6,6 @@
  * All rights reserved.
  */
 
-
 /*
   +------------------------------------+
   | Object to hold the MAP application |
@@ -256,38 +255,28 @@ var mapApp = function () {
 
     // function to get geoJson files
     function getGeoJson(address, obj) {
-      return $.ajax({
-          'global': false,
-          'url': address,
-          // 'timeout': 5000,
-          'dataType': 'json',
-          'success': function (data) {
-            // console.log('generating gsn for:' +obj.name);
-            if (obj.type == 'Point'){
-              obj.gsn = L.geoJson(data,{
-                pointToLayer: function (feature, latlng) {
-                  var myIcon = L.divIcon({
-                    className: obj.dStyle.class,
-                    popupAnchor:  [5,0],
-                    html: '<span class="glyphicon glyphicon-map-marker icon-marker" aria-hidden="true"></span>'
-                  });
-                  return L.marker(latlng, {icon: myIcon});
-                },
-                onEachFeature: obj.onEach
-              });
-            } else {
-              obj.gsn = L.geoJson(data,{
-                style: obj.dStyle,
-                onEachFeature: obj.onEach,
-              });
-            }
-            // console.log('Success on getting :' + address);
-            update();
+      var data = window[obj.label];
+      // console.log('generating gsn for:' +obj.name);
+      if (obj.type == 'Point'){
+        obj.gsn = L.geoJson(data,{
+          pointToLayer: function (feature, latlng) {
+            var myIcon = L.divIcon({
+              className: obj.dStyle.class,
+              popupAnchor:  [5,0],
+              html: '<span class="glyphicon glyphicon-map-marker icon-marker" aria-hidden="true"></span>'
+            });
+            return L.marker(latlng, {icon: myIcon});
           },
-          'error': function (XMLHttpRequest, textStatus, errorThrown) {
-            console.log('Error on HttpRequest!');
-          }
-      });
+          onEachFeature: obj.onEach
+        });
+      } else {
+        obj.gsn = L.geoJson(data,{
+          style: obj.dStyle,
+          onEachFeature: obj.onEach,
+        });
+      }
+      // console.log('Success on getting :' + address);
+      update();
     }
 
     function getPopupMsg (properties) {
@@ -351,12 +340,13 @@ var mapApp = function () {
     }
 
     // Support map constructor
-    function sMap (name,type,address, dStyle) {
+    function sMap (label,name,type,address, dStyle) {
       this.get = function () {
         // Request for the data
         return getGeoJson(address,this);
       };
       this.name = name;
+      this.label = label;
       this.type = type;
       this.requested = false;
       this.address = address;
@@ -366,25 +356,25 @@ var mapApp = function () {
 
     // layers of support maps
     var layers = {
-      rio : new sMap('Rio Medellín','Polygon','./support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
-      quebradas_z0 : new sMap('Quebradas','Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      quebradas_z2 : new sMap('Quebradas','Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      retiros : new sMap('Retiros a quebradas','Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
-      barrio : new sMap('Limite barrios y veredas','Polygon','./support_maps/barrio.geojson',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
-      ciclorutas : new sMap('Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#AB3431', opacity: 1}),
-      metro : new sMap('Sitema Metro','Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
-      esp_publico : new sMap('Espacio público','Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
-      plantas_potab : new sMap('Plantas de potabilización','Point','./support_maps/plantas_potab.geojson',{class: 'icon_plantas_potab'}),
-      humedales : new sMap('Humedales','Polygon','./support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
-      c_acopio : new sMap('Centros de acopio de residuos','Point','./support_maps/c_acopio.geojson',{class: 'icon_c_acopio'}),
-      s_orografico : new sMap('Sistema orográfico','Polygon','./support_maps/s_orografico.geojson',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
-      cv_residuos : new sMap('Compraventas de residuos','Point','./support_maps/cv_residuos.geojson',{class: 'icon_cv_residuos'}),
-      proteg : new sMap('Areas protegidas','Polygon','./support_maps/proteg.geojson',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
-      conect_eco : new sMap('Conectividad ecólogica','Polygon','./support_maps/conect_eco.geojson',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
-      equip_z0 : new sMap('Equipamientos','Polygon','./support_maps/equip_z0.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      equip_z1 : new sMap('Equipamientos','Polygon','./support_maps/equip_z1.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      equip_z2 : new sMap('Equipamientos','Polygon','./support_maps/equip_z2.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      int_cultural : new sMap('Interés cultural','Polygon','./support_maps/int_cultural.geojson',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
+      rio : new sMap('rio','Rio Medellín','Polygon','./support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      quebradas_z0 : new sMap('quebradas_z0','Quebradas','Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      quebradas_z2 : new sMap('quebradas_z2','Quebradas','Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      retiros : new sMap('retiros','Retiros a quebradas','Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
+      barrio : new sMap('barrio','Limite barrios y veredas','Polygon','./support_maps/barrio.geojson',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
+      ciclorutas : new sMap('ciclorutas','Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#AB3431', opacity: 1}),
+      metro : new sMap('metro','Sitema Metro','Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
+      esp_publico : new sMap('esp_publico','Espacio público','Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
+      plantas_potab : new sMap('plantas_potab','Plantas de potabilización','Point','./support_maps/plantas_potab.geojson',{class: 'icon_plantas_potab'}),
+      humedales : new sMap('humedales','Humedales','Polygon','./support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
+      c_acopio : new sMap('c_acopio','Centros de acopio de residuos','Point','./support_maps/c_acopio.geojson',{class: 'icon_c_acopio'}),
+      s_orografico : new sMap('s_orografico','Sistema orográfico','Polygon','./support_maps/s_orografico.geojson',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
+      cv_residuos : new sMap('cv_residuos','Compraventas de residuos','Point','./support_maps/cv_residuos.geojson',{class: 'icon_cv_residuos'}),
+      proteg : new sMap('proteg','Areas protegidas','Polygon','./support_maps/proteg.geojson',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
+      conect_eco : new sMap('conect_eco','Conectividad ecólogica','Polygon','./support_maps/conect_eco.geojson',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
+      equip_z0 : new sMap('equip_z0','Equipamientos','Polygon','./support_maps/equip_z0.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      equip_z1 : new sMap('equip_z1','Equipamientos','Polygon','./support_maps/equip_z1.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      equip_z2 : new sMap('equip_z2','Equipamientos','Polygon','./support_maps/equip_z2.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      int_cultural : new sMap('int_cultural','Interés cultural','Polygon','./support_maps/int_cultural.geojson',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
     }
 
     // layers to separate support maps for resource and zoom level
@@ -875,6 +865,7 @@ var mapApp = function () {
       $('.iconRes').click(function(){
         // get res label from glyphicon
         $('#rec_selector button').removeClass('active');
+        $(this).addClass('active');
         var res = 'NONE';
         var classes = ($(this).attr('class')).split(' ');
         $.each(classes, function(i, c) {
@@ -903,6 +894,7 @@ var mapApp = function () {
         // Reopen popup
         target.openPopup();
         target.popupOpened = true;
+        mapApp.sMaps.order_sMaps();
         // console.log('clicked:'+res);
       });
     }
@@ -1067,15 +1059,13 @@ $(document).ready(function(){
       if (mapApp.sMaps.layers[l].gsn == undefined) {
         if (mapApp.sMaps.layers[l].requested == false) {
           mapApp.sMaps.layers[l].requested = true;
-          $.when(mapApp.sMaps.layers[l].get())
-           .done(function () {
-             mapApp.sMaps.lGroup.addLayer(
-              mapApp.sMaps.layers[l].gsn
-             );
-             mapApp.sMaps.legends.addLayerLegend(l);
-             mapApp.sMaps.order_sMaps();
-             $('#support-maps :checkbox[value=' + l + ']').prop('checked', true);
-           });
+          mapApp.sMaps.layers[l].get();
+          mapApp.sMaps.lGroup.addLayer(
+            mapApp.sMaps.layers[l].gsn
+          );
+          mapApp.sMaps.legends.addLayerLegend(l);
+          mapApp.sMaps.order_sMaps();
+          $('#support-maps :checkbox[value=' + l + ']').prop('checked', true);
         }
       } else {
         mapApp.sMaps.lGroup.addLayer(
@@ -1097,5 +1087,8 @@ $(document).ready(function(){
 
   // init support maps
   mapApp.sMaps.init();
+
+  // Remove the loading message
+  $('#loadingConteiner').remove();
 
 });
