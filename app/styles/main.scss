@@ -10,6 +10,11 @@ $icon-font-path: '../fonts/';
   +------------------------------------+
 */
 
+// for preload the loading image
+#preload {
+  display: none;
+}
+
 // base colors
 $bg-color : #353535; // background
 $nb-bg-color : #f8f8f8; // navbar backgroudn
