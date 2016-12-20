@@ -875,6 +875,7 @@ var mapApp = function () {
       $('.iconRes').click(function(){
         // get res label from glyphicon
         $('#rec_selector button').removeClass('active');
+        $(this).addClass('active');
         var res = 'NONE';
         var classes = ($(this).attr('class')).split(' ');
         $.each(classes, function(i, c) {
@@ -903,6 +904,7 @@ var mapApp = function () {
         // Reopen popup
         target.openPopup();
         target.popupOpened = true;
+        mapApp.sMaps.order_sMaps();
         // console.log('clicked:'+res);
       });
     }
@@ -1097,5 +1099,8 @@ $(document).ready(function(){
 
   // init support maps
   mapApp.sMaps.init();
+
+  // Remove the loading message
+  $('#loadingConteiner').remove();
 
 });
