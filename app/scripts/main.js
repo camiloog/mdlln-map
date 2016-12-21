@@ -285,6 +285,7 @@ var mapApp = function () {
             update();
           },
           'error': function (XMLHttpRequest, textStatus, errorThrown) {
+            obj.requested = false;
             console.log('Error on HttpRequest!');
           }
       });
@@ -358,6 +359,7 @@ var mapApp = function () {
       };
       this.name = name;
       this.type = type;
+      this.gsn = undefined;
       this.requested = false;
       this.address = address;
       this.dStyle = dStyle;
@@ -486,6 +488,27 @@ var mapApp = function () {
       $('#support-maps :checkbox').prop('checked', false);
     }
 
+    function drawForZoom (z) {
+      clean();
+      $.each(res_[c_res.label][z],function(i,v){
+        // console.log(' : ' + v);
+        if (layers[v].gsn == undefined) {
+          if (layers[v].requested == false) {
+            layers[v].requested = true;
+            // console.log('   requesting: ' + v);
+            layers[v].get();
+          }
+        } else {
+          if (lGroup.hasLayer(layers[v].gsn) == false) { // Check if the layer is already on group
+            lGroup.addLayer(layers[v].gsn);
+            // console.log('     Addig '+v+' type: '+layers[v].type);
+            legends.addLayerLegend(v);
+            $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
+          }
+        }
+      });
+    }
+
     // To update the layers on the support-maps
     function update () {
       // console.log('updating sMaps');
@@ -495,19 +518,20 @@ var mapApp = function () {
       // $('#support-maps :checkbox').prop('checked', false);
       // zoom Handling
       $.each(z, function (cZ) {
-        // console.log('evaluating: ' + cZ + ':' + z[cZ]);
+        // console.log('evaluating: ' + cZ + ':' + z[cZ] + ' current zoom:' + map.getZoom());
         if (map.getZoom() >= z[cZ]){
           $.each(res_[c_res.label][cZ],function(i,v){
-            // console.log('adding: ' + v);
+            // console.log(' : ' + v);
             if (layers[v].gsn == undefined) {
               if (layers[v].requested == false) {
                 layers[v].requested = true;
+                // console.log('   requesting: ' + v);
                 layers[v].get();
               }
             } else {
               if (lGroup.hasLayer(layers[v].gsn) == false) { // Check if the layer is already on group
                 lGroup.addLayer(layers[v].gsn);
-                // console.log('Addig '+v+' type: '+layers[v].type);
+                // console.log('     Addig '+v+' type: '+layers[v].type);
                 legends.addLayerLegend(v);
                 $('#support-maps :checkbox[value=' + v + ']').prop('checked', true);
               }
@@ -517,12 +541,14 @@ var mapApp = function () {
           $.each(res_[c_res.label][cZ],function(i,v){
             // console.log('removing: ' + v);
             if (layers[v].gsn == undefined) {
-              if (layers[v].requested == false) {
-                layers[v].requested = true;
-                layers[v].get();
-              }
+              // if (layers[v].requested == false) {
+              //   layers[v].requested = true;
+              //   console.log('requesting_: ' + v);
+              //   layers[v].get();
+              // }
             } else {
               if (lGroup.hasLayer(layers[v].gsn) == true) { // Check if the layer is already on group
+                // console.log('removing: ' + v);
                 lGroup.removeLayer(layers[v].gsn);
                 legends.removeLayerLegend(v);
                 $('#support-maps :checkbox[value=' + v + ']').prop('checked', false);
@@ -670,7 +696,8 @@ var mapApp = function () {
       bringToFront,
       res,
       order_sMaps,
-      legends
+      legends,
+      drawForZoom
     };
   }();
 
@@ -734,8 +761,10 @@ var mapApp = function () {
       } else {
         this.fit = true;
       }
-      sMaps.update();
-      sMaps.bringToFront();
+      // sMaps.update();
+      // sMaps.bringToFront()
+      sMaps.drawForZoom('z0');
+      // console.log('zoom:' + map.getZoom());
     };
     // this.update = function () {
     //   function to update the layers based on c_res without
@@ -889,6 +918,7 @@ var mapApp = function () {
         sMaps.clean();
         gsnComCorr.fit = false;
         gsnComCorr.draw();
+        sMaps.update();
         dInfo.update(c_res);
         mapApp.sMaps.legends.updateSupportLegends(mapApp.c_res.label);
         // reset target comcorr, get layer from new gsn object
