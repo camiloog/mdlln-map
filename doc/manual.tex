@@ -1,0 +1,37 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{csquotes} % recomendation of biblatex alongside babel
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{hyperref}
+\hypersetup
+{
+    colorlinks=true,
+    citecolor=blue,
+    linkcolor=blue,
+    filecolor=blue,      
+    urlcolor=blue,
+    pdfstartview={FitH}
+}
+
+\author
+{
+	Camilo Ocampo\\
+ 	{\tt miloog@gmail.com}
+}
+\title{\bf MAPA INTERACTIVO PARA LA IDENTIFICACIÓN DE LAS PROBLEMÁTICAS AMBIENTALES EN EL MUNICIPIO DE MEDELLÍN}
+\date{}
+
+\begin{document}
+\maketitle
+\section{Introducción}
+El mapa interactivo aquí documentado representa un producto enfocado y minimo viable para mostrar información relevante de las problemáticas ambientales en el municipio de Medellín. Se seleccionó el desarrollo web como plataforma para el aplicativo dada su versatilidad a la hora de compartir la información tanto {\it online} como {\it offline}. Para su desarrollo se adoptó la filosofía {\it mobil first} que orienta el diseño hacia una plataforma responsive. Las herramientas fundamentales usadas para el desarrollo fueron HTML5, CSS3 y Javascript. Con el objetivo de mejorar la velocidad y eficiencia en el desarrollo se incluyeron dentro del entorno de desarrollo: El sistema de control de versiones Git \cite{git}, los administradores de paquetes npm \cite{npm} y Bower \cite{bower}, y el ejecutador de tareas Gulp \cite{gulp}. Finalmente se apoyó el diseño e interactividad de la plataforma haciendo uso de los {\it frameworks}: Bootstrap \cite{bootstrap}, jQuery y Leaflet \cite{leaflet}.
+
+\bibliographystyle{unsrt}
+\bibliography{references}
+
+\end{document}
