@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{git}
+Control de versiones git.
+\newblock \url{https://git-scm.com/}.
+
+\bibitem{npm}
+Administrador de paquetes npm.
+\newblock \url{https://www.npmjs.com/}.
+
+\bibitem{bower}
+Administrador de paquetes bower.
+\newblock \url{https://bower.io/}.
+
+\bibitem{gulp}
+Ejecutador de tareas gulp.
+\newblock \url{http://gulpjs.com/}.
+
+\bibitem{bootstrap}
+Bootstrap, responsive mobile first framework.
+\newblock \url{http://getbootstrap.com/}.
+
+\bibitem{leaflet}
+Leaflet, mobile-friendly interactive maps.
+\newblock \url{http://leafletjs.com/}.
+
+\bibitem{sass}
+Sass, preprocesador css.
+\newblock \url{http://sass-lang.com/}.
+
+\end{thebibliography}

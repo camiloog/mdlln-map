@@ -1,0 +1,13 @@
+\BOOKMARK [1][-]{section.1}{Introducci\363n}{}% 1
+\BOOKMARK [1][-]{section.2}{Distribuci\363n y estructura del proyecto}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Directorio ra\355z}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{C\363digo fuente del aplicativo}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Activos del proyecto}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Estructura del control de versiones}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Archivos para distribuci\363n}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{Configurar entorno de desarrollo para recompilar}{}% 8
+\BOOKMARK [2][-]{subsection.3.1}{Entorno de desarrollo}{section.3}% 9
+\BOOKMARK [2][-]{subsection.3.2}{Optimizaci\363n web vs optimizaci\363n offline}{section.3}% 10
+\BOOKMARK [2][-]{subsection.3.3}{Consideraciones para modificar el c\363digo}{section.3}% 11
+\BOOKMARK [1][-]{section.4}{Manual de Usuario}{}% 12
+\BOOKMARK [1][-]{section.5}{Caracter\355sticas responsive}{}% 13
