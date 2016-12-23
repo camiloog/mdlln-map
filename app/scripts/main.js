@@ -255,8 +255,26 @@ var mapApp = function () {
 
     // function to get geoJson files
     function getGeoJson(address, obj) {
+      var head = document.getElementsByTagName('head')[0];
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = address;
+      script.onreadystatechange= function () {
+        if (this.readyState == 'complete') onGeoJsonReady(obj);
+      }
+      script.onload= function () {
+       return onGeoJsonReady (obj);
+      };
+      head.appendChild(script);
+      return script;
+    }
+
+    // Callback function executed when geoJson file ready
+    function onGeoJsonReady (obj) {
       var data = window[obj.label];
-      // console.log('generating gsn for:' +obj.name);
+      console.log('data:');
+      console.log(data);
+      console.log('generating gsn for:' + obj.name);
       if (obj.type == 'Point'){
         obj.gsn = L.geoJson(data,{
           pointToLayer: function (feature, latlng) {
@@ -275,8 +293,16 @@ var mapApp = function () {
           onEachFeature: obj.onEach,
         });
       }
-      // console.log('Success on getting :' + address);
+      console.log('Success on getting :' + obj.address);
       update();
+      // draw the mapp if checked on layers
+      if ($('#support-maps :checkbox[value=' + obj.label + ']').prop('checked')) {
+        mapApp.sMaps.lGroup.addLayer(
+          mapApp.sMaps.layers[obj.label].gsn
+        );
+        mapApp.sMaps.legends.addLayerLegend(obj.label);
+        mapApp.sMaps.order_sMaps();
+      }
     }
 
     function getPopupMsg (properties) {
@@ -357,25 +383,25 @@ var mapApp = function () {
 
     // layers of support maps
     var layers = {
-      rio : new sMap('rio','Rio Medellín','Polygon','./support_maps/rio.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
-      quebradas_z0 : new sMap('quebradas_z0','Quebradas','Line','./support_maps/quebradas_z0.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      quebradas_z2 : new sMap('quebradas_z2','Quebradas','Line','./support_maps/quebradas_z2.geojson',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
-      retiros : new sMap('retiros','Retiros a quebradas','Polygon','./support_maps/retiros.geojson',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
-      barrio : new sMap('barrio','Limite barrios y veredas','Polygon','./support_maps/barrio.geojson',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
-      ciclorutas : new sMap('ciclorutas','Ciclorutas','Line','./support_maps/ciclorutas.geojson',{fillOpacity: 0, weight: 2, color: '#AB3431', opacity: 1}),
-      metro : new sMap('metro','Sitema Metro','Line','./support_maps/metro.geojson',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
-      esp_publico : new sMap('esp_publico','Espacio público','Polygon','./support_maps/esp_publico.geojson',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
-      plantas_potab : new sMap('plantas_potab','Plantas de potabilización','Point','./support_maps/plantas_potab.geojson',{class: 'icon_plantas_potab'}),
-      humedales : new sMap('humedales','Humedales','Polygon','./support_maps/humedales.geojson',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
-      c_acopio : new sMap('c_acopio','Centros de acopio de residuos','Point','./support_maps/c_acopio.geojson',{class: 'icon_c_acopio'}),
-      s_orografico : new sMap('s_orografico','Sistema orográfico','Polygon','./support_maps/s_orografico.geojson',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
-      cv_residuos : new sMap('cv_residuos','Compraventas de residuos','Point','./support_maps/cv_residuos.geojson',{class: 'icon_cv_residuos'}),
-      proteg : new sMap('proteg','Areas protegidas','Polygon','./support_maps/proteg.geojson',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
-      conect_eco : new sMap('conect_eco','Conectividad ecólogica','Polygon','./support_maps/conect_eco.geojson',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
-      equip_z0 : new sMap('equip_z0','Equipamientos','Polygon','./support_maps/equip_z0.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      equip_z1 : new sMap('equip_z1','Equipamientos','Polygon','./support_maps/equip_z1.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      equip_z2 : new sMap('equip_z2','Equipamientos','Polygon','./support_maps/equip_z2.geojson',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
-      int_cultural : new sMap('int_cultural','Interés cultural','Polygon','./support_maps/int_cultural.geojson',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
+      rio : new sMap('rio','Rio Medellín','Polygon','./support_maps/rio.js',{fillColor: '#003A70', fillOpacity: 1, weight: 1.2, color: '#003A70', opacity: 1}),
+      quebradas_z0 : new sMap('quebradas_z0','Quebradas','Line','./support_maps/quebradas_z0.js',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      quebradas_z2 : new sMap('quebradas_z2','Quebradas','Line','./support_maps/quebradas_z2.js',{fillColor: '#003A70', fillOpacity: 1, weight: 2, color: '#003A70', opacity: 1}),
+      retiros : new sMap('retiros','Retiros a quebradas','Polygon','./support_maps/retiros.js',{fillColor: '#003A70', fillOpacity: 0.2, weight: 1, color: '#003A70', opacity: 1}),
+      barrio : new sMap('barrio','Limite barrios y veredas','Polygon','./support_maps/barrio.js',{fillColor: 'transparent',fillOpacity: 0, weight: 1, dashArray: '2', color: '#777777', opacity: 1}),
+      ciclorutas : new sMap('ciclorutas','Ciclorutas','Line','./support_maps/ciclorutas.js',{fillOpacity: 0, weight: 2, color: '#AB3431', opacity: 1}),
+      metro : new sMap('metro','Sitema Metro','Line','./support_maps/metro.js',{fillOpacity: 0, weight: 2, color: '#106C10', opacity: 1}),
+      esp_publico : new sMap('esp_publico','Espacio público','Polygon','./support_maps/esp_publico.js',{fillColor: '#D37E06', fillOpacity: 0.2, weight: 1, color: '#D37E06', opacity: 1}),
+      plantas_potab : new sMap('plantas_potab','Plantas de potabilización','Point','./support_maps/plantas_potab.js',{class: 'icon_plantas_potab'}),
+      humedales : new sMap('humedales','Humedales','Polygon','./support_maps/humedales.js',{fillColor: '#003A70', fillOpacity: 0.5, weight: 1, color: '#003A70', opacity: 1}),
+      c_acopio : new sMap('c_acopio','Centros de acopio de residuos','Point','./support_maps/c_acopio.js',{class: 'icon_c_acopio'}),
+      s_orografico : new sMap('s_orografico','Sistema orográfico','Polygon','./support_maps/s_orografico.js',{fillColor: '#733A00', fillOpacity: 0.2, weight: 1, color: '#733A00', opacity: 1}),
+      cv_residuos : new sMap('cv_residuos','Compraventas de residuos','Point','./support_maps/cv_residuos.js',{class: 'icon_cv_residuos'}),
+      proteg : new sMap('proteg','Areas protegidas','Polygon','./support_maps/proteg.js',{fillColor: '#CC0000', fillOpacity: 0.2, weight: 1, color: '#CC0000', opacity: 1}),
+      conect_eco : new sMap('conect_eco','Conectividad ecólogica','Polygon','./support_maps/conect_eco.js',{fillColor: '#00E600', fillOpacity: 0.2, weight: 1, color: '#00E600', opacity: 1}),
+      equip_z0 : new sMap('equip_z0','Equipamientos','Polygon','./support_maps/equip_z0.js',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      equip_z1 : new sMap('equip_z1','Equipamientos','Polygon','./support_maps/equip_z1.js',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      equip_z2 : new sMap('equip_z2','Equipamientos','Polygon','./support_maps/equip_z2.js',{fillOpacity: 0, weight: 0.9, color: '#777777', opacity: 1}),
+      int_cultural : new sMap('int_cultural','Interés cultural','Polygon','./support_maps/int_cultural.js',{fillOpacity: 0, weight: 0.9, color: '#B96400', opacity: 1})
     }
 
     // layers to separate support maps for resource and zoom level
@@ -1085,11 +1111,6 @@ $(document).ready(function(){
         if (mapApp.sMaps.layers[l].requested == false) {
           mapApp.sMaps.layers[l].requested = true;
           mapApp.sMaps.layers[l].get();
-          mapApp.sMaps.lGroup.addLayer(
-            mapApp.sMaps.layers[l].gsn
-          );
-          mapApp.sMaps.legends.addLayerLegend(l);
-          mapApp.sMaps.order_sMaps();
           $('#support-maps :checkbox[value=' + l + ']').prop('checked', true);
         }
       } else {
